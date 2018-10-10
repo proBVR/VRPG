@@ -36,6 +36,12 @@ public class IK : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        ikActive = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Change")) ikActive = !ikActive;
     }
 
     void OnAnimatorIK(int layerIndex)
@@ -93,6 +99,7 @@ public class IK : MonoBehaviour
                     animator.SetLookAtPosition(lookAtObj.position);
                 }
             }
+            /*
             else
             {
                 animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 0);
@@ -145,6 +152,7 @@ public class IK : MonoBehaviour
                     lookAtObj.position = animator.bodyPosition + animator.bodyRotation * new Vector3(0, 0.5f, 1);
                 }
             }
+            */
         }
     }
 }
