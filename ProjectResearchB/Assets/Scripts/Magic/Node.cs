@@ -6,11 +6,11 @@ public class Node
 {
     public static Node root;
     private Node[] children = new Node[6];
-    private Magic magic;
+    private int magic = -1;
 
-    public Node(Magic magic)
+    public Node(int num)
     {
-        this.magic = magic;
+        magic = num;
     }
 
     public Node(Node[] nodes)
@@ -20,6 +20,11 @@ public class Node
 
     public Node NextNode(int index)
     {
-        return null;
+        return children[index];
+    }
+
+    public int GetMagic()
+    {
+        return magic;
     }
 }
