@@ -19,21 +19,6 @@ public class InputManager : MonoBehaviour
     public void InputLogger()
     {
         string inputValue = inputField.text;
-        if (inputValue.Length > 0 && inputValue[0] == '/')
-        {
-            switch (inputValue)
-            {
-
-                case "/stop":
-                    opeCode = 0;
-                    break;
-                case "/start":
-                    opeCode = 1;
-                    break;
-            }
-            //TextManager.tm.Operation(opeCode);
-        }
-        //else Player.p.ThrowText(inputValue);
 
         InitInputField();
     }
