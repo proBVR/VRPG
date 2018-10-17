@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -244,6 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 100
   interval: 100
+  startPosition: {x: 0, y: 0, z: 0}
+  startAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &39099862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,8 +2968,7 @@ MonoBehaviour:
   title: {fileID: 1187921516}
   text: {fileID: 602094710}
   prePanel: {fileID: 0}
-  nextPanels:
-  - {fileID: 1217597463}
+  nextPanels: []
 --- !u!1 &662405793
 GameObject:
   m_ObjectHideFlags: 0
@@ -3859,7 +3860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &912080265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4161,7 +4162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &984452859
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5767,7 +5768,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1217597461}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b4d58ff415a7bc49a0791525693c774, type: 3}
   m_Name: 
@@ -6080,6 +6081,61 @@ Transform:
   - {fileID: 321977676}
   m_Father: {fileID: 634009699}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1325672296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1325672299}
+  - component: {fileID: 1325672298}
+  - component: {fileID: 1325672297}
+  m_Layer: 0
+  m_Name: AccelaController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1325672297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325672296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5160b24f34c1344ef8f1ce234373c860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updReceiver: {fileID: 1325672298}
+  phoneTf: {fileID: 1621206063}
+  phoneRot: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1325672298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325672296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6ea609d4efd4d53a425eeeb0806ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1325672299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325672296}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1330211965
 GameObject:
@@ -7467,6 +7523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 10
   interval: 500
+  startPosition: {x: 0, y: 0, z: 0}
+  startAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &1621206057
 GameObject:
   m_ObjectHideFlags: 0
