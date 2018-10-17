@@ -9,6 +9,9 @@ public class MyGameManager : MonoBehaviour
     private List<Player> players = new List<Player>();
     private short lives = 0;
 
+    [SerializeField]
+    private MagicObject[] magics;
+
     // Use this for initialization
     void Start()
     {
@@ -36,5 +39,17 @@ public class MyGameManager : MonoBehaviour
     private void GameOver()
     {
 
+    }
+
+    public MagicObject GenMagic(int index)
+    {
+        if (magics.Length > index && index >= 0)
+        {
+            var pos = magics[index].GetPos();
+            var rot = magics[index].GetRot();
+            return Instantiate(magics[index], pos, rot);
+        }
+        Debug.Log("index error: " + index);
+        return null;
     }
 }
