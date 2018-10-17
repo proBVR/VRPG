@@ -8,13 +8,14 @@ using UnityEngine.Windows.Speech;
 public class VoiceRecognition : MonoBehaviour
 {
     public static VoiceRecognition instance;
+    private KeywordRecognizer[] recognizers = new KeywordRecognizer[2];
     private KeywordRecognizer keyRecognizer;
-    private readonly string[] category = {"アイテム", "スペル", "スキル"};
+    private readonly string[] keyword = {"アイテム", "スペル", "スキル"};
     private readonly string[] items = { "アイテム", "スペル", "スキル" };
-    private readonly string[] magics = { "アイテム", "スペル", "スキル" };
+    private readonly string[] magics = {"いち", "に", "さん", "し", "ご", "ろく" };
     private readonly string[] skills = { "アイテム", "スペル", "スキル" };
 
-    private int state = 0;
+    private int state = 0, pivot=5;
     private Node p;
     /*
     state0: 初期状態
@@ -26,35 +27,38 @@ public class VoiceRecognition : MonoBehaviour
     void Start()
     {
         instance = this;
-        keyRecognizer = new KeywordRecognizer(category);
+        keyRecognizer = new KeywordRecognizer(keyword);
         keyRecognizer.OnPhraseRecognized += OnPhraseRecognized;
+        recognizers[1] = new KeywordRecognizer(magics);
+        recognizers[1].OnPhraseRecognized += OnPhraseRecognized;
     }
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
+        int index;
         switch (state)
-        {
+        {            
             case 0:
-                state = Array.IndexOf<string>(category, args.text) + 1;
+                index = Array.IndexOf<string>(keyword, args.text);
+                if (index < 2) state = 1;
+                else if (index == 2) state = 2;
                 break;
             case 1:
+                index = Array.IndexOf<string>(keyword, args.text);
+                if (index > 2) Player.instance.OpeAction(index);
                 state = 0;
-                //Player.instance.UseItem();
                 break;
             case 2:
-                state = 0;
-                //Player.instance.DoSkill();
-                break;
-            case 3:
-                p.NextNode(0);
-                //Player.instance.DoMagic();
+                index = Array.IndexOf<string>(magics, args.text);
+                p = p.NextNode(index);
+                if (p == null) p = Node.root;
+                else if (p.GetMagic() != -1)
+                {
+                    Player.instance.OpeAction(p.GetMagic() + pivot);
+                    state = 0;
+                }
                 break;
         }
-    }
-
-    private void StateChange(int index)
-    {
-
     }
 
     public void StartRecognition()

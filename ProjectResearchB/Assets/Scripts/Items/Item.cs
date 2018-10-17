@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour, IActionable
+public abstract class Item : IActionable
 {
-    public readonly string itemName;
+    public readonly string callName;
     public readonly int id;
 
     public Item(string itemName, int id)
     {
-        this.itemName = itemName;
+        this.callName = itemName;
         this.id = id;
     }
 
@@ -17,6 +17,6 @@ public abstract class Item : MonoBehaviour, IActionable
 
     public string GetName()
     {
-        return itemName;
+        return callName;
     }
 }

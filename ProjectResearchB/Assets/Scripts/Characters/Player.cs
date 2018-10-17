@@ -12,6 +12,7 @@ public class Player : Character
     private bool modeFlag = false, menuFlag=false;
     private Animator animator;
     private IActionable[] actionList;
+    private List<string>[] callNames = new List<string>[3];
 
     [SerializeField]
     private float moveSpeed;
@@ -73,8 +74,13 @@ public class Player : Character
         MyGameManager.instance.DecLives();
     }
 
-    public void OpeAction(string name)
+    public void OpeAction(int index)
     {
-        //Array.IndexOf<string>(actionList, name);
+        Action(index);
+    }
+
+    public List<string>[] GetNames()
+    {
+        return callNames;
     }
 }

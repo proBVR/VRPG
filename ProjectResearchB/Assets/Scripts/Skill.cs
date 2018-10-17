@@ -2,23 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour, IActionable
+public class Skill : IActionable
 {
     protected string callName;
     protected readonly int interval;
-    protected int counter;
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (counter > 0) counter--;
-    }
+    protected int counter;    
 
     public void Use()
     {
