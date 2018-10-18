@@ -24,8 +24,10 @@ public class MainContoroller : MonoBehaviour {
 
     public void GyroAction(float xx, float yy, float zz, float ww)
     {
-        var newQut = new Quaternion(-xx, -zz, -yy, ww);
-        var newRot = newQut * Quaternion.Euler(90f, 0, 0);
+        //var newQut = new Quaternion(-xx, -zz, -yy, ww);
+        var newQut = new Quaternion(0, -zz, 0, ww);
+        //var newRot = newQut * Quaternion.Euler(90f, 0, 0);
+        var newRot = newQut * Quaternion.Euler(0, 90f, 0);
         phoneRot = newRot;
     }
 
