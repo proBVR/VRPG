@@ -7,6 +7,8 @@ public class MainContoroller : MonoBehaviour {
     public UDPReceiver updReceiver;
     public Transform phoneTf;
     public Quaternion phoneRot;
+    public Vector3 phonePosi;
+
 
     // Use this for initialization
     void Start()
@@ -18,8 +20,17 @@ public class MainContoroller : MonoBehaviour {
 
     public void AccelAction(float xx, float yy, float zz)
     {
-        var vector = new Vector3(xx,yy,zz);
-        Debug.Log(vector);
+        //var vector = new Vector3(xx,yy,zz);
+        //Debug.Log(vector);
+        bool move = false;
+        if (xx > 2){
+            move = true;
+        }else if(xx < -2) {
+            move = false;
+        }
+        if(move == true){
+            phonePosi += new Vector3(1, 0, 0);
+        }
     }
 
     public void GyroAction(float xx, float yy, float zz, float ww)
@@ -35,5 +46,6 @@ public class MainContoroller : MonoBehaviour {
     void Update()
     {
         phoneTf.localRotation = phoneRot;
+        phoneTf.position = phonePosi;
     }
 }

@@ -57,7 +57,7 @@ public class UDPReceiver : MonoBehaviour
                 udp.Close();
                 udp = new UdpClient(LOCAL_PORT);
                 udp.Client.ReceiveTimeout = 1000;
-                Debug.Log(se);
+                Debug.Log(se); //System.Net.Sockets.SocketException
             }
             catch (NullReferenceException nre)
             {
