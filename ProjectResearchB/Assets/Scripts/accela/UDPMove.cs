@@ -17,7 +17,6 @@ public class UDPMove : MonoBehaviour {
     Thread thread;
 
     public static Action<float, float, float> AccelCallBack;
-    public static Action<float, float, float, float> GyroCallBack;
 
     public void UDPStart()
     {
