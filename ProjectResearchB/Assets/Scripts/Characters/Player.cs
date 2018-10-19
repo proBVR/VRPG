@@ -61,7 +61,7 @@ public class Player : Character
             animator.SetBool("Running", true);
             //Debug.Log("dir: " + vector);
         }
-        else animator.SetBool("Running", false);        
+        else animator.SetBool("Running", false);
     }
 
     protected override void Action(int index)

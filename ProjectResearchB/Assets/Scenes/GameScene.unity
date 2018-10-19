@@ -6093,6 +6093,7 @@ GameObject:
   - component: {fileID: 1325672298}
   - component: {fileID: 1325672297}
   - component: {fileID: 1325672300}
+  - component: {fileID: 1325672301}
   m_Layer: 0
   m_Name: AccelaController
   m_TagString: Untagged
@@ -6113,9 +6114,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updReceiver: {fileID: 1325672298}
   udpMove: {fileID: 1325672300}
+  udpDirection: {fileID: 1325672301}
   phoneTf: {fileID: 1621206063}
   phoneRot: {x: 0, y: 0, z: 0, w: 0}
   phonePosi: {x: 0, y: 0, z: 0}
+  phoneDir: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1325672298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6149,6 +6152,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e093db31ee6a848f0b61bec55079044b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1325672301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1325672296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e038b7856c26a4996809ffcdaf2bd24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1330211965
