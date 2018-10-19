@@ -11,6 +11,8 @@ using MiniJSON;
 
 public class UDPReceiver : MonoBehaviour
 {
+    //通信レート60/s
+
     static int LOCAL_PORT = 22222;
     static UdpClient udp;
     Thread thread;

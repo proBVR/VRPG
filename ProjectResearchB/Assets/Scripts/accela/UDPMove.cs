@@ -10,6 +10,8 @@ using UnityEngine;
 using MiniJSON;
 
 public class UDPMove : MonoBehaviour {
+    //通信レート10/s
+
     static int LOCAL_PORT = 22221;
     static UdpClient udp;
     Thread thread;
