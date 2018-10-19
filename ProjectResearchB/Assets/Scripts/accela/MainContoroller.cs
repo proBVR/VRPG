@@ -5,32 +5,37 @@ using UnityEngine.UI;
 
 public class MainContoroller : MonoBehaviour {
     public UDPReceiver updReceiver;
+    public UDPMove udpMove;
     public Transform phoneTf;
     public Quaternion phoneRot;
     public Vector3 phonePosi;
+    bool move = false;
+    float movespeed = 0.1f;
 
 
     // Use this for initialization
     void Start()
     {
-        UDPReceiver.AccelCallBack += AccelAction;
+        //UDPReceiver.AccelCallBack += AccelAction;
         UDPReceiver.GyroCallBack += GyroAction;
+        UDPMove.AccelCallBack += AccelAction;
         updReceiver.UDPStart();
+        udpMove.UDPStart();
+
     }
 
     public void AccelAction(float xx, float yy, float zz)
     {
         //var vector = new Vector3(xx,yy,zz);
         //Debug.Log(vector);
-        bool move = false;
-        if (xx > 2){
-            move = true;
-        }else if(xx < -2) {
-            move = false;
+        //if (movetest == true)
+        //{
+        if (xx > 2)
+        {
+            move = !move;
+            Debug.Log(xx);
         }
-        if(move == true){
-            phonePosi += new Vector3(1, 0, 0);
-        }
+        //}
     }
 
     public void GyroAction(float xx, float yy, float zz, float ww)
@@ -45,7 +50,16 @@ public class MainContoroller : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (move)
+        {
+            phonePosi = phoneTf.forward * movespeed;
+            Debug.Log(phonePosi);
+        }
+        else
+        {
+            phonePosi = Vector3.zero;
+        }
         phoneTf.localRotation = phoneRot;
-        phoneTf.position = phonePosi;
+        phoneTf.position += phonePosi;
     }
 }
