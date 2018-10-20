@@ -44,7 +44,7 @@ public class Player : Character
         updReceiver.UDPStart();
         udpMove.UDPStart();
         udpDirection.UDPStart();
-        move = true;
+        move = false;
     }
 
     private void Update()
