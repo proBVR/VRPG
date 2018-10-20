@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 95483679131856744}
   - component: {fileID: 136143066179480708}
   m_Layer: 0
-  m_Name: sycamore
+  m_Name: sycamore_pre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,4 +116,4 @@ CapsuleCollider:
   m_Radius: 0.005
   m_Height: 0.05
   m_Direction: 1
-  m_Center: {x: 0, y: 0.2, z: 0}
+  m_Center: {x: 0, y: 0.02, z: 0}
