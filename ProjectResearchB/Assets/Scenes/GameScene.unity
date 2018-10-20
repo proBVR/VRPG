@@ -6107,7 +6107,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1325672296}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5160b24f34c1344ef8f1ce234373c860, type: 3}
   m_Name: 
@@ -6119,6 +6119,7 @@ MonoBehaviour:
   phoneRot: {x: 0, y: 0, z: 0, w: 0}
   phonePosi: {x: 0, y: 0, z: 0}
   phoneDir: {x: 0, y: 0, z: 0, w: 0}
+  moveSpeed: 0
 --- !u!114 &1325672298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7586,6 +7587,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initStatus: e8030000640000000a0000000a0000000a000000
+  updReceiver: {fileID: 1325672298}
+  udpMove: {fileID: 1325672300}
+  udpDirection: {fileID: 1325672301}
+  phoneRot: {x: 0, y: 0, z: 0, w: 0}
+  phonePosi: {x: 0, y: 0, z: 0}
+  phoneDir: {x: 0, y: 0, z: 0, w: 0}
   moveSpeed: 0.1
   ArmR: {fileID: 32747440}
   ArmL: {fileID: 1613945432}

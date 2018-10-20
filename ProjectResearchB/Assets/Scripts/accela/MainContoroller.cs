@@ -12,7 +12,9 @@ public class MainContoroller : MonoBehaviour {
     public Vector3 phonePosi;
     public Quaternion phoneDir;
     bool move;
-    const float movespeed = 0.1f;
+
+    [SerializeField]
+    private float moveSpeed;
 
 
     // Use this for initialization
@@ -31,7 +33,6 @@ public class MainContoroller : MonoBehaviour {
     {
         //var vector = new Vector3(xx,yy,zz);
         //Debug.Log(vector);
-        //if (movetest == true)
         if (xx > 2)
         {
             move = !move;
@@ -52,6 +53,8 @@ public class MainContoroller : MonoBehaviour {
     {
         var newQut2 = new Quaternion(0, -zz, 0, ww);
         var newRot2 = newQut2 * Quaternion.Euler(0, 90f, 0);
+        //var newQut = new Quaternion(-xx, -zz, -yy, ww);
+        //var newRot = newQut * Quaternion.Euler(90f, 0, 0);
         phoneDir = newRot2;
     }
 
@@ -60,7 +63,9 @@ public class MainContoroller : MonoBehaviour {
     {
         if (move)
         {
-            phonePosi = phoneDir.eulerAngles * movespeed;
+            //phonePosi = phoneDir.eulerAngles * movespeed;
+            //Debug.Log(phoneDir.eulerAngles);
+            phonePosi = phoneTf.forward * moveSpeed;
             Debug.Log(phonePosi);
         }
         else
@@ -69,6 +74,5 @@ public class MainContoroller : MonoBehaviour {
         }
         phoneTf.localRotation = phoneRot;
         phoneTf.position += phonePosi;
-        Debug.Log(phoneDir.eulerAngles);
     }
 }
