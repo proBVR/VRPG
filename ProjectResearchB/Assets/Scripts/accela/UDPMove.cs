@@ -57,6 +57,10 @@ public class UDPMove : MonoBehaviour {
             {
                 Debug.Log(nre);
             }
+            catch (InvalidCastException ice)
+            {
+                Debug.Log(ice);
+            }
         }
     }
 

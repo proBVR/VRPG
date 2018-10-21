@@ -39,9 +39,9 @@ public class Player : Character
         ArmL.SetActive(false);
         ContR.SetActive(true);
         ContL.SetActive(true);
-        UDPReceiver.GyroCallBack += GyroAction;
+        UDPReceiver.RotCallBack += RotAction;
         UDPMove.AccelCallBack += AccelAction;
-        UDPDirection.GyroCallBack += GyroAction2;
+        UDPDirection.DirCallBack += DirAction;
         updReceiver.UDPStart();
         udpMove.UDPStart();
         udpDirection.UDPStart();
@@ -70,12 +70,10 @@ public class Player : Character
     {
         if (move)
         {
-            double x = Math.Sin((userDir.eulerAngles.y - 90f) * (Math.PI / 180));
-            double y = Math.Cos((userDir.eulerAngles.y - 90f) * (Math.PI / 180));
+            double x = - Math.Sin((userDir.eulerAngles.y) * (Math.PI / 180));
+            double y = - Math.Cos((userDir.eulerAngles.y) * (Math.PI / 180));
             userPosi = new Vector3((float)x,0,(float)y);
             userPosi = Quaternion.Euler(0, Vector3.Angle(transform.forward, Vector3.up), 0) * userPosi;
-            Debug.Log(userPosi);
-            //phonePosi = transform.forward * moveSpeed;
             transform.localPosition = userPosi * moveSpeed;
             userCamera.transform.position = new Vector3(transform.position.x,1.2f,transform.position.z);
             transform.localPosition = new Vector3(0, -1.18f,0.2083f);
@@ -106,19 +104,22 @@ public class Player : Character
         return callNames;
     }
 
+    //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
         if (xx > 2) move = !move;
     }
 
-    public void GyroAction(float xx, float yy, float zz, float ww)
+    //回転によってカメラ方向を変更
+    public void RotAction(float xx, float yy, float zz, float ww)
     {
         var newQut = new Quaternion(0, -zz, 0, ww);
         var newRot = newQut * Quaternion.Euler(0, 90f, 0);
         userRot = newRot;
     }
 
-    public void GyroAction2(float xx, float yy, float zz, float ww)
+    //回転によって移動方向を変更
+    public void DirAction(float xx, float yy, float zz, float ww)
     {
         var newQut2 = new Quaternion(0, -zz, 0, ww);
         var newDir = newQut2 * Quaternion.Euler(0, 90f, 0);

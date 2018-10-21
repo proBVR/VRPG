@@ -16,13 +16,13 @@ public class UDPReceiver : MonoBehaviour {
     static UdpClient udp;
     Thread thread;
 
-    public static Action<float, float, float, float> GyroCallBack;
+    public static Action<float, float, float, float> RotCallBack;
 
     public void UDPStart()
     {
         udp = new UdpClient(LOCAL_PORT);
         udp.Client.ReceiveTimeout = 3000;
-        thread = new Thread(new ThreadStart(ThreadMethod)); 
+        thread = new Thread(new ThreadStart(ThreadMethod));
         thread.Start();
     }
 
@@ -45,7 +45,7 @@ public class UDPReceiver : MonoBehaviour {
                 double qutZ = jsonNode["sensordata"]["quaternion"]["z"].Get<double>();
                 double qutW = jsonNode["sensordata"]["quaternion"]["w"].Get<double>();
 
-                GyroCallBack((float)qutX, (float)qutY, (float)qutZ, (float)qutW);
+                RotCallBack((float)qutX, (float)qutY, (float)qutZ, (float)qutW);
             }
             catch (SocketException se)
             {
@@ -58,7 +58,10 @@ public class UDPReceiver : MonoBehaviour {
             {
                 Debug.Log(nre);
             }
-
+            catch (InvalidCastException ice)
+            {
+                Debug.Log(ice);
+            }
         }
     }
 
