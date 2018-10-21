@@ -57,7 +57,6 @@ public class UDPMove : MonoBehaviour {
             {
                 Debug.Log(nre);
             }
-
         }
     }
 
