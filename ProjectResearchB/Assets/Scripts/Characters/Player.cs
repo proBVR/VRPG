@@ -72,10 +72,10 @@ public class Player : Character
     {
         if (move == true)
         {
-            double x = - Math.Sin((userDir.eulerAngles.y) * (Math.PI / 180));
-            double y = - Math.Cos((userDir.eulerAngles.y) * (Math.PI / 180));
+            double x =  Math.Sin((userDir.eulerAngles.y) * (Math.PI / 180));
+            double y =  Math.Cos((userDir.eulerAngles.y) * (Math.PI / 180));
             userPosi = new Vector3((float)x,0,(float)y);
-            userPosi = Quaternion.Euler(0, Vector3.Angle(transform.forward, Vector3.up), 0) * userPosi;
+            //userPosi = Quaternion.Euler(0, Vector3.Angle(transform.forward, Vector3.up), 0) * userPosi;
             transform.position += userPosi * moveSpeed;
             animator.SetBool("Running", true);
         }
@@ -86,6 +86,7 @@ public class Player : Character
         transform.rotation = userRot;
         userCamera.transform.position = new Vector3(cameraX,cameraY,cameraZ);
         userCamera.transform.rotation = transform.rotation;
+        Debug.Log(userDir.eulerAngles.y);
     }
 
     protected override void Action(int index)
