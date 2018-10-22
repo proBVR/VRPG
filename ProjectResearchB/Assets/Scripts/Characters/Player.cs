@@ -21,7 +21,9 @@ public class Player : Character
     public Quaternion userRot;
     public Vector3 userPosi;
     public Quaternion userDir;
-    public bool move;
+
+    [SerializeField]
+    private bool move;
 
     [SerializeField]
     private float moveSpeed;
@@ -68,20 +70,22 @@ public class Player : Character
 
     protected override void Move()
     {
-        if (move)
+        if (move == true)
         {
             double x = - Math.Sin((userDir.eulerAngles.y) * (Math.PI / 180));
             double y = - Math.Cos((userDir.eulerAngles.y) * (Math.PI / 180));
             userPosi = new Vector3((float)x,0,(float)y);
             userPosi = Quaternion.Euler(0, Vector3.Angle(transform.forward, Vector3.up), 0) * userPosi;
-            transform.localPosition = userPosi * moveSpeed;
-            userCamera.transform.position = new Vector3(transform.position.x,1.2f,transform.position.z);
-            transform.localPosition = new Vector3(0, -1.18f,0.2083f);
+            transform.position += userPosi * moveSpeed;
             animator.SetBool("Running", true);
         }
         else animator.SetBool("Running", false);
-        userCamera.transform.localRotation = userRot;
-        transform.rotation = userCamera.transform.localRotation;
+        float cameraX = transform.position.x - transform.forward.x;
+        float cameraY = transform.forward.y + 1.0f;
+        float cameraZ = transform.position.z - transform.forward.z;
+        transform.rotation = userRot;
+        userCamera.transform.position = new Vector3(cameraX,cameraY,cameraZ);
+        userCamera.transform.rotation = transform.rotation;
     }
 
     protected override void Action(int index)
@@ -108,6 +112,17 @@ public class Player : Character
     public void AccelAction(float xx, float yy, float zz)
     {
         if (xx > 2) move = !move;
+        //if((move == 0) && (xx > 2)){
+        //    move = 1;
+        //    Debug.Log(xx+ "for");
+        //} else if ((move == 0) && (xx < -2)){
+         //   move = -1;
+         //   Debug.Log(xx+ "back");
+        //}
+        //else if ((move != 0) && (Math.Abs(zz) > 2)){
+        //    move = 0;
+        //    Debug.Log(zz+ "stop");
+        //}
     }
 
     //回転によってカメラ方向を変更
