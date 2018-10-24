@@ -7575,7 +7575,7 @@ MonoBehaviour:
   userPosi: {x: 0, y: 0, z: 0}
   userDir: {x: 0, y: 0, z: 0, w: 0}
   move: 0
-  moveSpeed: 2
+  moveSpeed: 5
   ArmR: {fileID: 32747440}
   ArmL: {fileID: 1613945432}
   Menu: {fileID: 2141876429}
