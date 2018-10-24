@@ -11,6 +11,7 @@ public class Player : Character
 
     private bool modeFlag = false, menuFlag=false;
     private Animator animator;
+    private Rigidbody rb;
     private IActionable[] actionList;
     private List<string>[] callNames = new List<string>[3];
 
@@ -23,7 +24,7 @@ public class Player : Character
     public Quaternion userDir;
 
     [SerializeField]
-    private bool move;
+    private int move;
 
     [SerializeField]
     private float moveSpeed;
@@ -36,6 +37,7 @@ public class Player : Character
         base.Start();
         instance = this;
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
         Menu.SetActive(false);
         ArmR.SetActive(false);
         ArmL.SetActive(false);
@@ -47,7 +49,7 @@ public class Player : Character
         updReceiver.UDPStart();
         udpMove.UDPStart();
         udpDirection.UDPStart();
-        move = false;
+        move = 0;
     }
 
     private void Update()
@@ -70,23 +72,25 @@ public class Player : Character
 
     protected override void Move()
     {
-        if (move == true)
+        if (move != 0)
         {
-            double x =  Math.Sin((userDir.eulerAngles.y) * (Math.PI / 180));
-            double y =  Math.Cos((userDir.eulerAngles.y) * (Math.PI / 180));
+            double x =  Math.Sin((userDir.eulerAngles.y) * (Math.PI / 180)) * move;
+            double y =  Math.Cos((userDir.eulerAngles.y) * (Math.PI / 180)) * move;
             userPosi = new Vector3((float)x,0,(float)y);
-            //userPosi = Quaternion.Euler(0, Vector3.Angle(transform.forward, Vector3.up), 0) * userPosi;
-            transform.position += userPosi * moveSpeed;
+            //transform.position += userPosi * moveSpeed;
+            rb.velocity = userPosi * moveSpeed;
             animator.SetBool("Running", true);
         }
-        else animator.SetBool("Running", false);
+        else{
+            rb.velocity = Vector3.zero;
+            animator.SetBool("Running", false);
+        }
         float cameraX = transform.position.x - transform.forward.x;
         float cameraY = transform.forward.y + 1.0f;
         float cameraZ = transform.position.z - transform.forward.z;
         transform.rotation = userRot;
         userCamera.transform.position = new Vector3(cameraX,cameraY,cameraZ);
         userCamera.transform.rotation = transform.rotation;
-        Debug.Log(userDir.eulerAngles.y);
     }
 
     protected override void Action(int index)
@@ -112,18 +116,9 @@ public class Player : Character
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
-        if (xx > 2) move = !move;
-        //if((move == 0) && (xx > 2)){
-        //    move = 1;
-        //    Debug.Log(xx+ "for");
-        //} else if ((move == 0) && (xx < -2)){
-         //   move = -1;
-         //   Debug.Log(xx+ "back");
-        //}
-        //else if ((move != 0) && (Math.Abs(zz) > 2)){
-        //    move = 0;
-        //    Debug.Log(zz+ "stop");
-        //}
+        if ((move == 0) && (zz > 2)) move = 1;
+        else if((move == 0) && (zz < -2)) move = -1;
+        else if((move != 0) && (xx > 2)) move = 0;
     }
 
     //回転によってカメラ方向を変更
