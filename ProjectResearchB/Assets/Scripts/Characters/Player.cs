@@ -67,8 +67,14 @@ public class Player : Character
             menuFlag = !menuFlag;
             Menu.SetActive(menuFlag);
         }
+        //Move();
+    }
+
+    void FixedUpdate()
+    {
         Move();
-    }    
+
+    }
 
     protected override void Move()
     {
@@ -90,6 +96,10 @@ public class Player : Character
         transform.rotation = userRot;
         userCamera.transform.position = new Vector3(cameraX,cameraY,cameraZ);
         userCamera.transform.rotation = transform.rotation;
+    }
+
+    void MovePosi(){
+        rb.velocity = userPosi * moveSpeed;
     }
 
     protected override void Action(int index)
@@ -115,9 +125,9 @@ public class Player : Character
     //加速度に応じて移動フラグ変更(加速度で最大の変化量だけ見れば誤作動減る？)
     public void AccelAction(float xx, float yy, float zz)
     {
-            if ((move == 0) && (zz < -2)) move = 1;
-            else if ((move == 0) && (zz > 2)) move = -1;
-            else if ((move != 0) && (xx > 2)) move = 0;
+        if ((move == 0) && (zz < -2)) move = 1;
+        else if ((move == 0) && (zz > 2)) move = -1;
+        else if ((move != 0) && (xx > 2)) move = 0;
     }
 
     //回転によってカメラ方向を変更
