@@ -24,7 +24,10 @@ public class Player : Character
     public Quaternion userDir;
 
     [SerializeField]
-    private int move;
+    private bool move;
+
+    [SerializeField]
+    private float moveAngle;
 
     [SerializeField]
     private float moveSpeed;
@@ -49,7 +52,8 @@ public class Player : Character
         updReceiver.UDPStart();
         udpMove.UDPStart();
         udpDirection.UDPStart();
-        move = 0;
+        move = false;
+        moveAngle = 0;
     }
 
     private void Update()
@@ -73,15 +77,14 @@ public class Player : Character
     void FixedUpdate()
     {
         Move();
-
     }
 
     protected override void Move()
     {
-        if (move != 0)
+        if (move == true)
         {
-            double x =  Math.Sin((userDir.eulerAngles.y) * (Math.PI / 180)) * move;
-            double y =  Math.Cos((userDir.eulerAngles.y) * (Math.PI / 180)) * move;
+            double x =  Math.Sin((userDir.eulerAngles.y + moveAngle) * (Math.PI / 180));
+            double y =  Math.Cos((userDir.eulerAngles.y + moveAngle) * (Math.PI / 180));
             userPosi = new Vector3((float)x,0,(float)y);
             rb.velocity = userPosi * moveSpeed;
             animator.SetBool("Running", true);
@@ -94,7 +97,7 @@ public class Player : Character
         float cameraY = transform.forward.y + 1.2f;
         float cameraZ = transform.position.z - transform.forward.z;
         transform.rotation = userRot;
-        userCamera.transform.position = new Vector3(cameraX,cameraY,cameraZ);
+        userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
         userCamera.transform.rotation = transform.rotation;
     }
 
@@ -122,12 +125,37 @@ public class Player : Character
         return callNames;
     }
 
-    //加速度に応じて移動フラグ変更(加速度で最大の変化量だけ見れば誤作動減る？)
+    //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
-        if ((move == 0) && (zz < -2)) move = 1;
-        else if ((move == 0) && (zz > 2)) move = -1;
-        else if ((move != 0) && (xx > 2)) move = 0;
+        var max = MaxFloat(xx, yy, zz);
+        if (EquFloat(max, Math.Abs(zz)))
+        {
+            if ((move == false) && (zz < -2))
+            {
+                move = true;
+                moveAngle = 0;
+            }
+            else if ((move == false) && (zz > 2))
+            {
+                move = true;
+                moveAngle = 180f;
+            }
+        }
+        else if (EquFloat(max, Math.Abs(xx)))
+        {
+            if ((move == false) && (xx > 2)){
+                move = true;
+                moveAngle = 90f;
+            }
+            else if ((move == false) && (xx < -2)){
+                move = true;
+                moveAngle = 270f;
+            }
+        }
+        else{
+            if (yy > 1.0 && Math.Abs(xx) < 0.5 && Math.Abs(zz) < 0.5) move = false;
+        }
     }
 
     //回転によってカメラ方向を変更
@@ -144,5 +172,19 @@ public class Player : Character
         var newQut2 = new Quaternion(0, -zz, 0, ww);
         var newDir = newQut2 * Quaternion.Euler(0, 90f, 0);
         userDir = newDir;
+    }
+
+    //加速度最大値方向特定用
+    public float MaxFloat(float x, float y, float z){
+        float max = Math.Abs(x);
+        if (max < Math.Abs(y)) max = Math.Abs(y);
+        if (max < Math.Abs(z)) max = Math.Abs(z);
+        return max;
+    }
+
+    //floatイコール判定用
+    public bool EquFloat(float xx, float yy){
+        float test = 0.0001f;
+        return (test > Math.Abs(xx - yy));
     }
 }
