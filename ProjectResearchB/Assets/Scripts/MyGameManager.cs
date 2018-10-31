@@ -11,6 +11,8 @@ public class MyGameManager : MonoBehaviour
 
     [SerializeField]
     private MagicObject[] magics;
+    [SerializeField]
+    private SkillObject[] skills;
 
     // Use this for initialization
     void Start()
@@ -38,7 +40,7 @@ public class MyGameManager : MonoBehaviour
 
     private void GameOver()
     {
-
+        //リスポーンないしシーン切替
     }
 
     public MagicObject GenMagic(int index)
@@ -48,6 +50,18 @@ public class MyGameManager : MonoBehaviour
             var pos = magics[index].GetPos();
             var rot = magics[index].GetRot();
             return Instantiate(magics[index], pos, rot);
+        }
+        Debug.Log("index error: " + index);
+        return null;
+    }
+
+    public SkillObject GenSkill(int index)
+    {
+        if (skills.Length > index && index >= 0)
+        {
+            var pos = skills[index].GetPos();
+            var rot = skills[index].GetRot();
+            return Instantiate(skills[index], pos, rot);
         }
         Debug.Log("index error: " + index);
         return null;

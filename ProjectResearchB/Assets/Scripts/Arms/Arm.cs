@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -10,6 +11,8 @@ public abstract class Arm : MonoBehaviour
     [SerializeField]
     protected Vector3 startPosition, startAngle; 
     protected int counter = 0;
+    protected Func<bool> preMove = null;
+    protected Action activate = null;
 
     protected void Start()
     {
@@ -20,6 +23,19 @@ public abstract class Arm : MonoBehaviour
     protected void Update()
     {
         if (counter > 0) counter--;
+        preMove();
+    }
+
+    public void BeginSkill(Func<bool> preMove, Action activate)
+    {
+        this.preMove = preMove;
+        this.activate = activate;
+    }
+
+    public void FinSkill()
+    {
+        preMove = null;
+        activate = null;
     }
 
     public abstract void Skill();
@@ -29,7 +45,7 @@ public abstract class Arm : MonoBehaviour
         if(counter == 0 && other.gameObject.tag == "Enemy")
         {
             counter = interval;
-            other.GetComponent<Enemy>().Damage(attack);
+            other.GetComponent<Enemy>().GetStatus().Damage(attack);
             //Debug.Log("hit: te, left: " + other.GetComponent<Enemy>().GetHp());
         }
     }

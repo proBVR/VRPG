@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MagicObject : MonoBehaviour {
-    private int attribute, power, range=1;
+public abstract class MagicObject : ActionObject
+{
+    private int power, range=1;
+    AttackAttribute attribute;
 
-    public void Init(int attribute, int power)
+    public void Init(AttackAttribute attribute, int power)
     {
         this.attribute = attribute;
         this.power = power;
+        SetMove();
     }
+
+    protected abstract void SetMove();
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Enemy")
         {
-            other.GetComponent<Player>().Damage(power);
+            other.GetComponent<Enemy>().GetStatus().Damage(power);
         }
     }
-
-    public abstract Vector3 GetPos();
-    public abstract Quaternion GetRot();
 }

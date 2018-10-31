@@ -244,6 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 100
   interval: 100
+  startPosition: {x: 0, y: 0, z: 0}
+  startAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &39099862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3858,7 +3860,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &912080265
 MonoBehaviour:
@@ -4241,7 +4243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608f778bf5e027640a51001e2c499fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initStatus: 
   interval: 100
 --- !u!1 &986972237
 GameObject:
@@ -7467,6 +7468,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 10
   interval: 500
+  startPosition: {x: 0, y: 0, z: 0}
+  startAngle: {x: 0, y: 0, z: 0}
 --- !u!1 &1621206057
 GameObject:
   m_ObjectHideFlags: 0
@@ -7499,7 +7502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6dcd544c12a0b4b9eb86133ca98c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initStatus: e8030000640000000a0000000a0000000a000000
   moveSpeed: 0.1
   ArmR: {fileID: 32747440}
   ArmL: {fileID: 1613945432}
@@ -8984,11 +8986,11 @@ GameObject:
   - component: {fileID: 1918988510}
   - component: {fileID: 1918988511}
   m_Layer: 0
-  m_Name: ImageRecognition
+  m_Name: SensorManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1918988510
 Transform:
@@ -10387,6 +10389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2133783839}
+  - component: {fileID: 2133783840}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10407,6 +10410,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2133783840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2133783838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6804db8371a7d45a39761a2a3ee154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magics: []
+  skills: []
 --- !u!1 &2137674352
 GameObject:
   m_ObjectHideFlags: 0
