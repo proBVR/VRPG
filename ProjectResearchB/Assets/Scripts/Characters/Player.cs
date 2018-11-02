@@ -71,7 +71,6 @@ public class Player : Character
             menuFlag = !menuFlag;
             Menu.SetActive(menuFlag);
         }
-        //Move();
     }
 
     void FixedUpdate()
