@@ -9,8 +9,10 @@ using MiniJSON;
 
 public class LocalStrage : MonoBehaviour {
 
-    //string myJson = "[{\"NUM\":\"1\",\"TEXT\":\"HELLO\"},{\"NUM\":\"2\",\"TEXT\":\"BONJOUR\"},]";
+    string myJson = "[{\"NUM\":\"1\",\"TEXT\":\"HELLO\"},{\"NUM\":\"2\",\"TEXT\":\"BONJOUR\"},]";
     string dataName = "data.txt";
+
+    private JsonNode jsondata;
 
     void Start()
     {
@@ -33,8 +35,8 @@ public class LocalStrage : MonoBehaviour {
         else
         {
             // ローカルからデータを取得
-            JsonNode json = LoadFromLocal();
-            Debug.Log(json);
+           LoadFromLocal();
+            Debug.Log(jsondata);
         }
     }
 
@@ -46,13 +48,11 @@ public class LocalStrage : MonoBehaviour {
     }
 
     // 取得
-    JsonNode LoadFromLocal()
+    void LoadFromLocal()
     {
         // jsonを読み込み
         string json = File.ReadAllText(GetPath() + dataName);
-        JsonNode jnode = JsonNode.Parse(json);
-
-        return jnode;
+        jsondata = JsonNode.Parse(json);
     }
 
     // パス取得
