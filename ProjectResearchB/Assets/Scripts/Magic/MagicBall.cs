@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class MagicBall : MagicObject {
     private Vector3 dir;
-    private float speed;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private float speed = 1;
 	
 	// Update is called once per frame
 	void Update () {

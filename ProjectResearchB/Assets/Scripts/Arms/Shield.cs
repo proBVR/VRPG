@@ -9,5 +9,5 @@ public class Shield : Arm {
 		
 	}	
 
-    public override void Skill() { }
+    //public override void Skill() { }
 }

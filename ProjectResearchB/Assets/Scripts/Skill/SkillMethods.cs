@@ -32,7 +32,7 @@ public static class SkillMethods
     private static bool InArea(Vector2 point)
     {
         var pos = Player.instance.GetArm(true).transform.localPosition;
-        if (Mathf.Abs(point.x-pos.x) < mergin && Mathf.Abs(point.y-pos.y) < mergin) return true; 
+        if (Mathf.Abs(point.x - pos.x) < mergin && Mathf.Abs(point.y - pos.y) < mergin) return true;
         else return false;
     }
 }

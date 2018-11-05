@@ -11,8 +11,8 @@ public abstract class Arm : MonoBehaviour
     [SerializeField]
     protected Vector3 startPosition, startAngle; 
     protected int counter = 0;
-    protected Func<bool> preMove = null;
-    protected Action activate = null;
+    protected Action preMove = null;
+    //protected Action activate = null;
 
     protected void Start()
     {
@@ -26,19 +26,15 @@ public abstract class Arm : MonoBehaviour
         preMove();
     }
 
-    public void BeginSkill(Func<bool> preMove, Action activate)
+    public void BeginSkill(Action preMove)
     {
-        this.preMove = preMove;
-        this.activate = activate;
+        this.preMove = preMove;        
     }
 
     public void FinSkill()
     {
         preMove = null;
-        activate = null;
     }
-
-    public abstract void Skill();
 
     protected void OnTriggerEnter(Collider other)
     {
