@@ -9,6 +9,7 @@ public class UserCamera : MonoBehaviour // カメラを制御
     private float ud_deg=0;
     private Vector3 offset = new Vector3(0, 1.2f, 0);
 	
+    /*
 	void Update ()
     {
         float dx = Input.GetAxis("Camera_x");
@@ -26,5 +27,6 @@ public class UserCamera : MonoBehaviour // カメラを制御
             ud_deg = 0;
         }
         //Debug.Log("rot x, y, ud: " + dx + ", " + dy + ", " + ud_deg);
-    }   
+    } 
+    */
 }
