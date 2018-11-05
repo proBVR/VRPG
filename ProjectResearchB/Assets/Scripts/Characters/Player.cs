@@ -97,9 +97,9 @@ public class Player : Character
             rb.velocity = Vector3.zero;
             animator.SetBool("Running", false);
         }
-        float cameraX = transform.position.x - transform.forward.x;
-        float cameraY = transform.forward.y + 1.2f;
-        float cameraZ = transform.position.z - transform.forward.z;
+        float cameraX = transform.position.x;
+        float cameraY = transform.forward.y + 0.8f;
+        float cameraZ = transform.position.z;
         transform.rotation = userRot;
         userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
         userCamera.transform.rotation = transform.rotation;
