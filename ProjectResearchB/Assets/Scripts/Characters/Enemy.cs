@@ -9,9 +9,8 @@ public abstract class Enemy : Character
     protected int interval;
 
     // Use this for initialization
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
         counter = interval;
     }
 

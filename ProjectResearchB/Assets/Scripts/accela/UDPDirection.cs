@@ -12,11 +12,11 @@ using MiniJSON;
 public class UDPDirection : MonoBehaviour {
     //通信レート60/s
 
-    static int LOCAL_PORT = 22220;
+    const int LOCAL_PORT = 22220;
     static UdpClient udp;
     Thread thread;
 
-    public static Action<float, float, float, float> GyroCallBack;
+    public static Action<float, float, float, float> DirCallBack;
 
     public void UDPStart()
     {
@@ -45,20 +45,22 @@ public class UDPDirection : MonoBehaviour {
                 double qutZ = jsonNode["sensordata"]["quaternion"]["z"].Get<double>();
                 double qutW = jsonNode["sensordata"]["quaternion"]["w"].Get<double>();
 
-                GyroCallBack((float)qutX, (float)qutY, (float)qutZ, (float)qutW);
+                DirCallBack((float)qutX, (float)qutY, (float)qutZ, (float)qutW);
             }
             catch (SocketException se)
             {
                 udp.Close();
                 udp = new UdpClient(LOCAL_PORT);
                 udp.Client.ReceiveTimeout = 3000;
-                Debug.Log(se); //System.Net.Sockets.SocketException
+                Debug.Log(se);
             }
             catch (NullReferenceException nre)
             {
                 Debug.Log(nre);
             }
-
+            catch(InvalidCastException ice){
+                Debug.Log(ice);
+            }
         }
     }
 

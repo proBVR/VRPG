@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Magic : IActionable
+public class Magic : IActionable
 {
     protected string callName;
-    protected int rank, attribute, modelNum, power;
+    protected int rank, modelNum, power;
+    protected AttackAttribute attribute;
 
-    public Magic(string callName, int rank, int attribute, int modelNum, int power)
+    public Magic(string callName, int rank, AttackAttribute attribute, int modelNum, int power)
     {
         this.callName = callName;
         this.rank = rank;

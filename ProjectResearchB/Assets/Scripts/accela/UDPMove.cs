@@ -12,7 +12,7 @@ using MiniJSON;
 public class UDPMove : MonoBehaviour {
     //通信レート10/s
 
-    static int LOCAL_PORT = 22221;
+    const int LOCAL_PORT = 22221;
     static UdpClient udp;
     Thread thread;
 
@@ -51,13 +51,16 @@ public class UDPMove : MonoBehaviour {
                 udp.Close();
                 udp = new UdpClient(LOCAL_PORT);
                 udp.Client.ReceiveTimeout = 3000;
-                Debug.Log(se); //System.Net.Sockets.SocketException
+                Debug.Log(se);
             }
             catch (NullReferenceException nre)
             {
                 Debug.Log(nre);
             }
-
+            catch (InvalidCastException ice)
+            {
+                Debug.Log(ice);
+            }
         }
     }
 
