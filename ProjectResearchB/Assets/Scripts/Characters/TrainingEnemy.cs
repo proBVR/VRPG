@@ -17,6 +17,6 @@ public class TrainingEnemy : Enemy
     {
         count++;
         Debug.Log("training enemy died: "+count);
-        status["hp"] = status["maxHp"];
+        status.RecoverHp(10000);
     }
 }

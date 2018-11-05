@@ -4,13 +4,5 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public static List<Item> itemList = new List<Item>();
 }

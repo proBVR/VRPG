@@ -9,6 +9,9 @@ public class Player : Character
 {
     public static Player instance;
 
+    public Inventory inventory = new Inventory();
+    public bool acting = false;
+
     private bool modeFlag = false, menuFlag=false;
     private Animator animator;
     private Rigidbody rb;
@@ -30,14 +33,16 @@ public class Player : Character
     private float moveAngle;
 
     [SerializeField]
+    private VoiceRecognition vr;
+
+    [SerializeField]
     private float moveSpeed;
 
     [SerializeField]
     private GameObject ArmR, ArmL, Menu, ContR, ContL;
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
         instance = this;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -106,6 +111,8 @@ public class Player : Character
 
     protected override void Action(int index)
     {
+        if (acting) return;
+        acting = true;
         actionList[index].Use();
     }
 
@@ -123,6 +130,37 @@ public class Player : Character
     {
         return callNames;
     }
+
+    public void RegisterActions(List<Item> items, List<Skill> skills, List<Magic> magics)
+    {
+        var temp = new List<IActionable>();
+        var names = new List<string>();
+        foreach (Item t in items)
+        {
+            temp.Add(t);
+            callNames[0].Add(t.GetName());
+            names.Add(t.GetName());
+        }
+        foreach (Skill t in skills)
+        {
+            temp.Add(t);
+            callNames[1].Add(t.GetName());
+            names.Add(t.GetName());
+        }
+        foreach (Magic t in magics)
+        {
+            temp.Add(t);
+            callNames[2].Add(t.GetName());
+        }
+
+        actionList = temp.ToArray();
+        vr.SetRecognition(names.ToArray(), items.Count);        
+    }
+
+    public Arm GetArm(bool right)
+    {
+        if (right) return ArmR.GetComponent<Arm>();
+        return ArmL.GetComponent<Arm>();
 
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)

@@ -2,7 +2,4 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : Arm {
-
-	
-}
+public enum AttackAttribute { normal, time, fire, water, leaf, none}

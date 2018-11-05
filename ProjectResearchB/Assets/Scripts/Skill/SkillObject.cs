@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : Arm {
+public abstract class SkillObject : ActionObject
+{
 
-	
 }
