@@ -161,6 +161,7 @@ public class Player : Character
     {
         if (right) return ArmR.GetComponent<Arm>();
         return ArmL.GetComponent<Arm>();
+    }
 
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
