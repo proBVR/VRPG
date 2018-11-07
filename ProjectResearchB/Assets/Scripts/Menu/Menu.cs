@@ -59,11 +59,13 @@ public abstract class Menu : MonoBehaviour {
         
         if (Input.GetButtonDown("Fire1"))//決定時
         {
+            Debug.Log("fire1 pushed");
             Decide(selectLine);
         }
 
         if (Input.GetButtonDown("Back"))
         {
+            Debug.Log("buck pushed");
             if (prePanel != null) manager.PanelChamge(this, prePanel);
         }
     }
