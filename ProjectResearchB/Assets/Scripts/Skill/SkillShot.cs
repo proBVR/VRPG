@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBall : MagicObject
+public class SkillShot : SkillObject
 {
     private Vector3 dir;
-    private float speed = 1;
+    private int speed = 1;
 	
 	// Update is called once per frame
 	void Update () {
@@ -14,17 +14,16 @@ public class MagicBall : MagicObject
 
     protected override void SetMove()
     {
-        dir = Player.instance.GetArm(true).transform.forward;
+        dir = Player.instance.transform.eulerAngles;
     }
 
     public override Vector3 GetPos()
     {
-        var arm = Player.instance.GetArm(true).transform;
-        return arm.position + arm.forward;
+        return Player.instance.transform.position + Player.instance.transform.forward;
     }
 
     public override Quaternion GetRot()
     {
-        return Player.instance.GetArm(true).transform.rotation;
+        return Player.instance.transform.rotation;        
     }
 }

@@ -20,6 +20,11 @@ public class CharacterStatus
         }
     }
 
+    public int Hp
+    {
+        get { return hp; }
+    }
+
     public int MaxMp
     {
         get { return maxMp; }

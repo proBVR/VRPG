@@ -16,8 +16,8 @@ public class DataLoader : MonoBehaviour
         items.Add(new Item("ポーション", 1, 200, ItemMethods.uses[0]));
         items.Add(new Item("エリクサー", 2, 100, ItemMethods.uses[1]));
 
-        skills.Add(new Skill("ハヤブサ切り", 0, 200));
-        skills.Add(new Skill("魔人剣", 1, 500));
+        skills.Add(new Skill("ハヤブサ切り", 0, 200, 64));
+        skills.Add(new Skill("魔人剣", 1, 500, 82));
 
         magics.Add(new Magic("メラ", 0, AttackAttribute.fire, 0, 1));
         magics.Add(new Magic("メラゾーマ", 2, AttackAttribute.fire, 0, 3));
@@ -32,9 +32,4 @@ public class DataLoader : MonoBehaviour
 
         Player.instance.RegisterActions(items, skills, magics);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

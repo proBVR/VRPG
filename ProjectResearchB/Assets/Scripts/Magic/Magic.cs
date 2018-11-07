@@ -5,7 +5,7 @@ using UnityEngine;
 public class Magic : IActionable
 {
     protected string callName;
-    protected int rank, modelNum, power;
+    protected int rank, modelNum, power, time = 10;
     protected AttackAttribute attribute;
 
     public Magic(string callName, int rank, AttackAttribute attribute, int modelNum, int power)
@@ -20,7 +20,7 @@ public class Magic : IActionable
     public void Use()
     {
         var prefab = MyGameManager.instance.GenMagic(modelNum);
-        prefab.Init(attribute, power);
+        prefab.Init(attribute, power, time);
     }
 
     public  string GetName()
