@@ -27,6 +27,9 @@ public class Player : Character
     public Quaternion userDir;
 
     [SerializeField]
+    private Transform camera;
+
+    [SerializeField]
     private bool move;
 
     [SerializeField]
@@ -65,6 +68,7 @@ public class Player : Character
     {
         if (!menuFlag && Input.GetButtonDown("Change"))
         {
+            Debug.Log("change pushed");
             modeFlag = !modeFlag;
             ArmR.SetActive(modeFlag);
             ArmL.SetActive(modeFlag);
@@ -73,6 +77,7 @@ public class Player : Character
         }
         else if(!modeFlag && Input.GetButtonDown("Menu"))
         {
+            Debug.Log("menu pushed");
             menuFlag = !menuFlag;
             Menu.SetActive(menuFlag);
         }
@@ -97,9 +102,11 @@ public class Player : Character
             rb.velocity = Vector3.zero;
             animator.SetBool("Running", false);
         }
-        float cameraX = transform.position.x;
-        float cameraY = transform.forward.y + 0.8f;
-        float cameraZ = transform.position.z;
+
+        var pivot = userCamera.transform.position - camera.position + new Vector3(0, 1.35f, 0.05f);
+        float cameraX = transform.position.x + pivot.x;
+        float cameraY = transform.position.y + pivot.y;
+        float cameraZ = transform.position.z + pivot.z;
         transform.rotation = userRot;
         userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
         userCamera.transform.rotation = transform.rotation;
