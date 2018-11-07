@@ -59,7 +59,7 @@ public abstract class Menu : MonoBehaviour {
         
         if (Input.GetButtonDown("Fire1"))//決定時
         {
-            Decide();
+            Decide(selectLine);
         }
 
         if (Input.GetButtonDown("Back"))
@@ -68,7 +68,7 @@ public abstract class Menu : MonoBehaviour {
         }
     }
 
-    protected virtual void Decide() { }//決定時の操作
+    protected virtual void Decide(int index) { }//決定時の操作
 
     protected virtual void ChangeValue(int dir) { }//値の変更
 

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TopMenu : Menu
 {
-    protected override void Decide()
+    protected override void Decide(int index)
     {
-        manager.PanelChamge(this, nextPanels[selectLine]);
+        manager.PanelChamge(this, nextPanels[index]);
     }    
 }

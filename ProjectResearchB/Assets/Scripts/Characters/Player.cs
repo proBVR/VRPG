@@ -27,9 +27,6 @@ public class Player : Character
     public Quaternion userDir;
 
     [SerializeField]
-    private Transform camera;
-
-    [SerializeField]
     private bool move;
 
     [SerializeField]
@@ -62,6 +59,7 @@ public class Player : Character
         udpDirection.UDPStart();
         move = false;
         moveAngle = 0;
+        Init(1000, 100, 100, 50, 10, AttackAttribute.none);//仮のステータス
     }
 
     private void Update()
@@ -103,7 +101,8 @@ public class Player : Character
             animator.SetBool("Running", false);
         }
 
-        var pivot = userCamera.transform.position - camera.position + new Vector3(0, 1.35f, 0.05f);
+        //var pivot = userCamera.transform.position - camera.position + new Vector3(0, 1.35f, 0.05f);
+        var pivot = userCamera.offset;
         float cameraX = transform.position.x + pivot.x;
         float cameraY = transform.position.y + pivot.y;
         float cameraZ = transform.position.z + pivot.z;

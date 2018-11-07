@@ -11,7 +11,7 @@ public class Hud : MonoBehaviour
     private void Update()
     {
         var pStatus = Player.instance.GetStatus();
-        //hpBar.value = (float)pStatus.Hp / pStatus.MaxHp;
-        //mpBar.value = (float)pStatus.Mp / pStatus.MaxMp;
+        hpBar.value = (float)pStatus.Hp / pStatus.MaxHp;
+        mpBar.value = (float)pStatus.Mp / pStatus.MaxMp;
     }
 }
