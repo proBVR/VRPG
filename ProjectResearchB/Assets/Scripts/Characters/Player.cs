@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using System;
+using Valve.VR;
 
 //PCに関するメインのクラス
 public class Player : Character
@@ -64,7 +65,10 @@ public class Player : Character
 
     private void Update()
     {
-        if (!menuFlag && Input.GetButtonDown("Change"))
+        if (SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand)) {
+            Debug.Log("menu pushed");
+        }
+        if (!menuFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
             Debug.Log("change pushed");
             modeFlag = !modeFlag;
@@ -73,7 +77,7 @@ public class Player : Character
             ContR.SetActive(modeFlag);
             ContL.SetActive(modeFlag);
         }
-        else if(!modeFlag && Input.GetButtonDown("Menu"))
+        else if(!modeFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             Debug.Log("menu pushed");
             menuFlag = !menuFlag;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Valve.VR;
 
 public abstract class Menu : MonoBehaviour {    
     private float preUd = 0, preLr = 0;
@@ -57,13 +58,13 @@ public abstract class Menu : MonoBehaviour {
             }
         }
         
-        if (Input.GetButtonDown("Fire1"))//決定時
+        if (SteamVR_Input._default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.RightHand))//決定時
         {
             Debug.Log("fire1 pushed");
             Decide(selectLine);
         }
 
-        if (Input.GetButtonDown("Back"))
+        if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             Debug.Log("buck pushed");
             if (prePanel != null) manager.PanelChamge(this, prePanel);
