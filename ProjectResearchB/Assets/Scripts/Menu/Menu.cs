@@ -34,34 +34,29 @@ public abstract class Menu : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (udFlag)//選択行を変更
-        {            
-            var ud = Input.GetAxis("UpDn");
-            if (ud != preUd)
-            {
-                if ((ud == 1 && selectLine != 0) || (ud == -1 && selectLine != lineSize))
-                {
-                    selecter.localPosition += new Vector3(0, 0, height * ud);
-                    selectLine -= (int)ud;
-                }
-                preUd = ud;
-            }
-        }
-
-        if (lrFlag)//値の変更
-        {
-            var lr = Input.GetAxis("LR");
-            if (lr != preLr) 
-            {
-                if(Mathf.Abs(lr)==1) ChangeValue((int) lr);
-                preLr = lr;
-            }
-        }
         
-        if (SteamVR_Input._default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.RightHand))//決定時
+
+        if (SteamVR_Input._default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
-            Debug.Log("fire1 pushed");
-            Decide(selectLine);
+            var posi = SteamVR_Input._default.inActions.TrackPosi.GetAxis(SteamVR_Input_Sources.RightHand);
+            if (udFlag && Mathf.Abs(posi.y) > 0.5)//選択行を変更
+            {
+                if ((posi.y > 0 && selectLine != 0) || (posi.y < 0 && selectLine != lineSize))
+                {
+                    selecter.localPosition += new Vector3(0, 0, height * Mathf.Sign(posi.y));
+                    selectLine -= (int)Mathf.Sign(posi.y);
+
+                }
+            }
+            else if (lrFlag && Mathf.Abs(posi.x) > 0.5)//値の変更
+            {
+                ChangeValue((int)Mathf.Sign(posi.x));                    
+            }
+            else//決定時
+            {
+                Debug.Log("fire1 pushed");
+                Decide(selectLine);
+            }
         }
 
         if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.RightHand))

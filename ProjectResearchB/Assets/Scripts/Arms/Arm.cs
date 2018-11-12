@@ -23,7 +23,7 @@ public abstract class Arm : MonoBehaviour
     protected void Update()
     {
         if (counter > 0) counter--;
-        preMove();
+        if(preMove != null) preMove();
     }
 
     public void BeginSkill(Action preMove)

@@ -36,12 +36,12 @@ public class IK : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        ikActive = false;
+        //ikActive = false;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Change")) ikActive = !ikActive;
+        //if (Input.GetButtonDown("Change")) ikActive = !ikActive;
     }
 
     void OnAnimatorIK(int layerIndex)

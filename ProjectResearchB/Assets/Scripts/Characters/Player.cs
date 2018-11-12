@@ -64,18 +64,15 @@ public class Player : Character
     }
 
     private void Update()
-    {
-        if (SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand)) {
-            Debug.Log("menu pushed");
-        }
+    {        
         if (!menuFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
             Debug.Log("change pushed");
             modeFlag = !modeFlag;
             ArmR.SetActive(modeFlag);
             ArmL.SetActive(modeFlag);
-            ContR.SetActive(modeFlag);
-            ContL.SetActive(modeFlag);
+            ContR.SetActive(!modeFlag);
+            ContL.SetActive(!modeFlag);
         }
         else if(!modeFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand))
         {

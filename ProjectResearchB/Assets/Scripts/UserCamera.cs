@@ -13,6 +13,7 @@ public class UserCamera : MonoBehaviour // カメラを制御
 
     public void Reset()
     {
-        offset = mycamera.position - Player.instance.transform.position - head;
+        //offset = mycamera.position - Player.instance.transform.position - head;
+        offset = transform.position - mycamera.position + head;
     }
 }
