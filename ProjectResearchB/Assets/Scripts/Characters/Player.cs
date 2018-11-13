@@ -79,6 +79,7 @@ public class Player : Character
             Debug.Log("menu pushed");
             menuFlag = !menuFlag;
             Menu.SetActive(menuFlag);
+            if (menuFlag) Menu.GetComponent<MenuManager>().MenuReset();
         }
     }
 

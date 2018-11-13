@@ -6,6 +6,6 @@ public class TopMenu : Menu
 {
     protected override void Decide(int index)
     {
-        manager.PanelChamge(this, nextPanels[index]);
-    }    
+        manager.PanelChange(nextPanels[index], true);
+    }
 }

@@ -9,33 +9,33 @@ public abstract class Menu : MonoBehaviour {
 
     [SerializeField]
     protected bool udFlag, lrFlag;
-    protected int selectLine;
+    private int selectLine = 0;
     protected MenuManager manager;
     protected readonly float height = 1.17f;
     [SerializeField]
     protected RectTransform selecter;
     [SerializeField]
-    protected int lineSize;
+    private int lineSize;
     [SerializeField]
-    protected TextMeshPro title, text;    
+    protected TextMeshPro title, text; 
     [SerializeField]
     protected Menu prePanel;
     [SerializeField]
-    protected Menu[] nextPanels;    
+    protected Menu[] nextPanels;
+    protected Vector3 basePosi;
 
     // Use this for initialization
     void Start () {
+        basePosi = selecter.localPosition;
         manager = transform.parent.GetComponent<MenuManager>();
         lineSize--;
         if (!udFlag && !lrFlag) selecter.gameObject.SetActive(false);
-        SetData();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
-
+    { 
         if (SteamVR_Input._default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             var posi = SteamVR_Input._default.inActions.TrackPosi.GetAxis(SteamVR_Input_Sources.RightHand);
@@ -61,14 +61,24 @@ public abstract class Menu : MonoBehaviour {
 
         if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
-            Debug.Log("buck pushed");
-            if (prePanel != null) manager.PanelChamge(this, prePanel);
+            Debug.Log("back pushed");
+            if (prePanel != null) manager.PanelChange(prePanel, false);
         }
     }
 
     protected virtual void Decide(int index) { }//決定時の操作
 
     protected virtual void ChangeValue(int dir) { }//値の変更
+
+    public void Reset()
+    {
+        if (selecter.gameObject.activeSelf)
+        {
+            selecter.localPosition = basePosi;
+            selectLine = 0;
+        }
+        SetData();
+    }
 
     protected virtual void SetData() { }//データを更新
 }

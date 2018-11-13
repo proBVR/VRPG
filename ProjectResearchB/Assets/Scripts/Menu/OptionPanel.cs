@@ -11,7 +11,7 @@ public class OptionPanel : Menu
         switch (index)
         {
             case 0://Reset
-                uc.Reset();
+                manager.Confirm("Do: Reset\n", uc.Reset);
                 break;
             default:
                 break;

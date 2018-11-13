@@ -7,6 +7,7 @@ public abstract class Enemy : Character
     protected int counter;
     [SerializeField]
     protected int interval;
+    protected EnemyManager manager;
 
     // Use this for initialization
     protected void Start()
