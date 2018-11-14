@@ -71,12 +71,14 @@ public class VoiceRecognition : MonoBehaviour
     {
         if (!keyRecognizer.IsRunning) keyRecognizer.Start();
         state = 0;
+        Debug.Log("start recognition");
         p = Node.root;
     }
 
     public void StopRecognition()
     {
         if (keyRecognizer.IsRunning) keyRecognizer.Stop();
+        Debug.Log("stop recognition");
     }
 
     public void SetRecognition(string[] names, int pivot)
@@ -89,5 +91,6 @@ public class VoiceRecognition : MonoBehaviour
 
         keyRecognizer = new KeywordRecognizer(keyword);
         keyRecognizer.OnPhraseRecognized += OnPhraseRecognized;
+        foreach (string i in keyword) Debug.Log(i);
     }
 }

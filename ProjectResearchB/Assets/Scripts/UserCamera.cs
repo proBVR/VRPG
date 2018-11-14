@@ -12,12 +12,13 @@ public class UserCamera : MonoBehaviour // カメラを制御
 
     private void Start()
     {
-        transform.localScale *= bodyScale;
+        //transform.localScale *= bodyScale;
+        transform.localScale *= (float)0.5f;
     }
 
     public void Reset()
     {
         //offset = mycamera.position - Player.instance.transform.position - head;
-        offset = transform.position - mycamera.position + head;
+        transform.position += transform.parent.position - mycamera.position + head*Player.instance.transform.localScale.x;
     }
 }

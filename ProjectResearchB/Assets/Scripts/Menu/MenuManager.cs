@@ -16,11 +16,13 @@ public class MenuManager : MonoBehaviour
         if (now != null) now.gameObject.SetActive(false);
         now = to;
         to.gameObject.SetActive(true);
+        Debug.Log("panel change");
         if(flag) to.Reset();        
     }
 
     public void MenuReset()
     {
+        Debug.Log("menu reset");
         PanelChange(top, true);
     }
 

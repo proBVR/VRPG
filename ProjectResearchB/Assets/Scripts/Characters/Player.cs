@@ -61,6 +61,7 @@ public class Player : Character
         move = false;
         moveAngle = 0;
         Init(1000, 100, 100, 50, 10, AttackAttribute.none);//仮のステータス
+        transform.localScale *= 2f;
     }
 
     private void Update()
@@ -80,6 +81,15 @@ public class Player : Character
             menuFlag = !menuFlag;
             Menu.SetActive(menuFlag);
             if (menuFlag) Menu.GetComponent<MenuManager>().MenuReset();
+        }
+
+        if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.LeftHand))
+        {
+            vr.StartRecognition();
+        }
+        else if (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand))
+        {
+            vr.StopRecognition();
         }
     }
 
@@ -104,13 +114,13 @@ public class Player : Character
         }
 
         //var pivot = userCamera.transform.position - camera.position + new Vector3(0, 1.35f, 0.05f);
-        var pivot = userCamera.offset;
-        float cameraX = transform.position.x + pivot.x;
-        float cameraY = transform.position.y + pivot.y;
-        float cameraZ = transform.position.z + pivot.z;
+        //var pivot = userCamera.offset;
+        //float cameraX = transform.position.x + pivot.x;
+        //float cameraY = transform.position.y + pivot.y;
+        //float cameraZ = transform.position.z + pivot.z;
         transform.rotation = userRot;
-        userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
-        userCamera.transform.rotation = transform.rotation;
+        //userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
+        //userCamera.transform.rotation = transform.rotation;
     }
 
     void MovePosi(){
@@ -143,6 +153,8 @@ public class Player : Character
     {
         var temp = new List<IActionable>();
         var names = new List<string>();
+
+        for (int i = 0; i < 3; i++) callNames[i] = new List<string>();
         foreach (Item t in items)
         {
             temp.Add(t);
@@ -162,7 +174,8 @@ public class Player : Character
         }
 
         actionList = temp.ToArray();
-        vr.SetRecognition(names.ToArray(), items.Count);        
+        vr.SetRecognition(names.ToArray(), items.Count);
+        Debug.Log("register");
     }
 
     public Arm GetArm(bool right)
