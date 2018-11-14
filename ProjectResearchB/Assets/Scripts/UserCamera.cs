@@ -8,6 +8,12 @@ public class UserCamera : MonoBehaviour // カメラを制御
     private Transform mycamera;
     private readonly Vector3 head = new Vector3(0, 1.35f, 0.05f);
     public Vector3 offset = Vector3.zero;
+    private float bodyScale = 0.5f;
+
+    private void Start()
+    {
+        transform.localScale *= bodyScale;
+    }
 
     public void Reset()
     {

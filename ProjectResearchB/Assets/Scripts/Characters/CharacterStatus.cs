@@ -101,7 +101,7 @@ public class CharacterStatus
         if (hp > maxHp) hp = maxHp;
     }
 
-    public void Damage(int value)
+    public void Damage(int value, AttackAttribute attribute)
     {
         if (value < 0)
         {
@@ -109,6 +109,7 @@ public class CharacterStatus
             return;
         }
         //damage caluclate
+        if (attribute == weak) value *= 2;
         if (vit < value)
         {
             hp -= value - vit;

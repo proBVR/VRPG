@@ -34,6 +34,7 @@ public class VoiceRecognition : MonoBehaviour
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
+        Debug.Log("recognize(" + state + "): " + args.text);
         int index;
         switch (state)
         {            

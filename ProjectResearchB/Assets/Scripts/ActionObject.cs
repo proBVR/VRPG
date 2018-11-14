@@ -24,7 +24,7 @@ public abstract class ActionObject : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().GetStatus().Damage(power);
+            other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
         }
     }
 
