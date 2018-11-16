@@ -61,7 +61,7 @@ public class Player : Character
         move = false;
         moveAngle = 0;
         Init(1000, 100, 100, 50, 10, AttackAttribute.none);//仮のステータス
-        transform.localScale *= 2f;
+        transform.localScale *= 1.2f;
     }
 
     private void Update()

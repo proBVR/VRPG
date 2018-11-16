@@ -13,7 +13,7 @@ public class UserCamera : MonoBehaviour // カメラを制御
     private void Start()
     {
         //transform.localScale *= bodyScale;
-        transform.localScale *= (float)0.5f;
+        transform.localScale /= (float)1.2f;
     }
 
     public void Reset()
