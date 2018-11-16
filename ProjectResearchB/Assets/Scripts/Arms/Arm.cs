@@ -16,8 +16,8 @@ public abstract class Arm : MonoBehaviour
 
     protected void Start()
     {
-        transform.localPosition = startPosition;
-        transform.localEulerAngles = startAngle;
+        //transform.localPosition = startPosition;
+        //transform.localEulerAngles = startAngle;
     }
 
     protected void Update()
