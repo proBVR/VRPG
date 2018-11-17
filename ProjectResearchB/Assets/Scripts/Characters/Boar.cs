@@ -6,6 +6,12 @@ public class Boar : Enemy
 {
     [SerializeField]
     protected float search;
+    [SerializeField]
+    protected bool running;
+    [SerializeField]
+    protected Animator animator;
+
+
     protected override void Action(int index)
     {
         throw new System.NotImplementedException();
@@ -13,11 +19,14 @@ public class Boar : Enemy
 
     protected override void Move()
     {
+        /*
         var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
         if(distance < search)
         {
 
         }
+        */
+        animator.SetBool("running", running);
     }
 
     protected override void Death()
