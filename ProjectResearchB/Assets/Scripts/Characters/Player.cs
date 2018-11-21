@@ -136,7 +136,7 @@ public class Player : Character
 
     protected override void Death()
     {
-        MyGameManager.instance.DecLives();
+        GameManager.instance.DecLives();
     }
 
     public void OpeAction(int index)

@@ -51,7 +51,7 @@ public class Skill : IActionable
     protected void Activate()
     {
         arm.FinSkill();
-        var prefab = MyGameManager.instance.GenSkill(modelNum);
+        var prefab = GameManager.instance.GenSkill(modelNum);
         prefab.Init(AttackAttribute.normal, power, time);
     }
 

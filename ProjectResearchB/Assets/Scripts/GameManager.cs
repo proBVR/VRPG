@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyGameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static MyGameManager instance;
+    public static GameManager instance;
 
     private List<Player> players = new List<Player>();
     private short lives = 0;

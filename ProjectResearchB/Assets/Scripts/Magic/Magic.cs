@@ -19,7 +19,7 @@ public class Magic : IActionable
 
     public void Use()
     {
-        var prefab = MyGameManager.instance.GenMagic(modelNum);
+        var prefab = GameManager.instance.GenMagic(modelNum);
         prefab.Init(attribute, power, time);
     }
 
