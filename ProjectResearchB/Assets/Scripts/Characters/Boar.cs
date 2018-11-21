@@ -5,16 +5,16 @@ using UnityEngine;
 public class Boar : Enemy
 {
     [SerializeField]
-    protected float search;
-    [SerializeField]
     protected bool running;
     [SerializeField]
-    protected Animator animator;
+    private Animator animator;
+    private bool attacking = false;
 
 
     protected override void Action(int index)
     {
-        throw new System.NotImplementedException();
+        //var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
+        //if(distance < search)
     }
 
     protected override void Move()
