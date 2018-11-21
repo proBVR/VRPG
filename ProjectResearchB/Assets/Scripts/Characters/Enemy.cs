@@ -21,6 +21,8 @@ public abstract class Enemy : Character
     // Update is called once per frame
     void Update()
     {
+        Move();
+        return;
         if (!manager.ExistPlayer()) return;
         var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
         if (distance < attackRange && !attacking)
