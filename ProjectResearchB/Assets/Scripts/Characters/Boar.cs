@@ -8,24 +8,17 @@ public class Boar : Enemy
     protected bool running;
     [SerializeField]
     private Animator animator;
-    private bool attacking = false;
+    //private bool attacking = false;
 
 
     protected override void Action(int index)
     {
-        //var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
-        //if(distance < search)
+        
     }
 
     protected override void Move()
     {
-        /*
-        var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
-        if(distance < search)
-        {
-
-        }
-        */
+       
         animator.SetBool("running", running);
     }
 

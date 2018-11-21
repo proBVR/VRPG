@@ -8,7 +8,8 @@ public abstract class Enemy : Character
     [SerializeField]
     protected int interval;
     [SerializeField]
-    protected float search;
+    protected float searchRange, attackRange;
+    protected bool attacking;
     protected EnemyManager manager;
 
     // Use this for initialization
@@ -21,15 +22,16 @@ public abstract class Enemy : Character
     void Update()
     {
         if (!manager.ExistPlayer()) return;
-        Move();
         var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
-        if (distance > search) return;
-
-        counter--;
-        if (counter == 0)
+        if (distance < attackRange && !attacking)
         {
-            Action(0);
-            counter = interval;
+            counter--;
+            if (counter == 0)
+            {
+                Action(0);
+                counter = interval;
+            }
         }
+        else if (distance < searchRange) Move();        
     }
 }

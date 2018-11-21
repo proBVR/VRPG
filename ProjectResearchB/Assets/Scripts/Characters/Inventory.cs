@@ -30,5 +30,16 @@ public class Inventory
     {
         return inventory.ContainsKey(name);
     }
-	
+
+    public string[] GetContents()
+    {
+        var temp = new string[inventory.Count];
+        int i = 0;
+        foreach(KeyValuePair<string, int> item in inventory)
+        {
+            temp[i] = item.Key + "\t" + item.Value;
+            i++;
+        }
+        return temp;
+    }
 }
