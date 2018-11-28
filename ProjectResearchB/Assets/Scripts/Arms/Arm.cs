@@ -22,6 +22,8 @@ public abstract class Arm : MonoBehaviour
 
     protected void Update()
     {
+        var pos = transform.position - Player.instance.transform.position;
+        Debug.Log("pos: " + pos.x.ToString("F1") + ", " + pos.y.ToString("F1"));
         if (counter > 0) counter--;
         if(preMove != null) preMove();
     }

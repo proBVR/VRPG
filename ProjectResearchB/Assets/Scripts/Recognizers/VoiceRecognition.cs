@@ -59,6 +59,7 @@ public class VoiceRecognition : MonoBehaviour
                 if (p == null) p = Node.root;
                 else if (p.GetMagic() != -1)
                 {
+                    Debug.Log("magic: "+p.GetMagic()+", "+pivot);
                     Player.instance.OpeAction(p.GetMagic() + pivot);
                     recognizers[1].Stop();
                     state = 0;

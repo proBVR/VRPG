@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         {
             var pos = magics[index].GetPos();
             var rot = magics[index].GetRot();
+            Debug.Log("pos: "+pos);
+            Debug.Log("rot: "+rot.eulerAngles);
             return Instantiate(magics[index], pos, rot);
         }
         Debug.Log("index error: " + index);

@@ -174,7 +174,7 @@ public class Player : Character
         }
 
         actionList = temp.ToArray();
-        vr.SetRecognition(names.ToArray(), items.Count);
+        vr.SetRecognition(names.ToArray(), items.Count+skills.Count);
         Debug.Log("register");
     }
 
