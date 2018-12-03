@@ -61,7 +61,7 @@ public class Player : Character
         move = false;
         moveAngle = 0;
         Init(1000, 100, 100, 50, 10, AttackAttribute.none);//仮のステータス
-        transform.localScale *= 1.2f;
+        //transform.localScale *= 1.2f;
     }
 
     private void Update()
@@ -102,8 +102,8 @@ public class Player : Character
     {
         if (move == true)
         {
-            double x =  Math.Sin((userDir.eulerAngles.y + moveAngle) * (Math.PI / 180));
-            double y =  Math.Cos((userDir.eulerAngles.y + moveAngle) * (Math.PI / 180));
+            double x =  Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
+            double y =  Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             userPosi = new Vector3((float)x,0,(float)y);
             rb.velocity = userPosi * moveSpeed;
             animator.SetBool("Running", true);
