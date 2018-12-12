@@ -13,6 +13,8 @@ public class TrainingEnemy : Enemy
 
     }
 
+    protected override void Idle() { }
+
     protected override void Death()
     {
         count++;

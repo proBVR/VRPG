@@ -60,7 +60,7 @@ public class Player : Character
         udpDirection.UDPStart();
         move = false;
         moveAngle = 0;
-        Init(1000, 100, 100, 50, 10, AttackAttribute.none);//仮のステータス
+        Init(1000, 100, 100, 50, 10, AttackAttribute.normal);//仮のステータス
         //transform.localScale *= 1.2f;
     }
 

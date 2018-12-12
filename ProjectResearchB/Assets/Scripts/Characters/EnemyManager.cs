@@ -47,4 +47,14 @@ public class EnemyManager : MonoBehaviour
     {
         return existPlayer;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player") existPlayer = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player") existPlayer = false;
+    }
 }

@@ -4,14 +4,16 @@ using UnityEngine;
 
 public abstract class Enemy : Character
 {
-    protected float counter;
+    protected float counter, mvInterval=1, mvCounter;
     [SerializeField]
     protected float interval;
     [SerializeField]
     protected float searchRange, attackRange;
     protected bool atkFin = false, cooling = false;
     protected EnemyManager manager;
-    protected int state;
+    protected int state, actNum = 0;
+    protected Animator animator;
+    protected Rigidbody rb;
 
     /*
      state
@@ -24,7 +26,11 @@ public abstract class Enemy : Character
     protected void Start()
     {
         counter = interval;
+        mvCounter = mvInterval;
         state = 0;
+        manager = transform.parent.GetComponent<EnemyManager>();
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -46,21 +52,30 @@ public abstract class Enemy : Character
         switch (state)
         {
             case 0|1:
+                mvCounter -= Time.deltaTime;
+                if (mvCounter > 0) break;
+                mvCounter = mvInterval;
                 var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
                 if (!cooling && distance < attackRange) state = 2;
                 else if (state == 1)
                 {
                     Move();
-                    if (distance > searchRange) state = 1;                    
+                    if (distance > searchRange || attackRange > distance) state = 0;
                 }
-                else if (distance > searchRange) state = 0;
+                else
+                {
+                    Idle();
+                    if (attackRange < distance && distance < searchRange) state = 1;
+                }
                 break;
             case 2:
-                Action(0);
+                Action(actNum);
                 if (atkFin) state = 0;
                 break;
             default:
                 break;
         } 
     }
+
+    protected abstract void Idle();
 }
