@@ -43,9 +43,8 @@ public abstract class Arm : MonoBehaviour
         if(counter == 0 && other.gameObject.tag == "Enemy")
         {
             counter = interval;
-            other.GetComponent<Enemy>().GetStatus().Damage(attack, AttackAttribute.none);
+            other.GetComponent<Enemy>().GetStatus().Damage(attack, AttackAttribute.normal);
             //Debug.Log("hit: te, left: " + other.GetComponent<Enemy>().GetHp());
         }
     }
 }
-
