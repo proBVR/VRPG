@@ -7,14 +7,17 @@ public abstract class ActionObject : MonoBehaviour
     public abstract Vector3 GetPos();
     public abstract Quaternion GetRot();
 
-    private int power, range = 1;
+    protected int power, range = 1;
+    protected Rigidbody rb;
     AttackAttribute attribute;
 
-    public void Init(AttackAttribute attribute, int power)
+    public void Init(AttackAttribute attribute, int power, int limit)
     {
+        rb = GetComponent<Rigidbody>();
         this.attribute = attribute;
         this.power = power;
         SetMove();
+        Destroy(this, limit);
     }
 
     protected abstract void SetMove();
@@ -23,13 +26,12 @@ public abstract class ActionObject : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().GetStatus().Damage(power);
+            other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
         }
     }
 
-    protected void Extinction()
+    protected void OnDestroy()
     {
         Player.instance.acting = false;
-        Destroy(this);
     }
 }

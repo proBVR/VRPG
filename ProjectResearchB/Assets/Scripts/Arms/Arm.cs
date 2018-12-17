@@ -16,14 +16,16 @@ public abstract class Arm : MonoBehaviour
 
     protected void Start()
     {
-        transform.localPosition = startPosition;
-        transform.localEulerAngles = startAngle;
+        //transform.localPosition = startPosition;
+        //transform.localEulerAngles = startAngle;
     }
 
     protected void Update()
     {
+        var pos = transform.position - Player.instance.transform.position;
+        Debug.Log("pos: " + pos.x.ToString("F1") + ", " + pos.y.ToString("F1"));
         if (counter > 0) counter--;
-        preMove();
+        if(preMove != null) preMove();
     }
 
     public void BeginSkill(Action preMove)
@@ -41,9 +43,8 @@ public abstract class Arm : MonoBehaviour
         if(counter == 0 && other.gameObject.tag == "Enemy")
         {
             counter = interval;
-            other.GetComponent<Enemy>().GetStatus().Damage(attack);
+            other.GetComponent<Enemy>().GetStatus().Damage(attack, AttackAttribute.normal);
             //Debug.Log("hit: te, left: " + other.GetComponent<Enemy>().GetHp());
         }
     }
 }
-

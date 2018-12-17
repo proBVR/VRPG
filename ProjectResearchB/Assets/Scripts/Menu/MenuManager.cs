@@ -1,22 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MenuManager : MonoBehaviour
 {
     private Menu now;
     [SerializeField]
     private Menu top;
+    [SerializeField]
+    private ConfirmPanel cm;
 
-    public void PanelChamge(Menu from, Menu to)
+    public void PanelChange(Menu to, bool flag)
     {
+        if (now != null) now.gameObject.SetActive(false);
         now = to;
         to.gameObject.SetActive(true);
-        from.gameObject.SetActive(false);
+        Debug.Log("panel change");
+        if(flag) to.Reset();        
     }
 
     public void MenuReset()
     {
-        PanelChamge(now, top);
+        Debug.Log("menu reset");
+        PanelChange(top, true);
+    }
+
+    public void Confirm(string message, Action action)
+    {
+        cm.gameObject.SetActive(true);
+        cm.Init(message, action, now);
+        PanelChange(cm, false);
     }
 }

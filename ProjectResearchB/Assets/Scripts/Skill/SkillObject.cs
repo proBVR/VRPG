@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class SkillObject : ActionObject
 {
-
+    public abstract void Activate();
 }

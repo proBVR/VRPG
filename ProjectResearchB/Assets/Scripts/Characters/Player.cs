@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using System;
+using Valve.VR;
 
 //PCに関するメインのクラス
 public class Player : Character
@@ -60,22 +61,37 @@ public class Player : Character
         udpDirection.UDPStart();
         move = false;
         moveAngle = 0;
+        var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
+        Init(temp);//仮のステータス
+        //transform.localScale *= 1.2f;
     }
 
     private void Update()
-    {
-        if (!menuFlag && Input.GetButtonDown("Change"))
+    {        
+        if (!menuFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
+            Debug.Log("change pushed");
             modeFlag = !modeFlag;
             ArmR.SetActive(modeFlag);
             ArmL.SetActive(modeFlag);
-            ContR.SetActive(modeFlag);
-            ContL.SetActive(modeFlag);
+            ContR.SetActive(!modeFlag);
+            ContL.SetActive(!modeFlag);
         }
-        else if(!modeFlag && Input.GetButtonDown("Menu"))
+        else if(!modeFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
+            Debug.Log("menu pushed");
             menuFlag = !menuFlag;
             Menu.SetActive(menuFlag);
+            if (menuFlag) Menu.GetComponent<MenuManager>().MenuReset();
+        }
+
+        if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.LeftHand))
+        {
+            vr.StartRecognition();
+        }
+        else if (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand))
+        {
+            vr.StopRecognition();
         }
 
         if(Input.GetKey(KeyCode.Space)){
@@ -93,8 +109,8 @@ public class Player : Character
     {
         if (move == true)
         {
-            double x =  Math.Sin((userDir.eulerAngles.y + moveAngle) * (Math.PI / 180));
-            double y =  Math.Cos((userDir.eulerAngles.y + moveAngle) * (Math.PI / 180));
+            double x =  Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
+            double y =  Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             userPosi = new Vector3((float)x,0,(float)y);
             rb.velocity = userPosi * moveSpeed;
             animator.SetBool("Running", true);
@@ -103,12 +119,15 @@ public class Player : Character
             rb.velocity = Vector3.zero;
             animator.SetBool("Running", false);
         }
-        float cameraX = transform.position.x;
-        float cameraY = transform.position.y + 1.35f;
-        float cameraZ = transform.position.z;
+
+        //var pivot = userCamera.transform.position - camera.position + new Vector3(0, 1.35f, 0.05f);
+        //var pivot = userCamera.offset;
+        //float cameraX = transform.position.x + pivot.x;
+        //float cameraY = transform.position.y + pivot.y;
+        //float cameraZ = transform.position.z + pivot.z;
         transform.rotation = userRot;
-        userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
-        userCamera.transform.rotation = transform.rotation;
+        //userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
+        //userCamera.transform.rotation = transform.rotation;
     }
 
     void MovePosi(){
@@ -124,7 +143,7 @@ public class Player : Character
 
     protected override void Death()
     {
-        MyGameManager.instance.DecLives();
+        GameManager.instance.DecLives();
     }
 
     public void OpeAction(int index)
@@ -137,10 +156,12 @@ public class Player : Character
         return callNames;
     }
 
-    public void RegisterActions(List<Item> items, List<Skill> skills, List<Magic> magics)
+    public void RegisterActions(Item[] items, Skill[] skills, Magic[] magics)
     {
         var temp = new List<IActionable>();
         var names = new List<string>();
+
+        for (int i = 0; i < 3; i++) callNames[i] = new List<string>();
         foreach (Item t in items)
         {
             temp.Add(t);
@@ -160,7 +181,8 @@ public class Player : Character
         }
 
         actionList = temp.ToArray();
-        vr.SetRecognition(names.ToArray(), items.Count);        
+        vr.SetRecognition(names.ToArray(), items.Length+skills.Length);
+        Debug.Log("register");
     }
 
     public Arm GetArm(bool right)

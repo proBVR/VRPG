@@ -34,6 +34,7 @@ public class VoiceRecognition : MonoBehaviour
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
+        Debug.Log("recognize(" + state + "): " + args.text);
         int index;
         switch (state)
         {            
@@ -58,6 +59,7 @@ public class VoiceRecognition : MonoBehaviour
                 if (p == null) p = Node.root;
                 else if (p.GetMagic() != -1)
                 {
+                    Debug.Log("magic: "+p.GetMagic()+", "+pivot);
                     Player.instance.OpeAction(p.GetMagic() + pivot);
                     recognizers[1].Stop();
                     state = 0;
@@ -70,12 +72,14 @@ public class VoiceRecognition : MonoBehaviour
     {
         if (!keyRecognizer.IsRunning) keyRecognizer.Start();
         state = 0;
+        Debug.Log("start recognition");
         p = Node.root;
     }
 
     public void StopRecognition()
     {
         if (keyRecognizer.IsRunning) keyRecognizer.Stop();
+        Debug.Log("stop recognition");
     }
 
     public void SetRecognition(string[] names, int pivot)
@@ -88,5 +92,6 @@ public class VoiceRecognition : MonoBehaviour
 
         keyRecognizer = new KeywordRecognizer(keyword);
         keyRecognizer.OnPhraseRecognized += OnPhraseRecognized;
+        foreach (string i in keyword) Debug.Log(i);
     }
 }
