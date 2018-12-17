@@ -39,6 +39,7 @@ public class StorageController : MonoBehaviour {
 		this.ioHandler = new FinishHandler(this.IOHandler);
 		this.storageManager = new StorageManager();
         this.usedSettings = this.procSettings = new StorageData();
+        this.Load();
 
 		// 例外
 		this.UpdateDataInfo((IO_RESULT)999);
