@@ -48,4 +48,12 @@ public class Boar : Enemy
         Debug.Log("death: Rhino");
         throw new System.NotImplementedException();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (attacking && collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Character>().GetStatus().Damage(status.Str, AttackAttribute.normal);
+        }
+    }
 }

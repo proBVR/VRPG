@@ -6,6 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public Item[] itemList;
+    public Skill[] skillList;
+    public Magic[] magicList;
+    public EnemyData[] enemyDataList;
+
     private List<Player> players = new List<Player>();
     private short lives = 0;
 
@@ -18,6 +23,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        itemList = (Resources.Load("DataList/ItemList") as ItemList).list;
+        skillList = (Resources.Load("DataList/SkillList") as SkillList).list;
+        magicList = (Resources.Load("DataList/MagicList") as MagicList).list;
+        enemyDataList = (Resources.Load("DataList/EnemyDataList") as EnemyDataList).list;
     }
 
     // Update is called once per frame
@@ -67,5 +76,12 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("index error: " + index);
         return null;
+    }
+
+    private void StartGameScene()
+    {
+        for (int i = 0; i < magicList.Length; i++)
+            magicList[i].RegisterNode(i);
+        Player.instance.RegisterActions(itemList, skillList, magicList);
     }
 }

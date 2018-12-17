@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb126252da37ce44088e40e9725dd252, type: 3}
+  m_Name: EnemyDataList
+  m_EditorClassIdentifier: 
+  list:
+  - name: Rhino
+    hp: 500
+    mp: 0
+    str: 100
+    vit: 20
+    weak: 4
+  - name: Zombie
+    hp: 1000
+    mp: 50
+    str: 200
+    vit: 10
+    weak: 2
+  - name: CanonTower
+    hp: 2000
+    mp: 1000
+    str: 250
+    vit: 10
+    weak: 3
+  - name: Dragon
+    hp: 5000
+    mp: 200
+    str: 500
+    vit: 100
+    weak: 1

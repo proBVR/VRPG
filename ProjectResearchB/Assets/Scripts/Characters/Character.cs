@@ -6,9 +6,9 @@ public abstract class Character : MonoBehaviour
 { 
     protected CharacterStatus status;
 
-    public void Init(int hp, int mp, int str, int vit, int speed, AttackAttribute weak)
+    public void Init(CharacterStatus status)
     {
-        status = new CharacterStatus(Death, hp, mp, str, vit, speed, weak);
+        this.status = status;
     }
 
     public CharacterStatus GetStatus()

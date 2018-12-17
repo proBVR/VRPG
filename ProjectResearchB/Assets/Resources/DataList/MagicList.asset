@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6302d38dcae14499529901560bc90a, type: 3}
+  m_Name: MagicList
+  m_EditorClassIdentifier: 
+  list:
+  - name: "\u30D5\u30A1\u30A4\u30A2"
+    rank: 0
+    model: 0
+    power: 0
+    attribute: 2
+  - name: "\u30A6\u30A9\u30FC\u30BF\u30FC"
+    rank: 0
+    model: 0
+    power: 0
+    attribute: 3
+  - name: "\u30A8\u30A2\u30ED"
+    rank: 0
+    model: 0
+    power: 0
+    attribute: 4
+  - name: "\u30B9\u30C8\u30C3\u30D7"
+    rank: 0
+    model: 0
+    power: 0
+    attribute: 1

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CharacterStatus
 {
+    public readonly string name;
     private int hp, maxHp, mp, maxMp, str, vit, speed;
     private readonly Action death;
     public AttackAttribute weak;
@@ -22,7 +23,7 @@ public class CharacterStatus
 
     public int Hp
     {
-        get { return hp; }
+        get; private set;
     }
 
     public int MaxMp
@@ -77,16 +78,15 @@ public class CharacterStatus
         }
     }
 
-    public CharacterStatus(Action death, int hp, int mp, int str, int vit, int speed, AttackAttribute weak)
+    public CharacterStatus(string name, int hp, int mp, int str, int vit, AttackAttribute weak)
     {
-        this.death = death;
+        this.name = name;
         maxHp = hp;
         maxMp = mp;
         this.hp = hp;
         this.mp = mp;
         this.str = str;
         this.vit = vit;
-        this.speed = speed;
         this.weak = weak;
     }
 

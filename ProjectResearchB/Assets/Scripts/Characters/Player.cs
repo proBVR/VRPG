@@ -60,7 +60,8 @@ public class Player : Character
         udpDirection.UDPStart();
         move = false;
         moveAngle = 0;
-        Init(1000, 100, 100, 50, 10, AttackAttribute.normal);//仮のステータス
+        var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
+        Init(temp);//仮のステータス
         //transform.localScale *= 1.2f;
     }
 
@@ -149,7 +150,7 @@ public class Player : Character
         return callNames;
     }
 
-    public void RegisterActions(List<Item> items, List<Skill> skills, List<Magic> magics)
+    public void RegisterActions(Item[] items, Skill[] skills, Magic[] magics)
     {
         var temp = new List<IActionable>();
         var names = new List<string>();
@@ -174,7 +175,7 @@ public class Player : Character
         }
 
         actionList = temp.ToArray();
-        vr.SetRecognition(names.ToArray(), items.Count+skills.Count);
+        vr.SetRecognition(names.ToArray(), items.Length+skills.Length);
         Debug.Log("register");
     }
 

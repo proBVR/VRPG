@@ -3,22 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Skill : IActionable
 {
+    private enum Position
+    {
+        LeftUp, MiddleUp, RightUp,
+        LeftMiddle, MiddleMiddle, RightMiddle,
+        LeftDown, MiddleDown, RightDown
+    }
+
     public static readonly Vector2[] points =
         { new Vector2(-0.5f,  2.5f), new Vector2( 0.15f,  2.5f), new Vector2( 0.8f,  2.5f),
           new Vector2(-0.5f,  1.5f), new Vector2( 0.15f,  1.5f), new Vector2( 0.8f,  1.5f),
           new Vector2(-0.5f,  0.5f), new Vector2( 0.15f,  0.5f), new Vector2( 0.8f,  0.5f) };
 
-    protected string callName;
-    protected readonly int modelNum, power;
-    protected Arm arm;    
+    [SerializeField]
+    private string name;
+    [SerializeField]
+    private int modelNum, power;
+    private Arm arm;    
 
     private int count;
     private readonly int limit = 100, time = 10;
     private readonly float mergin = 0.15f;
-    public int state;
-    public int[] moveList;
+    private int state;
+    [SerializeField]
+    private Position[] moveList;
 
     /*
     move: 1-9
@@ -27,22 +38,22 @@ public class Skill : IActionable
       7 8 9
     */
 
-    //moveは動かす順番の逆順、0を含んではならない
-    public Skill(string callName, int modelNum, int power, int move)
-    {
-        arm = Player.instance.GetArm(true);
-        this.callName = callName;
-        this.modelNum = modelNum;
-        this.power = power;
+    ////moveは動かす順番の逆順、0を含んではならない
+    //public Skill(string callName, int modelNum, int power, int move)
+    //{
+    //    arm = Player.instance.GetArm(true);
+    //    this.name = callName;
+    //    this.modelNum = modelNum;
+    //    this.power = power;
 
-        List<int> temp = new List<int>();
-        while(move != 0)
-        {
-            temp.Add(move % 10 - 1);
-            move /= 10;
-        }
-        moveList = temp.ToArray();
-    }
+    //    List<int> temp = new List<int>();
+    //    while(move != 0)
+    //    {
+    //        temp.Add(move % 10 - 1);
+    //        move /= 10;
+    //    }
+    //    moveList = temp.ToArray();
+    //}
 
     public void Use()
     {
@@ -59,12 +70,12 @@ public class Skill : IActionable
 
     public string GetName()
     {
-        return callName;
+        return name;
     }
 
     private void PreMove()
     {
-        if (InArea(moveList[state]))
+        if (InArea((int)moveList[state]))
         {           
             state++;
             Debug.Log("state: " + state);
