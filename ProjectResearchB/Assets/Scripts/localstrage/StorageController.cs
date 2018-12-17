@@ -5,12 +5,13 @@ using Storage;
 
 
 public class StorageController : MonoBehaviour {
-	public const string INFO_FORMAT =	"バージョン\t\t{0}\n" + 
-										"暗号化\t\t\t{1}\n" +
-										"形式\t\t\t{2}\n" +
-										"バックアップ\t{3}\n" +
-										"保存時刻\t\t{4}\n" +
-										"保存回数\t\t{5}";
+    public const string INFO_FORMAT = "バージョン\t\t{0}\n" +
+                                        "暗号化\t\t\t{1}\n" +
+                                        "形式\t\t\t{2}\n" +
+                                        "バックアップ\t{3}\n" +
+                                        "保存時刻\t\t{4}\n" +
+                                        "保存回数\t\t{5}\n" +
+                                        "status: HP:{6}/{7} MP:{8}/{9}";
 
 
 	private enum STATE {
@@ -39,7 +40,6 @@ public class StorageController : MonoBehaviour {
 		this.ioHandler = new FinishHandler(this.IOHandler);
 		this.storageManager = new StorageManager();
         this.usedSettings = this.procSettings = new StorageData();
-        this.Load();
 
 		// 例外
 		this.UpdateDataInfo((IO_RESULT)999);
@@ -126,10 +126,10 @@ public class StorageController : MonoBehaviour {
 	private void UpdateDataInfo(IO_RESULT result) {
 		StorageData us = this.usedSettings = this.procSettings;
 		if (us.count > 0) {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, us.encrypt, us.format, us.backup, System.DateTime.FromBinary(us.date).ToString(), us.count));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, us.encrypt, us.format, us.backup, System.DateTime.FromBinary(us.date).ToString(), us.count, us.now_hp, us.max_hp, us.now_mp, us.max_mp));
             Debug.Log("filepath: " + Application.persistentDataPath + us.fileName);
 		} else {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "--", "--", "--", "-/-/---- --:--:--", "--"));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "--", "--", "--", "-/-/---- --:--:--", "--", "-", "-", "-", "-"));
             Debug.Log("filepath: " + "----");
 		}
 		this.state = STATE.IDLE;
@@ -166,8 +166,13 @@ public class StorageController : MonoBehaviour {
 		System.DateTime date = System.DateTime.Now;
 		us.date = date.ToBinary();
 		us.count += 1;
-		// 保存（※FinishHandlerはnullでも可）
-		bool async = true;
+        us.max_hp = Player.instance.GetStatus().MaxHp;
+        us.now_hp = Player.instance.GetStatus().Hp;
+        us.max_mp = Player.instance.GetStatus().MaxMp;
+        us.now_mp = Player.instance.GetStatus().Mp;
+
+        // 保存（※FinishHandlerはnullでも可）
+        bool async = true;
 		if (async) {
 			this.accessMessage = "Now Saving";
 		}

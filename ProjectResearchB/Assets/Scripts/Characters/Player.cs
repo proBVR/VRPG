@@ -19,7 +19,6 @@ public class Player : Character
     private IActionable[] actionList;
     private List<string>[] callNames = new List<string>[3];
 
-    public StorageController storagecont;
     public UserCamera userCamera;
     public UDPReceiver updReceiver;
     public UDPMove udpMove;
@@ -92,11 +91,6 @@ public class Player : Character
         else if (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand))
         {
             vr.StopRecognition();
-        }
-
-        if(Input.GetKey(KeyCode.Space)){
-            storagecont.Save();
-            Debug.Log("save!");
         }
     }
 
