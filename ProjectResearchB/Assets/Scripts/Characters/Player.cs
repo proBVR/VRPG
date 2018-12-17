@@ -18,6 +18,7 @@ public class Player : Character
     private IActionable[] actionList;
     private List<string>[] callNames = new List<string>[3];
 
+    public StorageController storagecont;
     public UserCamera userCamera;
     public UDPReceiver updReceiver;
     public UDPMove udpMove;
@@ -75,6 +76,11 @@ public class Player : Character
         {
             menuFlag = !menuFlag;
             Menu.SetActive(menuFlag);
+        }
+
+        if(Input.GetKey(KeyCode.Space)){
+            storagecont.Save();
+            Debug.Log("save!");
         }
     }
 
