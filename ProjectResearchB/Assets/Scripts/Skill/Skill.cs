@@ -30,6 +30,7 @@ public class Skill : IActionable
     private int state;
     [SerializeField]
     private Position[] moveList;
+    private SkillObject entity;
 
     /*
     move: 1-9
@@ -59,13 +60,14 @@ public class Skill : IActionable
     {
         state = 0;
         arm.BeginSkill(PreMove);
+        entity = GameManager.instance.GenSkill(modelNum);
+        entity.Init(AttackAttribute.normal, power, time);
     }
 
     protected void Activate()
     {
         arm.FinSkill();
-        var prefab = GameManager.instance.GenSkill(modelNum);
-        prefab.Init(AttackAttribute.normal, power, time);
+        
     }
 
     public string GetName()
