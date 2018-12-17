@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     //enemyの初期化用データ(from excel)
 
     private List<Enemy> enemies = new List<Enemy>();
-    private int max=20, interval=30, same = 5;
+    private int max=1, interval=30, same = 5;
     private float counter, sponeRange=25;
     private bool existPlayer = true;
 
@@ -40,6 +40,7 @@ public class EnemyManager : MonoBehaviour
         var pos = new Vector3(x, 2, y);
         var rot = Quaternion.Euler(0, deg, 0);
         var temp = Instantiate(models[index], pos+transform.position, rot, this.transform);
+        temp.Init(GameManager.instance.enemyDataList[0].GenStatus());
         enemies.Add(temp);
     }
 
@@ -50,11 +51,19 @@ public class EnemyManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") existPlayer = true;
+        if (other.tag == "Player")
+        {
+            Debug.Log("player in");
+            existPlayer = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player") existPlayer = false;
+        if (other.tag == "Player")
+        {
+            Debug.Log("player out");
+            existPlayer = false;
+        }
     }
 }

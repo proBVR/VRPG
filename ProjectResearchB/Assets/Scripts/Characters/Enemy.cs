@@ -45,17 +45,19 @@ public abstract class Enemy : Character
             {
                 counter = interval;
                 cooling = false;
+                Debug.Log("cool end");
             }
         }
 
-        
-        switch (state)
+        Debug.Log("state: "+state);
+        if (state < 2)
         {
-            case 0|1:
-                mvCounter -= Time.deltaTime;
-                if (mvCounter > 0) break;
+            mvCounter -= Time.deltaTime;
+            if (mvCounter < 0)
+            {
                 mvCounter = mvInterval;
                 var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
+                //Debug.Log("distance: " + distance);
                 if (!cooling && distance < attackRange) state = 2;
                 else if (state == 1)
                 {
@@ -67,14 +69,19 @@ public abstract class Enemy : Character
                     Idle();
                     if (attackRange < distance && distance < searchRange) state = 1;
                 }
-                break;
-            case 2:
-                Action(actNum);
-                if (atkFin) state = 0;
-                break;
-            default:
-                break;
-        } 
+            }
+        }
+        else
+        {
+            Action(actNum);
+            if (atkFin)
+            {
+                state = 0;
+                cooling = true;
+                atkFin = false;
+                //counter = 2.5f;
+            }
+        }     
     }
 
     protected abstract void Idle();

@@ -1192,11 +1192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445db80c81316954ca2d8aa4617c0d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 0
-  searchRange: 0
-  attackRange: 0
-  running: 0
-  animator: {fileID: 95162237882745376}
+  interval: 2
+  searchRange: 12
+  attackRange: 8
 --- !u!136 &136885552286536308
 CapsuleCollider:
   m_ObjectHideFlags: 1
