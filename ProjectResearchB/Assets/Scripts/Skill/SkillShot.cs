@@ -26,4 +26,9 @@ public class SkillShot : SkillObject
     {
         return Player.instance.transform.rotation;        
     }
+
+    public override void Activate()
+    {
+        rb.velocity = speed * Player.instance.transform.forward;
+    }
 }

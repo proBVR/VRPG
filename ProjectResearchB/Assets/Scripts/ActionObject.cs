@@ -7,11 +7,13 @@ public abstract class ActionObject : MonoBehaviour
     public abstract Vector3 GetPos();
     public abstract Quaternion GetRot();
 
-    private int power, range = 1;
+    protected int power, range = 1;
+    protected Rigidbody rb;
     AttackAttribute attribute;
 
     public void Init(AttackAttribute attribute, int power, int limit)
     {
+        rb = GetComponent<Rigidbody>();
         this.attribute = attribute;
         this.power = power;
         SetMove();
