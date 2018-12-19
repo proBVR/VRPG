@@ -13,11 +13,14 @@ public class Player : Character
     public Inventory inventory = new Inventory();
     public bool acting = false;
 
+    public static readonly int kindOfAction = 3;
     private bool modeFlag = false, menuFlag=false;
     private Animator animator;
     private Rigidbody rb;
-    private IActionable[] actionList;
-    private List<string>[] callNames = new List<string>[3];
+    //private IActionable[] actionList;
+    //private List<string>[] callNames = new List<string>[3];
+
+    private List<IActionable>[] actionList_2;
 
     public UserCamera userCamera;
     public UDPReceiver updReceiver;
@@ -47,6 +50,7 @@ public class Player : Character
         instance = this;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        actionList_2 = new List<IActionable>[kindOfAction];
         Menu.SetActive(false);
         ArmR.SetActive(false);
         ArmL.SetActive(false);
@@ -131,8 +135,38 @@ public class Player : Character
     protected override void Action(int index)
     {
         if (acting) return;
-        acting = true;
-        actionList[index].Use();
+
+        for(int i = 0; i < actionList_2.Length; i++)
+        {
+            if (actionList_2[i].Count <= index) index -= actionList_2[i].Count;
+            else
+            {
+                var action = actionList_2[i][index];
+                switch (i)
+                {
+                    case 0:
+                        if (inventory.IsInclude(action.GetName()))
+                        {
+                            inventory.DecInventory(action.GetName());
+                            action.Use();
+                            acting = true;
+                        }
+                        else Debug.Log("you dont have this item");
+                        break;
+                    case 1:
+                    case 2:
+                        var cost = action.GetCost();
+                        if (status.UseMp(cost))
+                        {
+                            action.Use();
+                            acting = true;
+                        }
+                        else Debug.Log("mp shotage");
+                        break;
+                }
+                break;
+            }
+        }
     }
 
     protected override void Death()
@@ -147,35 +181,21 @@ public class Player : Character
 
     public List<string>[] GetNames()
     {
-        return callNames;
+        var actionNames = new List<string>[kindOfAction];
+        for(int i=0;i<kindOfAction;i++)
+        {
+            foreach(IActionable action in actionList_2[i])
+            {
+                actionNames[i].Add(action.GetName());
+            }
+        }
+        return actionNames;
     }
 
-    public void RegisterActions(Item[] items, Skill[] skills, Magic[] magics)
+    public void RegisterActions(List<IActionable>[] actionList)
     {
-        var temp = new List<IActionable>();
-        var names = new List<string>();
-
-        for (int i = 0; i < 3; i++) callNames[i] = new List<string>();
-        foreach (Item t in items)
-        {
-            temp.Add(t);
-            callNames[0].Add(t.GetName());
-            names.Add(t.GetName());
-        }
-        foreach (Skill t in skills)
-        {
-            temp.Add(t);
-            callNames[1].Add(t.GetName());
-            names.Add(t.GetName());
-        }
-        foreach (Magic t in magics)
-        {
-            temp.Add(t);
-            callNames[2].Add(t.GetName());
-        }
-
-        actionList = temp.ToArray();
-        vr.SetRecognition(names.ToArray(), items.Length+skills.Length);
+        this.actionList_2 = actionList;
+        vr.SetRecognition(actionList);
         Debug.Log("register");
     }
 

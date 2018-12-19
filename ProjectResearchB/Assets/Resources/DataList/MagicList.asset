@@ -15,20 +15,28 @@ MonoBehaviour:
   - name: "\u30D5\u30A1\u30A4\u30A2"
     rank: 0
     model: 0
-    power: 0
+    range: 0
+    power: 100
+    cost: 5
     attribute: 2
   - name: "\u30A6\u30A9\u30FC\u30BF\u30FC"
     rank: 0
     model: 0
-    power: 0
+    range: 0
+    power: 100
+    cost: 5
     attribute: 3
   - name: "\u30A8\u30A2\u30ED"
     rank: 0
     model: 0
-    power: 0
+    range: 0
+    power: 100
+    cost: 5
     attribute: 4
   - name: "\u30B9\u30C8\u30C3\u30D7"
     rank: 0
     model: 0
-    power: 0
+    range: 0
+    power: 100
+    cost: 5
     attribute: 1

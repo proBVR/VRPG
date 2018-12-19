@@ -16,7 +16,7 @@ public class CharacterStatus
         set
         {
             maxHp += value;
-            if (maxHp < 0) maxHp = 0;
+            if (maxHp < 1) maxHp = 1;
             if (maxHp < hp) hp = maxHp;
         }
     }
@@ -33,7 +33,7 @@ public class CharacterStatus
         {
             maxMp += value;
             if (maxMp < 0) maxMp = 0;
-            if (maxMp < mp) hp = maxMp;
+            if (maxMp < mp) mp = maxMp;
         }
     }
 
@@ -42,9 +42,9 @@ public class CharacterStatus
         get { return mp; }
         set
         {
-            mp += value;
             if (mp < 0) mp = 0;
             else if (mp > maxMp) mp = maxMp;
+            else mp = value;
         }
     }
 
@@ -53,8 +53,8 @@ public class CharacterStatus
         get { return str; }
         set
         {
-            str += value;
             if (str < 0) str = 0;
+            else str = value;
         }
     }
 
@@ -63,8 +63,8 @@ public class CharacterStatus
         get { return vit; }
         set
         {
-            vit += value;
             if (vit < 0) vit = 0;
+            else vit = value;
         }
     }
 
@@ -73,8 +73,8 @@ public class CharacterStatus
         get { return speed; }
         set
         {
-            speed += value;
             if (speed < 0) speed = 0;
+            else speed = value;
         }
     }
 
@@ -119,6 +119,13 @@ public class CharacterStatus
                 death();
             }
         }
+    }
+
+    public bool UseMp(int value)
+    {
+        if (value > mp) return false;
+        mp -= value;
+        return true;
     }
 
     public override string ToString()

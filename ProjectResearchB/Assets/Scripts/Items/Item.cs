@@ -35,4 +35,9 @@ public class Item : IActionable
     {
         return name;
     }
+
+    public int GetCost()
+    {
+        return -1;
+    }
 }

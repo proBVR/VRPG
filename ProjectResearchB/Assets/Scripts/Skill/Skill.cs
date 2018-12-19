@@ -21,7 +21,7 @@ public class Skill : IActionable
     [SerializeField]
     private string name;
     [SerializeField]
-    private int modelNum, power;
+    private int modelNum, power, cost;
     private Arm arm;    
 
     private int count;
@@ -64,12 +64,6 @@ public class Skill : IActionable
         entity.Init(AttackAttribute.normal, power, time);
     }
 
-    protected void Activate()
-    {
-        arm.FinSkill();
-        
-    }
-
     public string GetName()
     {
         return name;
@@ -78,16 +72,24 @@ public class Skill : IActionable
     private void PreMove()
     {
         if (InArea((int)moveList[state]))
-        {           
+        {
             state++;
             Debug.Log("state: " + state);
-            if (state == moveList.Length) Activate();
+            if (state == moveList.Length)
+            {
+                entity.Activate();
+                arm.FinSkill();
+            }
             else if (state == 1) count = limit;
         }
         else if (count > 0)
         {
             count--;
-            if (count == 0) state = 0;
+            if (count == 0)
+            {
+                state = 0;
+                entity.Reset();
+            }
         }
     }
 
@@ -98,5 +100,10 @@ public class Skill : IActionable
         //Debug.Log("pos: "+pos.x+", "+pos.y);
         if (Mathf.Abs(point.x - pos.x) < mergin && Mathf.Abs(point.y - pos.y) < mergin) return true;
         else return false;
+    }
+
+    public int GetCost()
+    {
+        return cost;
     }
 }

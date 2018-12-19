@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class ActionObject : MonoBehaviour
 {
-    public abstract Vector3 GetPos();
-    public abstract Quaternion GetRot();
 
     protected int power, range = 1;
     protected Rigidbody rb;
@@ -16,11 +14,11 @@ public abstract class ActionObject : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         this.attribute = attribute;
         this.power = power;
-        SetMove();
+        //SetMove();
         Destroy(this, limit);
     }
 
-    protected abstract void SetMove();
+    public abstract void Activate();
 
     private void OnTriggerEnter(Collider other)
     {

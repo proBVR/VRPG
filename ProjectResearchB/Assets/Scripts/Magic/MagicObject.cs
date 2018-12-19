@@ -4,5 +4,8 @@ using UnityEngine;
 
 public abstract class MagicObject : ActionObject
 {
-    
+    protected void Start()
+    {
+        Activate();
+    }
 }

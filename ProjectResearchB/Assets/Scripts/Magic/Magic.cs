@@ -18,7 +18,7 @@ public class Magic : IActionable
     [SerializeField]
     private Range range;
     [SerializeField]
-    private int power;
+    private int power, cost;
     private int time = 10;
     [SerializeField]
     protected AttackAttribute attribute;
@@ -50,5 +50,10 @@ public class Magic : IActionable
                 break;
         }
         Node.AddNode(temp.ToArray(), id);
+    }
+
+    public int GetCost()
+    {
+        return cost;
     }
 }
