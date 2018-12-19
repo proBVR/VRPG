@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         skillList = (Resources.Load("DataList/SkillList") as SkillList).list;
         magicList = (Resources.Load("DataList/MagicList") as MagicList).list;
         enemyDataList = (Resources.Load("DataList/EnemyDataList") as EnemyDataList).list;
+        StartGameScene();
     }
 
     // Update is called once per frame
@@ -75,12 +76,16 @@ public class GameManager : MonoBehaviour
     private void StartGameScene()
     {
         var useAction = new List<IActionable>[Player.kindOfAction];
+        useAction[0] = new List<IActionable>();
+        useAction[1] = new List<IActionable>();
+        useAction[2] = new List<IActionable>();
+
         foreach (IActionable action in itemList)
             useAction[0].Add(action);
         foreach (IActionable action in skillList)
-            useAction[0].Add(action);
+            useAction[1].Add(action);
         foreach (IActionable action in magicList)
-            useAction[0].Add(action);
+            useAction[2].Add(action);
 
         for (int i = 0; i < magicList.Length; i++)
             magicList[i].RegisterNode(i);
