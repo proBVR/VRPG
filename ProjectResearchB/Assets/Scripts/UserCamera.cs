@@ -19,7 +19,7 @@ public class UserCamera : MonoBehaviour // カメラを制御
 
     private void Update()
     {
-        var temp = mycamera.position - Player.instance.transform.position;//vector: from player to mycamera
+        var temp = mycamera.position - mycamera.forward * 0.075f - Player.instance.transform.position;//vector: from player to mycamera
         temp.y = 0;
         Player.instance.transform.position += temp;
         transform.position -= temp;
@@ -27,8 +27,9 @@ public class UserCamera : MonoBehaviour // カメラを制御
 
     public void Reset()
     {
-        transform.position += transform.parent.position - mycamera.position + head +transform.parent.forward * 0.05f;
+        //transform.position += transform.parent.position - mycamera.position + head +transform.parent.forward * 0.05f;
         var length = Vector3.Distance(leftHand.position, rightHand.position);
         transform.localScale *= lengthHandToHand / length;
+        Debug.Log("length: "+length);
     }
 }

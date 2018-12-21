@@ -6,12 +6,13 @@ public class ItemPanel : Menu
 {
     private List<string> contents = new List<string>();
     //private int pageMax;
-    private readonly int contentsPerPage = 6;
+    private readonly int contentsPerPage = 2;
     private int page = 0;
     private string itemName;
 
     protected override void SetData()
     {
+        lineSize = contentsPerPage;
         contents.Clear();
         //pageMax = 0;
         var list = Player.instance.inventory.GetContents();
@@ -31,7 +32,8 @@ public class ItemPanel : Menu
         }
         if (count > 0) contents.Add(temp);
 
-        text.text = contents[0];
+        if (contents.Count != 0) text.text = contents[0];
+        else text.text = "";
     }
 
     protected override void ChangeValue(int dir)
@@ -50,22 +52,26 @@ public class ItemPanel : Menu
 
     protected override void Decide(int index)
     {
+        if (text.text == "") return;
         int i=0;
         string item = "";
         bool flag = false;
         foreach (char c in contents[page])
         {
+            Debug.Log(c);
             if (c == '\n') i++;
             if (!flag && i == index) flag = true;
             else if (flag && c == '\t') break;
-            else if (flag) item += c;            
+            if (flag && c!='\n') item += c;            
         }
         itemName = item;
-        manager.Confirm("Use "+itemName, UseItem);
+        manager.Confirm("Use item?\n", UseItem);
     }
 
     private void UseItem()
     {
+        Debug.Log("use item from Menu: "+itemName);
         Player.instance.inventory.UseItem(itemName);
+        SetData();
     }
 }

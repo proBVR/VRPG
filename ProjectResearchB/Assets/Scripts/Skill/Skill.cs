@@ -60,6 +60,7 @@ public class Skill : IActionable
     //SlillもとりあえずPCのみで
     public void Use(Character user)
     {
+        Debug.Log("use skill: " + name);
         state = 0;
         arm.BeginSkill(PreMove);
         entity = GameManager.instance.GenSkill(modelNum);

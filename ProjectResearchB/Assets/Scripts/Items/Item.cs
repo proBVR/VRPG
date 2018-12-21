@@ -26,6 +26,7 @@ public class Item : IActionable
     {
         if (Player.instance.inventory.IsInclude(name))
         {
+            Debug.Log("use item: " + name);
             Player.instance.inventory.DecInventory(name);
             ItemMethods.uses[(int)method](value);
         }
