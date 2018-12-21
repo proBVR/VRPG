@@ -42,4 +42,13 @@ public class Inventory
         }
         return temp;
     }
+
+    public void UseItem(string itemName)
+    {
+        if (!IsInclude(itemName)) return;
+        DecInventory(itemName);
+        foreach (Item item in GameManager.instance.itemList)
+            if (item.GetName() == itemName)
+            { item.Use(Player.instance); break; }
+    }
 }

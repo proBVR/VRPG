@@ -148,7 +148,7 @@ public class Player : Character
                         if (inventory.IsInclude(action.GetName()))
                         {
                             inventory.DecInventory(action.GetName());
-                            action.Use();
+                            action.Use(this);
                             acting = true;
                         }
                         else Debug.Log("you dont have this item");
@@ -158,7 +158,7 @@ public class Player : Character
                         var cost = action.GetCost();
                         if (status.UseMp(cost))
                         {
-                            action.Use();
+                            action.Use(this);
                             acting = true;
                         }
                         else Debug.Log("mp shotage");

@@ -4,16 +4,17 @@ using UnityEngine;
 
 public abstract class ActionObject : MonoBehaviour
 {
-
     protected int power, range = 1;
     protected Rigidbody rb;
     AttackAttribute attribute;
+    protected Character user;
 
-    public void Init(AttackAttribute attribute, int power, int limit)
+    public void Init(AttackAttribute attribute, int power, int limit, Character user)
     {
         rb = GetComponent<Rigidbody>();
         this.attribute = attribute;
         this.power = power;
+        this.user = user;
         //SetMove();
         Destroy(this, limit);
     }

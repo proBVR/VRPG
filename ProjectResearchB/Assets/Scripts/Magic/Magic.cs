@@ -23,10 +23,10 @@ public class Magic : IActionable
     [SerializeField]
     protected AttackAttribute attribute;
 
-    public void Use()
+    public void Use(Character user)
     {
         var prefab = GameManager.instance.GenMagic((int)model);
-        prefab.Init(attribute, power, time);
+        prefab.Init(attribute, power, time, user);
     }
 
     public  string GetName()

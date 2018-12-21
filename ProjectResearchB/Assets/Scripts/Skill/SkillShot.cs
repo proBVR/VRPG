@@ -14,8 +14,8 @@ public class SkillShot : SkillObject
 
     public override void Activate()
     {
-        var dir = Player.instance.transform.forward;
-        transform.position = Player.instance.transform.position + dir + new Vector3(0, 1, 0);
+        var dir = user.transform.forward;
+        transform.position = user.transform.position + dir + new Vector3(0, 1, 0);
         transform.forward = dir;
         rb.velocity = speed * dir;
     }

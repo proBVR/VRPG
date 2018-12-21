@@ -8,9 +8,11 @@ public class MagicBall : MagicObject
 
     public override void Activate()
     {
-        var arm = Player.instance.GetArm(true).transform;
-        transform.position = arm.position + arm.forward;
-        transform.rotation = arm.rotation;
+        transform.position = user.transform.position + user.transform.forward;
+        var temp = user.transform.forward;
+        temp.y = 0;
+        transform.forward = temp;
+
         rb.velocity = transform.forward * speed;
     }
 }

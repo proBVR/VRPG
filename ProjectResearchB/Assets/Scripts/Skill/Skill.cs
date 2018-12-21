@@ -56,12 +56,14 @@ public class Skill : IActionable
     //    moveList = temp.ToArray();
     //}
 
-    public void Use()
+
+    //SlillもとりあえずPCのみで
+    public void Use(Character user)
     {
         state = 0;
         arm.BeginSkill(PreMove);
         entity = GameManager.instance.GenSkill(modelNum);
-        entity.Init(AttackAttribute.normal, power, time);
+        entity.Init(AttackAttribute.normal, power, time, user);
     }
 
     public string GetName()
