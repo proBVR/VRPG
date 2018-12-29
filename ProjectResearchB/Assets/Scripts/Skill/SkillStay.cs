@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//はやぶさギリ用のスクリプト
 public class SkillStay : SkillObject
 {
     private List<Enemy> hits;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         transform.parent = Player.instance.GetArm(true).transform;
         transform.localPosition = Vector3.zero;
         transform.localEulerAngles = Vector3.zero;
@@ -21,7 +23,7 @@ public class SkillStay : SkillObject
             enemy.GetStatus().Damage(power, AttackAttribute.normal);
             enemy.GetStatus().Damage(power, AttackAttribute.normal);
         }
-        GameObject.Destroy(this);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

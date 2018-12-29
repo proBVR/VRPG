@@ -9,18 +9,17 @@ using Valve.VR;
 public class Player : Character
 {
     public static Player instance;
+    public static readonly int kindOfAction = 3;
 
     public Inventory inventory = new Inventory();
-    public bool acting = false;
+    public bool acting = false;   
 
-    public static readonly int kindOfAction = 3;
     private bool modeFlag = false, menuFlag=false;
     private Animator animator;
     private Rigidbody rb;
-    //private IActionable[] actionList;
-    //private List<string>[] callNames = new List<string>[3];
-
-    private List<IActionable>[] actionList_2;
+    private List<IActionable>[] actionList;
+    private int exp, nextExp;
+    private float expRate = 2;
 
     public UserCamera userCamera;
     public UDPReceiver updReceiver;
@@ -50,7 +49,7 @@ public class Player : Character
         instance = this;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        actionList_2 = new List<IActionable>[kindOfAction];
+        actionList = new List<IActionable>[kindOfAction];
         Menu.SetActive(false);
         ArmR.SetActive(false);
         ArmL.SetActive(false);
@@ -67,6 +66,7 @@ public class Player : Character
         var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
         Init(temp);//仮のステータス
         //transform.localScale *= 1.2f;
+        luRate = 1.1f;
     }
 
     private void Update()
@@ -136,12 +136,12 @@ public class Player : Character
     {
         if (acting) return;
 
-        for(int i = 0; i < actionList_2.Length; i++)
+        for(int i = 0; i < actionList.Length; i++)
         {
-            if (actionList_2[i].Count <= index) index -= actionList_2[i].Count;
+            if (actionList[i].Count <= index) index -= actionList[i].Count;
             else
             {
-                var action = actionList_2[i][index];
+                var action = actionList[i][index];
                 switch (i)
                 {
                     case 0:
@@ -184,7 +184,7 @@ public class Player : Character
         var actionNames = new List<string>[kindOfAction];
         for(int i=0;i<kindOfAction;i++)
         {
-            foreach(IActionable action in actionList_2[i])
+            foreach(IActionable action in actionList[i])
             {
                 actionNames[i].Add(action.GetName());
             }
@@ -194,7 +194,7 @@ public class Player : Character
 
     public void RegisterActions(List<IActionable>[] actionList)
     {
-        this.actionList_2 = actionList;
+        this.actionList = actionList;
         vr.SetRecognition(actionList);
         Debug.Log("register");
     }
@@ -203,6 +203,22 @@ public class Player : Character
     {
         if (right) return ArmR.GetComponent<Arm>();
         return ArmL.GetComponent<Arm>();
+    }
+
+    public List<IActionable> GetAction(int index)
+    {
+        return actionList[index];
+    }
+
+    public void AddExp(int add)
+    {
+        exp += add;
+        if(exp >= nextExp)
+        {
+            level++;
+            status.LevelUp(luRate);
+            nextExp = (int)(nextExp * expRate);
+        }
     }
 
     //加速度に応じて移動フラグ変更

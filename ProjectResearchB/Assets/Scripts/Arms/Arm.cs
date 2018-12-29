@@ -12,6 +12,7 @@ public abstract class Arm : MonoBehaviour
     protected Vector3 startPosition, startAngle; 
     protected int counter = 0;
     protected Action preMove = null;
+    private Skill[] skills = new Skill[2];
     //protected Action activate = null;
 
     protected void Start()

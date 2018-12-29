@@ -22,7 +22,9 @@ public class Skill : IActionable
     private string name;
     [SerializeField]
     private int modelNum, power, cost;
-    private Arm arm;    
+    //[SerializeField]
+    private bool hand = true;
+    private Arm arm;
 
     private int count;
     private readonly int limit = 100, time = 10;
@@ -39,29 +41,12 @@ public class Skill : IActionable
       7 8 9
     */
 
-    ////moveは動かす順番の逆順、0を含んではならない
-    //public Skill(string callName, int modelNum, int power, int move)
-    //{
-    //    arm = Player.instance.GetArm(true);
-    //    this.name = callName;
-    //    this.modelNum = modelNum;
-    //    this.power = power;
-
-    //    List<int> temp = new List<int>();
-    //    while(move != 0)
-    //    {
-    //        temp.Add(move % 10 - 1);
-    //        move /= 10;
-    //    }
-    //    moveList = temp.ToArray();
-    //}
-
-
     //SlillもとりあえずPCのみで
     public void Use(Character user)
     {
         Debug.Log("use skill: " + name);
         state = 0;
+        arm = Player.instance.GetArm(hand);
         arm.BeginSkill(PreMove);
         entity = GameManager.instance.GenSkill(modelNum);
         entity.Init(AttackAttribute.normal, power, time, user);

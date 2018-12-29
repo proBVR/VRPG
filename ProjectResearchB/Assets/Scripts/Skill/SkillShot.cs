@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//まじんケン用のスクリプト
 public class SkillShot : SkillObject
 {
    // private Vector3 dir;

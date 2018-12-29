@@ -5,6 +5,9 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 { 
     protected CharacterStatus status;
+    //protected string name;
+    protected int level;
+    protected float luRate;
 
     public void Init(CharacterStatus status)
     {

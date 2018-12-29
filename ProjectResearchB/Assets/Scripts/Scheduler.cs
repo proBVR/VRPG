@@ -16,7 +16,7 @@ public class Scheduler : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		if(list.Count > 0 && list[0].time > Time.time)
+		if(list.Count > 0 && list[0].time < Time.time)
         {
             list[0].action();
             list.RemoveAt(0);
