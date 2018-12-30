@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private MagicObject[] magics;
     [SerializeField]
     private SkillObject[] skills;
+    [SerializeField]
+    private Enemy[] enemies;
 
     // Use this for initialization
     void Start()
@@ -70,6 +72,14 @@ public class GameManager : MonoBehaviour
             return Instantiate(skills[index]);
         }
         Debug.Log("index error: " + index);
+        return null;
+    }
+
+    public Enemy GenEnemy(int index, Vector3 pos, Quaternion rot,Transform manager)
+    {
+        if (enemies.Length > index && index >= 0)
+            return Instantiate(enemies[index], pos, rot, manager);
+        Debug.Log("index error");
         return null;
     }
 

@@ -8,7 +8,7 @@ public class MagicBall : MagicObject
 
     public override void Activate()
     {
-        transform.position = user.transform.position + user.transform.forward;
+        transform.position = user.transform.position + user.transform.forward + Vector3.up;
         var temp = user.transform.forward;
         temp.y = 0;
         transform.forward = temp;

@@ -12,6 +12,7 @@ public abstract class Arm : MonoBehaviour
     protected Vector3 startPosition, startAngle; 
     protected int counter = 0;
     protected Action preMove = null;
+    protected bool cooling = false;
     private Skill[] skills = new Skill[2];
     //protected Action activate = null;
 
@@ -23,9 +24,9 @@ public abstract class Arm : MonoBehaviour
 
     protected void Update()
     {
-        var pos = transform.position - Player.instance.transform.position;
+        //var pos = transform.position - Player.instance.transform.position;
         //Debug.Log("pos: " + pos.x.ToString("F1") + ", " + pos.y.ToString("F1"));
-        if (counter > 0) counter--;
+        //if (counter > 0) counter--;
         if(preMove != null) preMove();
     }
 
@@ -39,11 +40,17 @@ public abstract class Arm : MonoBehaviour
         preMove = null;
     }
 
+    protected void FinCooling()
+    {
+        cooling = false;
+    }
+
     protected void OnTriggerEnter(Collider other)
     {
-        if(counter == 0 && other.gameObject.tag == "Enemy")
+        if(!cooling && other.gameObject.tag == "Enemy")
         {
-            counter = interval;
+            cooling = true;
+            Scheduler.instance.AddEvent(interval, FinCooling);
             other.GetComponent<Enemy>().GetStatus().Damage(attack, AttackAttribute.normal);
             //Debug.Log("hit: te, left: " + other.GetComponent<Enemy>().GetHp());
         }

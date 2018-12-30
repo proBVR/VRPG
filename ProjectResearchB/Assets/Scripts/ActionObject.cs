@@ -21,13 +21,13 @@ public abstract class ActionObject : MonoBehaviour
 
     public abstract void Activate();
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "Enemy")
+    //    {
+    //        other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
+    //    }
+    //}
 
     protected void OnDestroy()
     {

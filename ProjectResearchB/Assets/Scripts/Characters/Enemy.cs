@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public abstract class Enemy : Character
 {
@@ -14,6 +16,12 @@ public abstract class Enemy : Character
     protected int state, actNum = 0;
     protected Animator animator;
     protected Rigidbody rb;
+    [SerializeField]
+    protected Transform ui;
+    [SerializeField]
+    protected TextMeshProUGUI namePlate;
+    [SerializeField]
+    protected Slider hpBar;
 
     /*
      state
@@ -37,6 +45,11 @@ public abstract class Enemy : Character
     void Update()
     {
         if (!manager.ExistPlayer()) return;
+
+        ui.LookAt(Player.instance.transform);
+        var dir = ui.eulerAngles.y;
+        ui.eulerAngles = new Vector3(0, dir, 0);
+        hpBar.value = status.Hp / status.MaxHp;
 
         if (cooling)
         {
@@ -82,6 +95,11 @@ public abstract class Enemy : Character
                 //counter = 2.5f;
             }
         }     
+    }
+
+    protected void SetUI()
+    {
+        namePlate.text = status.name + "  Lv." + level;
     }
 
     protected abstract void Idle();

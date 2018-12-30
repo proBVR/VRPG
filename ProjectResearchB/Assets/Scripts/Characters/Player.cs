@@ -64,7 +64,7 @@ public class Player : Character
         move = false;
         moveAngle = 0;
         var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
-        Init(temp);//仮のステータス
+        Init(temp, 1);//仮のステータス
         //transform.localScale *= 1.2f;
         luRate = 1.1f;
     }
@@ -212,6 +212,7 @@ public class Player : Character
 
     public void AddExp(int add)
     {
+        if (level >= maxLevel) return;
         exp += add;
         if(exp >= nextExp)
         {

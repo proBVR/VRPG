@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField]
-    private Enemy[] models;
+    private enum EnemyIdx
+    {
+        Boar,
+        Zombie,
+        CanonTower,
+        Dragon
+    }
+
+    //[SerializeField]
+    //private Enemy[] models;
     //enemyの初期化用データ(from excel)
+
+    [SerializeField]
+    private EnemyIdx[] sponeList;
 
     private List<Enemy> enemies = new List<Enemy>();
     private int max=1, interval=30, same = 5;
@@ -27,7 +38,8 @@ public class EnemyManager : MonoBehaviour
             counter = 0;
             for (int i = 0; i < same && enemies.Count < max; i++)
             {
-                Spone(0);
+                var index = Random.Range(0, sponeList.Length);
+                Spone(index);
             }
         }
 	}
@@ -39,8 +51,8 @@ public class EnemyManager : MonoBehaviour
         var deg = Random.Range(0, 360);
         var pos = new Vector3(x, 2, y);
         var rot = Quaternion.Euler(0, deg, 0);
-        var temp = Instantiate(models[index], pos+transform.position, rot, this.transform);
-        temp.Init(GameManager.instance.enemyDataList[0].GenStatus());
+        var temp = GameManager.instance.GenEnemy(index, pos+transform.position, rot, transform);
+        temp.Init(GameManager.instance.enemyDataList[index].GenStatus(), 1);
         enemies.Add(temp);
     }
 
