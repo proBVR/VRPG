@@ -78,4 +78,9 @@ public class EnemyManager : MonoBehaviour
             existPlayer = false;
         }
     }
+
+    public void DecEnemy(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+    }
 }

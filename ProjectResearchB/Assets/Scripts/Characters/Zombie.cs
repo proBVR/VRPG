@@ -2,15 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour {
+public class Zombie : Enemy
+{
+    private float mvSpeed = 2;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    protected override void Move()
+    {
+        transform.LookAt(Player.instance.transform.position);
+        transform.forward -= new Vector3(0, transform.forward.y, 0);
+        rb.velocity = transform.forward * mvSpeed;
+        animator.SetBool("running", true);
+    }
+
+    protected override void Action(int index)
+    {
+        
+    }
+
+    protected override void Idle()
+    {
+        animator.SetBool("running", false);
+        rb.velocity = Vector3.zero;
+    }
+
+    protected override void Death()
+    {
+        base.Death();
+    }
 }

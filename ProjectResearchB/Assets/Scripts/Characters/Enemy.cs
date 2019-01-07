@@ -22,6 +22,8 @@ public abstract class Enemy : Character
     protected TextMeshProUGUI namePlate;
     [SerializeField]
     protected Slider hpBar;
+    [SerializeField]
+    protected int dropExp, dropItem;
 
     /*
      state
@@ -42,7 +44,7 @@ public abstract class Enemy : Character
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if (!manager.ExistPlayer()) return;
 
@@ -103,4 +105,10 @@ public abstract class Enemy : Character
     }
 
     protected abstract void Idle();
+
+    protected override void Death()
+    {
+        Player.instance.AddExp(dropExp);
+        Player.instance.inventory.AddInventory(GameManager.instance.itemList[dropItem].GetName());
+    }
 }
