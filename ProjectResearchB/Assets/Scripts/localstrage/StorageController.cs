@@ -6,12 +6,9 @@ using Storage;
 
 public class StorageController : MonoBehaviour {
     public const string INFO_FORMAT = "バージョン\t\t{0}\n" +
-                                        "暗号化\t\t\t{1}\n" +
-                                        "形式\t\t\t{2}\n" +
-                                        "バックアップ\t{3}\n" +
-                                        "保存時刻\t\t{4}\n" +
-                                        "保存回数\t\t{5}\n" +
-                                        "status: HP:{6}/{7} MP:{8}/{9}";
+                                        "保存時刻\t\t{1}\n" +
+                                        "保存回数\t\t{2}\n" +
+                                        "status: HP:{3}/{4} MP:{5}/{6}";
 
 
 	private enum STATE {
@@ -126,10 +123,10 @@ public class StorageController : MonoBehaviour {
 	private void UpdateDataInfo(IO_RESULT result) {
 		StorageData us = this.usedSettings = this.procSettings;
 		if (us.count > 0) {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, us.encrypt, us.format, us.backup, System.DateTime.FromBinary(us.date).ToString(), us.count, us.now_hp, us.max_hp, us.now_mp, us.max_mp));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, System.DateTime.FromBinary(us.date).ToString(), us.count, us.now_hp, us.max_hp, us.now_mp, us.max_mp));
             Debug.Log("filepath: " + Application.persistentDataPath + us.fileName);
 		} else {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "--", "--", "--", "-/-/---- --:--:--", "--", "-", "-", "-", "-"));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "-/-/---- --:--:--", "--", "-", "-", "-", "-"));
             Debug.Log("filepath: " + "----");
 		}
 		this.state = STATE.IDLE;
