@@ -7,11 +7,6 @@ public class AtkObject : MonoBehaviour
     private int power;
     private AttackAttribute attribute;
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void AtKBegin(int power, AttackAttribute attribute, float start, float end)
     {
         this.power = power;

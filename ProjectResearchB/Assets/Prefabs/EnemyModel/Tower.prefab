@@ -120,9 +120,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4399138745601664}
+  - component: {fileID: 114829182695258646}
   - component: {fileID: 136682661440608804}
   - component: {fileID: 54306331189318732}
-  - component: {fileID: 114098490811186502}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Enemy
@@ -518,7 +518,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114098490811186502
+--- !u!114 &114829182695258646
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -529,6 +529,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22655fddc83de743a295431521b9682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interval: 0
+  searchRange: 0
+  attackRange: 0
+  mvSpeed: 0
+  dropExp: 0
+  dropItem: 0
+  magics: 
 --- !u!136 &136682661440608804
 CapsuleCollider:
   m_ObjectHideFlags: 1

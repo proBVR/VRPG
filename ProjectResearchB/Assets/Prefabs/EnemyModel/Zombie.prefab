@@ -310,6 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4273750208683304}
   - component: {fileID: 95097644138408566}
+  - component: {fileID: 114060437427938978}
   - component: {fileID: 136181165017625464}
   - component: {fileID: 54102985250722738}
   m_Layer: 0
@@ -1253,6 +1254,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114060437427938978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462653498958982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a3eb0775dd2be4d9740599eca66cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interval: 0
+  searchRange: 0
+  attackRange: 0
+  mvSpeed: 0
+  dropExp: 0
+  dropItem: 0
+  atkObject: {fileID: 0}
 --- !u!136 &136181165017625464
 CapsuleCollider:
   m_ObjectHideFlags: 1

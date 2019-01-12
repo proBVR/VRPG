@@ -1,46 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public abstract class Enemy : Character
 {
-    protected float counter, mvInterval=1, mvCounter;
     [SerializeField]
-    protected float interval;
-    [SerializeField]
-    protected float searchRange, attackRange;
-    protected bool atkFin = false, cooling = false;
+    protected float interval, searchRange, attackRange, mvSpeed;
+    protected bool cooling = false, attacking=false;
     protected EnemyManager manager;
-    protected int state, actNum = 0;
+    protected int actNum = 0;
     protected Animator animator;
     protected Rigidbody rb;
-    [SerializeField]
-    protected Transform ui;
-    [SerializeField]
-    protected TextMeshProUGUI namePlate;
-    [SerializeField]
-    protected Slider hpBar;
+
     [SerializeField]
     protected int dropExp, dropItem;
 
-    /*
-     state
-     0:idle
-     1:move
-     2:attack         
-    */
+    private UI headUI;
 
     // Use this for initialization
     protected void Start()
     {
-        counter = interval;
-        mvCounter = mvInterval;
-        state = 0;
         manager = transform.parent.GetComponent<EnemyManager>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        headUI = new UI(this);
     }
 
     // Update is called once per frame
@@ -48,60 +33,34 @@ public abstract class Enemy : Character
     {
         if (!manager.ExistPlayer()) return;
 
-        ui.LookAt(Player.instance.transform);
-        var dir = ui.eulerAngles.y;
-        ui.eulerAngles = new Vector3(0, dir, 0);
-        hpBar.value = status.Hp / status.MaxHp;
+        headUI.UpdateUI();
 
-        if (cooling)
+        if (attacking) return;
+        //cooling = true;
+        var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
+
+        if (distance < attackRange)
         {
-            counter -= Time.deltaTime;
-            if (counter < 0)
+            if (!cooling)
             {
-                counter = interval;
-                cooling = false;
-                Debug.Log("cool end");
+                Action(actNum);
+                attacking = true;
             }
         }
-
-        Debug.Log("state: "+state);
-        if (state < 2)
-        {
-            mvCounter -= Time.deltaTime;
-            if (mvCounter < 0)
-            {
-                mvCounter = mvInterval;
-                var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
-                //Debug.Log("distance: " + distance);
-                if (!cooling && distance < attackRange) state = 2;
-                else if (state == 1)
-                {
-                    Move();
-                    if (distance > searchRange || attackRange > distance) state = 0;
-                }
-                else
-                {
-                    Idle();
-                    if (attackRange < distance && distance < searchRange) state = 1;
-                }
-            }
-        }
-        else
-        {
-            Action(actNum);
-            if (atkFin)
-            {
-                state = 0;
-                cooling = true;
-                atkFin = false;
-                //counter = 2.5f;
-            }
-        }     
+        if (distance > searchRange) Idle();
+        else Move();
     }
 
-    protected void SetUI()
+    protected void FinAtk()
     {
-        namePlate.text = status.name + "  Lv." + level;
+        attacking = false;
+        cooling = true;
+        Scheduler.instance.AddEvent(interval, FinCool);
+    }
+
+    private void FinCool()
+    {
+        cooling = false;
     }
 
     protected abstract void Idle();
@@ -110,5 +69,35 @@ public abstract class Enemy : Character
     {
         Player.instance.AddExp(dropExp);
         Player.instance.inventory.AddInventory(GameManager.instance.itemList[dropItem].GetName());
+    }
+
+    private class UI
+    {
+        private Transform ui;
+        private Enemy enemy;
+        private Slider hpBar;
+
+        public UI(Enemy enemy)
+        {
+            this.enemy = enemy;
+            foreach(Transform child in enemy.transform)
+                if(child.GetComponent<Canvas>() != null)
+                    ui = child;
+            foreach(Transform child in ui)
+            {
+                if (child.GetComponent<TextMeshProUGUI>() != null)
+                    child.GetComponent<TextMeshProUGUI>().text = enemy.status.name + " Lv." + enemy.level;
+                if (child.GetComponent<Slider>() != null)
+                    hpBar = child.GetComponent<Slider>();
+            }
+        }
+
+        public void UpdateUI()
+        {
+            var dir = Player.instance.transform.position - ui.position;
+            dir.y = 0;
+            ui.forward = dir;
+            hpBar.value = enemy.status.Hp / enemy.status.MaxHp;
+        }
     }
 }

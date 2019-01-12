@@ -3,30 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Boar : Enemy
-{    
-    private bool attacking = false;
+{
+    //private bool attacking = false;
     //[SerializeField]
     private float time = 5;
-    private float attackCounter, atkSpeed = 8, mvSpeed=4;
+    private float attackCounter, atkSpeed = 8;
 
     protected override void Action(int index)
     {
-        if (!attacking)
-        {
-            attacking = true;
-            transform.LookAt(Player.instance.transform.position);
-            transform.forward -= new Vector3(0, transform.forward.y, 0);
-            rb.velocity = transform.forward * atkSpeed;
-            //attackCounter = time;
-            Scheduler.instance.AddEvent(time, FinAtk);
-            animator.SetBool("running", true);
-        }
+        attacking = true;
+        transform.LookAt(Player.instance.transform.position);
+        transform.forward -= new Vector3(0, transform.forward.y, 0);
+        rb.velocity = transform.forward * atkSpeed;
+        //attackCounter = time;
+        Scheduler.instance.AddEvent(time, FinAtk2);
+        animator.SetBool("running", true);
     }
 
-    public void FinAtk()
+    public void FinAtk2()
     {
-        atkFin = true;
-        attacking = false;
+        if (!attacking) return;
+        FinAtk();
         animator.SetBool("running", false);
     }
 
@@ -51,7 +48,7 @@ public class Boar : Enemy
         {
             Debug.Log("attack");
             collision.gameObject.GetComponent<Player>().GetStatus().Damage(status.Str, AttackAttribute.normal);
-            state = 0;
+            FinAtk2();
             attacking = false;
             Idle();
         }

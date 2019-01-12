@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanonTower : Enemy
 {
-    private bool attacking;
+    //private bool attacking;
     [SerializeField]
     private int[] magics;
 
@@ -16,16 +16,11 @@ public class CanonTower : Enemy
 
     protected override void Action(int index)
     {
-        if (attacking) return;
+        //if (attacking) return;
         attacking = true;
         Scheduler.instance.AddEvent(3, FinAtk);
         GameManager.instance.magicList[index].Use(this);
         actNum = (actNum + 1) % 3;
-    }
-
-    private void FinAtk()
-    {
-        attacking = false;
     }
 
     protected override void Idle() { }

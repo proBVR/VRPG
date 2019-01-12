@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Zombie : Enemy
 {
-    private float mvSpeed = 2;
-    private bool attacking = false;
+    //private float mvSpeed = 2;
+    //private bool attacking = false;
     [SerializeField]
     private AtkObject atkObject;
 
@@ -19,15 +19,10 @@ public class Zombie : Enemy
 
     protected override void Action(int index)
     {
-        if (attacking) return;
+        //if (attacking) return;
         attacking = true;
         Scheduler.instance.AddEvent(2, FinAtk);
         atkObject.AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
-    }
-
-    private void FinAtk()
-    {
-        attacking = false;
     }
 
     protected override void Idle()

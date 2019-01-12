@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
     public Magic[] magicList;
     public EnemyData[] enemyDataList;
 
-    //private List<Player> players = new List<Player>();
-    //private short lives = 0;
-
     [SerializeField]
     private MagicObject[] magics;
     [SerializeField]
@@ -31,24 +28,6 @@ public class GameManager : MonoBehaviour
         enemyDataList = (Resources.Load("DataList/EnemyDataList") as EnemyDataList).list;
         StartGameScene();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    //public void AddPlayer(Player player)
-    //{
-    //    players.Add(player);
-    //    lives++;
-    //}
-
-    //public void DecLives()
-    //{
-    //    lives--;
-    //    if (lives == 0) GameOver();
-    //}
 
     public void GameOver()
     {

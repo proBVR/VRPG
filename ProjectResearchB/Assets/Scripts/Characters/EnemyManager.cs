@@ -25,7 +25,8 @@ public class EnemyManager : MonoBehaviour
     private bool existPlayer = true;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         counter = interval;
 	}
 	

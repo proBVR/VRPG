@@ -1511,9 +1511,9 @@ MonoBehaviour:
   interval: 2
   searchRange: 12
   attackRange: 8
-  ui: {fileID: 0}
-  namePlate: {fileID: 0}
-  hpBar: {fileID: 0}
+  mvSpeed: 4
+  dropExp: 0
+  dropItem: 0
 --- !u!114 &114556683124767142
 MonoBehaviour:
   m_ObjectHideFlags: 1
