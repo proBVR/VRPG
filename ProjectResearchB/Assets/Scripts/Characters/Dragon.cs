@@ -25,20 +25,21 @@ public class Dragon : Enemy
         //if (attacking) return;
         attacking = true;
         Scheduler.instance.AddEvent(3, FinAtk);
+        animator.SetBool("running", false);
         //3 pattern
         switch (index)
         {
             case 0://ひっかき（前方）
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 2);
-                animator.SetInteger("attacking", 1);
+                animator.SetTrigger("scratch");
                 break;
             case 1://ジャンプ（周囲）
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.normal, 1.5f, 2);
-                animator.SetInteger("attacking", 2);
+                animator.SetTrigger("jump");
                 break;
             case 2://火炎放射
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.fire, 1, 2.5f);
-                animator.SetInteger("attacking", 3);
+                animator.SetTrigger("fireBreath");
                 break;
         }
         actNum = (actNum + 1) % 3;
@@ -62,5 +63,11 @@ public class Dragon : Enemy
             rb.velocity = transform.forward * mvSpeed;
             animator.SetBool("running", true);
         }
+    }
+
+    protected override void Death()
+    {
+        base.Death();
+        animator.SetTrigger("die");
     }
 }

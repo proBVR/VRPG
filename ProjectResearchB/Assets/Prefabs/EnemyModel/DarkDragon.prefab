@@ -2301,8 +2301,8 @@ MonoBehaviour:
   dropExp: 100
   dropItem: 3
   atkObjects:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114101459078055920}
+  - {fileID: 114748877586062516}
   - {fileID: 114112606925261012}
 --- !u!136 &136296846773752278
 CapsuleCollider:

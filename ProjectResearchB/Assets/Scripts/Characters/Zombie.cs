@@ -7,7 +7,7 @@ public class Zombie : Enemy
     //private float mvSpeed = 2;
     //private bool attacking = false;
     [SerializeField]
-    private AtkObject atkObject;
+    private AtkObject[] atkObject;
 
     protected override void Move()
     {
@@ -20,9 +20,12 @@ public class Zombie : Enemy
     protected override void Action(int index)
     {
         //if (attacking) return;
+        animator.SetBool("running", false);
+        animator.SetTrigger("attack");
         attacking = true;
         Scheduler.instance.AddEvent(2, FinAtk);
-        atkObject.AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
+        atkObject[0].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
+        atkObject[1].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
     }
 
     protected override void Idle()
@@ -34,5 +37,6 @@ public class Zombie : Enemy
     protected override void Death()
     {
         base.Death();
+        animator.SetTrigger("die");
     }
 }

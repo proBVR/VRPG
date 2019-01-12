@@ -1512,7 +1512,7 @@ MonoBehaviour:
   searchRange: 12
   attackRange: 8
   mvSpeed: 4
-  dropExp: 0
+  dropExp: 5
   dropItem: 0
 --- !u!114 &114556683124767142
 MonoBehaviour:

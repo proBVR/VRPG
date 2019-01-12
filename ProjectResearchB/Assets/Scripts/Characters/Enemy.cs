@@ -67,6 +67,7 @@ public abstract class Enemy : Character
 
     protected override void Death()
     {
+        Debug.Log("Enemy's Death is called.");
         Player.instance.AddExp(dropExp);
         Player.instance.inventory.AddInventory(GameManager.instance.itemList[dropItem].GetName());
     }

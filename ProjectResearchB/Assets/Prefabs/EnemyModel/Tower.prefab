@@ -529,13 +529,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22655fddc83de743a295431521b9682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 0
-  searchRange: 0
-  attackRange: 0
+  interval: 5
+  searchRange: 16
+  attackRange: 8
   mvSpeed: 0
-  dropExp: 0
-  dropItem: 0
-  magics: 
+  dropExp: 20
+  dropItem: 2
+  magics: 000000000100000002000000
 --- !u!136 &136682661440608804
 CapsuleCollider:
   m_ObjectHideFlags: 1
