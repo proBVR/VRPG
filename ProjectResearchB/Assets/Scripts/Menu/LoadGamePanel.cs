@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class LoadGamePanel : Menu
 {
@@ -13,6 +14,7 @@ public class LoadGamePanel : Menu
         {
             case 0://NweGame
                 storage.Load();
+                SceneManager.LoadScene("SettingScene");
                 break;
             default:
                 manager.PanelChange(prePanel, false);
