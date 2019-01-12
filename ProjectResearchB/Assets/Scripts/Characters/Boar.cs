@@ -5,9 +5,9 @@ using UnityEngine;
 public class Boar : Enemy
 {    
     private bool attacking = false;
-    [SerializeField]
-    private float time = 2;
-    private float attackCounter, atkSpeed = 2, mvSpeed=0.5f;
+    //[SerializeField]
+    private float time = 5;
+    private float attackCounter, atkSpeed = 8, mvSpeed=4;
 
     protected override void Action(int index)
     {
@@ -15,45 +15,45 @@ public class Boar : Enemy
         {
             attacking = true;
             transform.LookAt(Player.instance.transform.position);
+            transform.forward -= new Vector3(0, transform.forward.y, 0);
             rb.velocity = transform.forward * atkSpeed;
-            attackCounter = time;
+            //attackCounter = time;
+            Scheduler.instance.AddEvent(time, FinAtk);
             animator.SetBool("running", true);
         }
-        else
-        {
-            attackCounter -= Time.deltaTime;
-            if (attackCounter < 0)
-            {
-                atkFin = true;
-                animator.SetBool("running", false);
-            }
-        }
+    }
+
+    public void FinAtk()
+    {
+        atkFin = true;
+        attacking = false;
+        animator.SetBool("running", false);
     }
 
     protected override void Move()
     {
         transform.LookAt(Player.instance.transform.position);
+        transform.forward -= new Vector3(0, transform.forward.y, 0);
         rb.velocity = transform.forward * mvSpeed;
         animator.SetBool("running", true);
     }
 
     protected override void Idle()
     {
-        animator.SetBool("runing", false);
+        animator.SetBool("running", false);
         rb.velocity = Vector3.zero;
-    }
-
-    protected override void Death()
-    {
-        Debug.Log("death: Rhino");
-        throw new System.NotImplementedException();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Debug.Log("tag: "+collision.gameObject.tag);
         if (attacking && collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Character>().GetStatus().Damage(status.Str, AttackAttribute.normal);
+            Debug.Log("attack");
+            collision.gameObject.GetComponent<Player>().GetStatus().Damage(status.Str, AttackAttribute.normal);
+            state = 0;
+            attacking = false;
+            Idle();
         }
     }
 }

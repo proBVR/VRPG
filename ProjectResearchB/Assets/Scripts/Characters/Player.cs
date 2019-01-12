@@ -9,15 +9,17 @@ using Valve.VR;
 public class Player : Character
 {
     public static Player instance;
+    public static readonly int kindOfAction = 3;
 
     public Inventory inventory = new Inventory();
-    public bool acting = false;
+    public bool acting = false;   
 
     private bool modeFlag = false, menuFlag=false;
     private Animator animator;
     private Rigidbody rb;
-    private IActionable[] actionList;
-    private List<string>[] callNames = new List<string>[3];
+    private List<IActionable>[] actionList;
+    private int exp, nextExp;
+    private float expRate = 2;
 
     public UserCamera userCamera;
     public UDPReceiver updReceiver;
@@ -47,6 +49,7 @@ public class Player : Character
         instance = this;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        actionList = new List<IActionable>[kindOfAction];
         Menu.SetActive(false);
         ArmR.SetActive(false);
         ArmL.SetActive(false);
@@ -61,8 +64,9 @@ public class Player : Character
         move = false;
         moveAngle = 0;
         var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
-        Init(temp);//仮のステータス
+        Init(temp, 1);//仮のステータス
         //transform.localScale *= 1.2f;
+        luRate = 1.1f;
     }
 
     private void Update()
@@ -131,13 +135,43 @@ public class Player : Character
     protected override void Action(int index)
     {
         if (acting) return;
-        acting = true;
-        actionList[index].Use();
+
+        for(int i = 0; i < actionList.Length; i++)
+        {
+            if (actionList[i].Count <= index) index -= actionList[i].Count;
+            else
+            {
+                var action = actionList[i][index];
+                switch (i)
+                {
+                    case 0:
+                        if (inventory.IsInclude(action.GetName()))
+                        {
+                            inventory.DecInventory(action.GetName());
+                            action.Use(this);
+                            acting = true;
+                        }
+                        else Debug.Log("you dont have this item");
+                        break;
+                    case 1:
+                    case 2:
+                        var cost = action.GetCost();
+                        if (status.UseMp(cost))
+                        {
+                            action.Use(this);
+                            acting = true;
+                        }
+                        else Debug.Log("mp shotage");
+                        break;
+                }
+                break;
+            }
+        }
     }
 
     protected override void Death()
     {
-        GameManager.instance.DecLives();
+        GameManager.instance.GameOver();
     }
 
     public void OpeAction(int index)
@@ -147,35 +181,21 @@ public class Player : Character
 
     public List<string>[] GetNames()
     {
-        return callNames;
+        var actionNames = new List<string>[kindOfAction];
+        for(int i=0;i<kindOfAction;i++)
+        {
+            foreach(IActionable action in actionList[i])
+            {
+                actionNames[i].Add(action.GetName());
+            }
+        }
+        return actionNames;
     }
 
-    public void RegisterActions(Item[] items, Skill[] skills, Magic[] magics)
+    public void RegisterActions(List<IActionable>[] actionList)
     {
-        var temp = new List<IActionable>();
-        var names = new List<string>();
-
-        for (int i = 0; i < 3; i++) callNames[i] = new List<string>();
-        foreach (Item t in items)
-        {
-            temp.Add(t);
-            callNames[0].Add(t.GetName());
-            names.Add(t.GetName());
-        }
-        foreach (Skill t in skills)
-        {
-            temp.Add(t);
-            callNames[1].Add(t.GetName());
-            names.Add(t.GetName());
-        }
-        foreach (Magic t in magics)
-        {
-            temp.Add(t);
-            callNames[2].Add(t.GetName());
-        }
-
-        actionList = temp.ToArray();
-        vr.SetRecognition(names.ToArray(), items.Length+skills.Length);
+        this.actionList = actionList;
+        vr.SetRecognition(actionList);
         Debug.Log("register");
     }
 
@@ -183,6 +203,23 @@ public class Player : Character
     {
         if (right) return ArmR.GetComponent<Arm>();
         return ArmL.GetComponent<Arm>();
+    }
+
+    public List<IActionable> GetAction(int index)
+    {
+        return actionList[index];
+    }
+
+    public void AddExp(int add)
+    {
+        if (level >= maxLevel) return;
+        exp += add;
+        if(exp >= nextExp)
+        {
+            level++;
+            status.LevelUp(luRate);
+            nextExp = (int)(nextExp * expRate);
+        }
     }
 
     //加速度に応じて移動フラグ変更

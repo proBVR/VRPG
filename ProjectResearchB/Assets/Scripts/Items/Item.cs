@@ -21,10 +21,12 @@ public class Item : IActionable
     [SerializeField]
     private Method method;
 
-    public void Use()
+    //とりあえずPC以外がアイテムを使うことは想定していない
+    public void Use(Character user)
     {
         if (Player.instance.inventory.IsInclude(name))
         {
+            Debug.Log("use item: " + name);
             Player.instance.inventory.DecInventory(name);
             ItemMethods.uses[(int)method](value);
         }
@@ -34,5 +36,10 @@ public class Item : IActionable
     public string GetName()
     {
         return name;
+    }
+
+    public int GetCost()
+    {
+        return -1;
     }
 }

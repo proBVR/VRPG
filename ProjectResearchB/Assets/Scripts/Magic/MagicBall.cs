@@ -4,28 +4,15 @@ using UnityEngine;
 
 public class MagicBall : MagicObject
 {
-    private Vector3 dir;
-    private float speed = 0.01f;
-    private Rigidbody rb;
-	
-	// Update is called once per frame
-	void Update () {
-        transform.position += dir * speed;
-	}
+    private float speed = 1;
 
-    protected override void SetMove()
+    public override void Activate()
     {
-        dir = Player.instance.GetArm(true).transform.forward;
-    }
+        transform.position = user.transform.position + user.transform.forward + Vector3.up;
+        var temp = user.transform.forward;
+        temp.y = 0;
+        transform.forward = temp;
 
-    public override Vector3 GetPos()
-    {
-        var arm = Player.instance.GetArm(true).transform;
-        return arm.position + arm.forward;
-    }
-
-    public override Quaternion GetRot()
-    {
-        return Player.instance.GetArm(true).transform.rotation;
+        rb.velocity = transform.forward * speed;
     }
 }

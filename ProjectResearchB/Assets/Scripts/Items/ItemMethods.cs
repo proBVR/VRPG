@@ -19,6 +19,7 @@ public static class ItemMethods
 
     private static void FullRecover(int value)
     {
-
+        Player.instance.GetStatus().RecoverHp(Player.instance.GetStatus().MaxHp);
+        Player.instance.GetStatus().Mp = Player.instance.GetStatus().MaxMp;
     }
 }

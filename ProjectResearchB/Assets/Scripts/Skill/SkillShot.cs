@@ -2,33 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//まじんケン用のスクリプト
 public class SkillShot : SkillObject
 {
-    private Vector3 dir;
+   // private Vector3 dir;
     private int speed = 1;
-	
-	// Update is called once per frame
-	void Update () {
-        transform.position += dir * speed;
-	}
 
-    protected override void SetMove()
+    private void Start()
     {
-        dir = Player.instance.transform.eulerAngles;
-    }
-
-    public override Vector3 GetPos()
-    {
-        return Player.instance.transform.position + Player.instance.transform.forward;
-    }
-
-    public override Quaternion GetRot()
-    {
-        return Player.instance.transform.rotation;        
+        gameObject.SetActive(false);
     }
 
     public override void Activate()
     {
-        rb.velocity = speed * Player.instance.transform.forward;
+        var dir = user.transform.forward;
+        transform.position = user.transform.position + dir + Vector3.up;
+        transform.forward = dir;
+        rb.velocity = speed * dir;
     }
+
+    public override void Reset() { }
 }

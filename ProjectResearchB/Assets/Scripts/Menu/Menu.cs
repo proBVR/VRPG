@@ -15,7 +15,7 @@ public abstract class Menu : MonoBehaviour {
     [SerializeField]
     protected RectTransform selecter;
     [SerializeField]
-    private int lineSize;
+    protected int lineSize;
     [SerializeField]
     protected TextMeshPro title, text; 
     [SerializeField]

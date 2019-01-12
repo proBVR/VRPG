@@ -18,15 +18,16 @@ public class Magic : IActionable
     [SerializeField]
     private Range range;
     [SerializeField]
-    private int power;
+    private int power, cost;
     private int time = 10;
     [SerializeField]
     protected AttackAttribute attribute;
 
-    public void Use()
+    public void Use(Character user)
     {
+        Debug.Log("use magic: "+name);
         var prefab = GameManager.instance.GenMagic((int)model);
-        prefab.Init(attribute, power, time);
+        prefab.Init(attribute, power, time, user);
     }
 
     public  string GetName()
@@ -50,5 +51,10 @@ public class Magic : IActionable
                 break;
         }
         Node.AddNode(temp.ToArray(), id);
+    }
+
+    public int GetCost()
+    {
+        return cost;
     }
 }

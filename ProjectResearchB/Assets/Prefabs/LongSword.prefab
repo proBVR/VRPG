@@ -19,9 +19,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4918514999531314}
+  - component: {fileID: 114567899879560668}
+  - component: {fileID: 65365905382428490}
   m_Layer: 0
   m_Name: LongSword
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,14 +64,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1218106011017244}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.035}
+  m_LocalScale: {x: 1.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4204114001577030}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!23 &23848162062528982
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -112,3 +114,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1739187895068318}
   m_Mesh: {fileID: 4300000, guid: 8e893ab320d6f704c8cc9b7916d98fce, type: 3}
+--- !u!65 &65365905382428490
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218106011017244}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.015, y: 1.65, z: 0.12}
+  m_Center: {x: 0, y: -0.88, z: 0}
+--- !u!114 &114567899879560668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218106011017244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfad46aa49129614bb7a5011e1ac0211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 100
+  interval: 100
+  startPosition: {x: 0, y: 0, z: 0}
+  startAngle: {x: 0, y: 0, z: 0}

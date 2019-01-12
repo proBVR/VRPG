@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour
-{ 
+{
+    protected static readonly int maxLevel = 50;
     protected CharacterStatus status;
+    //protected string name;
+    protected int level;
+    protected float luRate;
 
-    public void Init(CharacterStatus status)
+    public void Init(CharacterStatus status, int level)
     {
+        this.level = level;
         this.status = status;
+        for (int i = 0; i < level - 1; i++)
+            status.LevelUp(luRate);
     }
 
     public CharacterStatus GetStatus()
