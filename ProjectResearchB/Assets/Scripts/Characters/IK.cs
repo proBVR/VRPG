@@ -32,16 +32,20 @@ public class IK : MonoBehaviour
 
     public float lookAtWeight = 1.0f;
 
+    private Quaternion plus = new Quaternion(0, 0, 1, 90);
+    private Quaternion minus = new Quaternion(0, 0, 1, -90);
+
+
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
-        ikActive = false;
+        //ikActive = false;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Change")) ikActive = !ikActive;
+        //if (Input.GetButtonDown("Change")) ikActive = !ikActive;
     }
 
     void OnAnimatorIK(int layerIndex)
@@ -85,13 +89,13 @@ public class IK : MonoBehaviour
                 if (leftHandObj != null)
                 {
                     animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandObj.position);
-                    animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandObj.rotation);
+                    animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandObj.rotation*plus);
                 }
 
                 if (rightHandObj != null)
                 {
                     animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
-                    animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
+                    animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation*minus);
                 }
 
                 if (lookAtObj != null)

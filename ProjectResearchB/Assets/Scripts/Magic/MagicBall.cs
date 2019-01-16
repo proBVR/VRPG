@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBall : MagicObject {
+public class MagicBall : MagicObject
+{
     private Vector3 dir;
-    private float speed = 1;
+    private float speed = 0.01f;
 	
 	// Update is called once per frame
 	void Update () {

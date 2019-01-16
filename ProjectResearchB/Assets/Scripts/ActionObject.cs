@@ -10,11 +10,12 @@ public abstract class ActionObject : MonoBehaviour
     private int power, range = 1;
     AttackAttribute attribute;
 
-    public void Init(AttackAttribute attribute, int power)
+    public void Init(AttackAttribute attribute, int power, int limit)
     {
         this.attribute = attribute;
         this.power = power;
         SetMove();
+        Destroy(this, limit);
     }
 
     protected abstract void SetMove();
@@ -23,13 +24,12 @@ public abstract class ActionObject : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().GetStatus().Damage(power);
+            other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
         }
     }
 
-    protected void Extinction()
+    protected void OnDestroy()
     {
         Player.instance.acting = false;
-        Destroy(this);
     }
 }
