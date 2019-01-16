@@ -36,7 +36,7 @@ public class EnemyManager : MonoBehaviour
             for (int i = 0; i < same && enemies.Count < max; i++)
             {
                 var index = Random.Range(0, sponeList.Length);
-                Spone(index);
+                Spone((int)sponeList[index]);
             }
         }
 	}
@@ -48,6 +48,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Spone(int index)
     {
+        Debug.Log("index: "+index);
         var x = Random.Range(-sponeRange, sponeRange);
         var y = Random.Range(-sponeRange, sponeRange);
         var deg = Random.Range(0, 360);

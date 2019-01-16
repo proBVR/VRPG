@@ -31,14 +31,17 @@ public class Dragon : Enemy
         {
             case 0://ひっかき（前方）
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 2);
+                //animator.SetBool("running", false);
                 animator.SetTrigger("scratch");
                 break;
             case 1://ジャンプ（周囲）
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.normal, 1.5f, 2);
+                //animator.SetBool("running", false);
                 animator.SetTrigger("jump");
                 break;
             case 2://火炎放射
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.fire, 1, 2.5f);
+                //animator.SetBool("running", false);
                 animator.SetTrigger("fireBreath");
                 break;
         }

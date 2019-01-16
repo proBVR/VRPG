@@ -122,7 +122,7 @@ public class CharacterStatus
             if (Hp <= 0)
             {
                 Hp = 0;
-                death();
+                //death();
             }
         }
     }
