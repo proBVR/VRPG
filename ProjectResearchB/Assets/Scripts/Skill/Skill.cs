@@ -31,7 +31,7 @@ public class Skill : IActionable
     {
         arm.FinSkill();
         var prefab = MyGameManager.instance.GenSkill(modelNum);
-        prefab.Init();
+        //prefab.Init();
     }
 
     public string GetName()
