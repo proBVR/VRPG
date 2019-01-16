@@ -12,7 +12,7 @@ public class VoiceRecognition : MonoBehaviour
     private KeywordRecognizer keyRecognizer;
     private readonly string[] category = {"アイテム", "スキル", "マジック"};
     private readonly string[] magic = { "ワン", "ツー", "スリー", "フォー", "ファイブ", "シックス"};
-    private string[] names;
+    //private string[] names;
     private string[] keyword;
 
     private int state = 0, pivot=5;
@@ -44,6 +44,7 @@ public class VoiceRecognition : MonoBehaviour
                 else if (index == 2)
                 {
                     state = 2;
+                    p = Node.root;
                     keyRecognizer.Stop();
                     recognizers[1].Start();
                 }
@@ -73,7 +74,7 @@ public class VoiceRecognition : MonoBehaviour
         if (!keyRecognizer.IsRunning) keyRecognizer.Start();
         state = 0;
         Debug.Log("start recognition");
-        p = Node.root;
+        //p = Node.root;
     }
 
     public void StopRecognition()
@@ -82,13 +83,17 @@ public class VoiceRecognition : MonoBehaviour
         Debug.Log("stop recognition");
     }
 
-    public void SetRecognition(string[] names, int pivot)
+    public void SetRecognition(List<IActionable>[] actionList)
     {
-        this.pivot = pivot;
-        this.names = names;
-        keyword = new string[category.Length + names.Length];
+        pivot = actionList[0].Count + actionList[1].Count;
+
+        var temp = new List<string>();
+        for (int i = 0; i < 2; i++)
+            foreach (IActionable action in actionList[i])
+                temp.Add(action.GetName());
+        keyword = new string[category.Length + temp.Count];
         category.CopyTo(keyword, 0);
-        names.CopyTo(keyword, category.Length);
+        temp.CopyTo(keyword, category.Length);
 
         keyRecognizer = new KeywordRecognizer(keyword);
         keyRecognizer.OnPhraseRecognized += OnPhraseRecognized;

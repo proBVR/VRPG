@@ -1,39 +1,105 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Enemy : Character
 {
-    protected int counter;
     [SerializeField]
-    protected int interval;
-    [SerializeField]
-    protected float searchRange, attackRange;
-    protected bool attacking;
+    protected float interval, searchRange, attackRange, mvSpeed;
+    protected bool cooling = false, attacking=false;
     protected EnemyManager manager;
+    protected int actNum = 0;
+    protected Animator animator;
+    protected Rigidbody rb;
+
+    [SerializeField]
+    protected int dropExp, dropItem;
+
+    private UI headUI;
 
     // Use this for initialization
     protected void Start()
     {
-        counter = interval;
+        IsPlayer = false;
+        manager = transform.parent.GetComponent<EnemyManager>();
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        headUI = new UI(this);
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        Move();
-        return;
         if (!manager.ExistPlayer()) return;
+
+        headUI.UpdateUI();
+
+        if (attacking) return;
+        //cooling = true;
         var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
-        if (distance < attackRange && !attacking)
+
+        if (distance < attackRange)
         {
-            counter--;
-            if (counter == 0)
+            if (!cooling)
             {
-                Action(0);
-                counter = interval;
+                Action(actNum);
+                attacking = true;
             }
         }
-        else if (distance < searchRange) Move();        
+        if (distance > searchRange) Idle();
+        else Move();
+    }
+
+    protected void FinAtk()
+    {
+        attacking = false;
+        cooling = true;
+        Scheduler.instance.AddEvent(interval, FinCool);
+    }
+
+    private void FinCool()
+    {
+        cooling = false;
+    }
+
+    protected abstract void Idle();
+
+    protected override void Death()
+    {
+        Debug.Log("Enemy's Death is called.");
+        Player.instance.AddExp(dropExp);
+        Player.instance.inventory.AddInventory(GameManager.instance.itemList[dropItem].GetName());
+    }
+
+    private class UI
+    {
+        private Transform ui;
+        private Enemy enemy;
+        private Slider hpBar;
+
+        public UI(Enemy enemy)
+        {
+            this.enemy = enemy;
+            foreach(Transform child in enemy.transform)
+                if(child.GetComponent<Canvas>() != null)
+                    ui = child;
+            foreach(Transform child in ui)
+            {
+                if (child.GetComponent<TextMeshProUGUI>() != null)
+                    child.GetComponent<TextMeshProUGUI>().text = enemy.status.name + " Lv." + enemy.level;
+                if (child.GetComponent<Slider>() != null)
+                    hpBar = child.GetComponent<Slider>();
+            }
+        }
+
+        public void UpdateUI()
+        {
+            var dir = Player.instance.transform.position - ui.position;
+            dir.y = 0;
+            ui.forward = dir;
+            hpBar.value = enemy.status.Hp / enemy.status.MaxHp;
+        }
     }
 }

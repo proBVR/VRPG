@@ -5,88 +5,88 @@ using UnityEngine;
 
 public class CharacterStatus
 {
-    private int hp, maxHp, mp, maxMp, str, vit, speed;
+    public readonly string name;
+    private int mp, maxHpBase, maxMpBase, strBase, vitBase;
+    private float maxHpRate = 1, maxMpRate = 1, strRate = 1, vitRate = 1;
     private readonly Action death;
     public AttackAttribute weak;
 
-    public int MaxHp
-    {
-        get { return maxHp; }
-        set
-        {
-            maxHp += value;
-            if (maxHp < 0) maxHp = 0;
-            if (maxHp < hp) hp = maxHp;
-        }
-    }
+    public List<IDamage> guardList = new List<IDamage>();
 
-    public int Hp
-    {
-        get { return hp; }
-    }
-
-    public int MaxMp
-    {
-        get { return maxMp; }
-        set
-        {
-            maxMp += value;
-            if (maxMp < 0) maxMp = 0;
-            if (maxMp < mp) hp = maxMp;
-        }
-    }
+    public int Hp { get; private set; }
 
     public int Mp
     {
         get { return mp; }
         set
         {
-            mp += value;
             if (mp < 0) mp = 0;
-            else if (mp > maxMp) mp = maxMp;
+            else if (mp > MaxMp) mp = MaxMp;
+            else mp = value;
         }
     }
+
+    public int MaxHp
+    { get { return (int)(maxHpRate * maxHpBase); } }
+
+    public int MaxMp
+    { get { return (int)(maxMpRate * maxMpBase); } }
 
     public int Str
-    {
-        get { return str; }
-        set
-        {
-            str += value;
-            if (str < 0) str = 0;
-        }
-    }
+    { get { return (int)(strRate * strBase); } }
 
     public int Vit
+    { get { return (int)(vitRate * vitBase); } }
+
+    public float MaxHpRate
     {
-        get { return vit; }
+        get { return maxHpRate; }
         set
         {
-            vit += value;
-            if (vit < 0) vit = 0;
+            if (value < 0) maxHpRate = 0;
+            else maxHpRate = value;
         }
     }
 
-    public int Speed
+    public float MaxMpRate
     {
-        get { return speed; }
+        get { return maxMpRate; }
         set
         {
-            speed += value;
-            if (speed < 0) speed = 0;
+            if (value < 0) maxMpRate = 0;
+            else maxMpRate = value;
         }
     }
 
-    public CharacterStatus(Action death, int hp, int mp, int str, int vit, int speed, AttackAttribute weak)
+    public float StrRate
     {
-        this.death = death;
-        maxHp = hp;
-        maxMp = mp;
-        this.hp = hp;
-        this.mp = mp;
-        this.str = str;
-        this.vit = vit;
-        this.speed = speed;
+        get { return strRate; }
+        set
+        {
+            if (value < 0) strRate = 0;
+            else strRate = value;
+        }
+    }
+
+    public float VitRate
+    {
+        get { return vitRate; }
+        set
+        {
+            if (value < 0) vitRate = 0;
+            else vitRate = value;
+        }
+    }
+
+    public CharacterStatus(string name, int hp, int mp, int str, int vit, AttackAttribute weak)
+    {
+        this.name = name;
+        maxHpBase = hp;
+        maxMpBase = mp;
+        this.Hp = hp;
+        this.Mp = mp;
+        this.strBase = str;
+        this.vitBase = vit;
         this.weak = weak;
     }
 
@@ -97,32 +97,53 @@ public class CharacterStatus
             Debug.Log("error: recover-> " + value);
             return;
         }
-        hp += value;
-        if (hp > maxHp) hp = maxHp;
+        Hp += value;
+        if (Hp > maxHpBase) Hp = maxHpBase;
     }
 
-    public void Damage(int value, AttackAttribute attribute)
+    public void Damage(IDamage damager)
     {
+        //ガードチェック
+        foreach (IDamage temp in guardList)
+            if (temp == damager)
+            { Debug.Log("guard: success"); return; }
+
+        var value = damager.GetPower();
         if (value < 0)
         {
             Debug.Log("error: damage-> " + value);
             return;
         }
         //damage caluclate
-        if (attribute == weak) value *= 2;
-        if (vit < value)
+        if (damager.GetAttribute() == weak) value *= 2;
+        if (vitBase < value)
         {
-            hp -= value - vit;
-            if (hp <= 0)
+            Hp -= value - vitBase;
+            if (Hp <= 0)
             {
-                hp = 0;
+                Hp = 0;
                 death();
             }
         }
     }
 
+    public bool UseMp(int value)
+    {
+        if (value > mp) return false;
+        mp -= value;
+        return true;
+    }
+
     public override string ToString()
     {
-        return "HP: "+hp+"/"+maxHp+"\nMP: "+"mp"+"/"+maxMp+"\nSTR: "+str+"\nVIT: "+vit+"\nSPEED: "+speed;
+        return "HP: " + Hp + "/" + MaxHp + "\nMP: " + "mp" + "/" + MaxMp + "\nSTR: " + Str + "\nVIT: " + Vit + "\nWEAK: " + weak.ToString();
+    }
+
+    public void LevelUp(float rate)
+    {
+        maxHpBase = (int)(maxHpBase * rate);
+        maxMpBase = (int)(maxMpBase * rate);
+        strBase = (int)(strBase * rate);
+        vitBase = (int)(vitBase * rate);
     }
 }

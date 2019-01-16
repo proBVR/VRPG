@@ -13,23 +13,23 @@ public class DataLoader : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-        items.Add(new Item("ポーション", 1, 200, ItemMethods.uses[0]));
-        items.Add(new Item("エリクサー", 2, 100, ItemMethods.uses[1]));
+        //items.Add(new Item("ポーション", 1, 200, ItemMethods.uses[0]));
+        //items.Add(new Item("エリクサー", 2, 100, ItemMethods.uses[1]));
 
-        skills.Add(new Skill("はやぶさギリ", 0, 200, 64));
-        skills.Add(new Skill("まじんケン", 1, 500, 82));
+        //skills.Add(new Skill("はやぶさギリ", 0, 200, 64));
+        //skills.Add(new Skill("まじんケン", 1, 500, 82));
 
-        magics.Add(new Magic("メラ", 0, AttackAttribute.fire, 0, 1));
-        magics.Add(new Magic("メラゾーマ", 2, AttackAttribute.fire, 0, 3));
-        magics.Add(new Magic("メラゾーマはんい", 2, AttackAttribute.fire, 1, 2));
+        //magics.Add(new Magic("メラ", 0, AttackAttribute.fire, 0, 1));
+        //magics.Add(new Magic("メラゾーマ", 2, AttackAttribute.fire, 0, 3));
+        //magics.Add(new Magic("メラゾーマはんい", 2, AttackAttribute.fire, 1, 2));
 
-        int[] temp1 = { 0, 0};
-        Node.AddNode(temp1, 0);
-        int[] temp2 = { 2, 0, 0, 3};
-        Node.AddNode(temp2, 1);
-        int[] temp3 = { 2, 0, 1, 2};
-        Node.AddNode(temp3, 2);
+        //int[] temp1 = { 0, 0};
+        //Node.AddNode(temp1, 0);
+        //int[] temp2 = { 2, 0, 0, 3};
+        //Node.AddNode(temp2, 1);
+        //int[] temp3 = { 2, 0, 1, 2};
+        //Node.AddNode(temp3, 2);
 
-        Player.instance.RegisterActions(items, skills, magics);
+        //Player.instance.RegisterActions(items, skills, magics);
     }
 }

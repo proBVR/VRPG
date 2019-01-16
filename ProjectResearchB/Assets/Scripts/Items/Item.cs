@@ -3,32 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Item : IActionable
 {
-    public readonly string callName;
-    public readonly int id, value;
-    private Action<int> use;
-
-    public Item(string callName, int id, int value, Action<int> use)
+    private enum Method
     {
-        this.use = use;
-        this.callName = callName;
-        this.id = id;
-        this.value = value;
+        HpRecover,
+        MpRecover,
+        FullRecover
     }
 
-    public void Use()
+
+    [SerializeField]
+    private string name;
+    [SerializeField]
+    private int value;
+    [SerializeField]
+    private Method method;
+
+    //とりあえずPC以外がアイテムを使うことは想定していない
+    public void Use(Character user)
     {
-        if (Player.instance.inventory.IsInclude(callName))
+        if (Player.instance.inventory.IsInclude(name))
         {
-            Player.instance.inventory.DecInventory(callName);
-            use(value);
+            Debug.Log("use item: " + name);
+            Player.instance.inventory.DecInventory(name);
+            ItemMethods.uses[(int)method](value);
         }
         Player.instance.acting = false;
     }
 
     public string GetName()
     {
-        return callName;
+        return name;
+    }
+
+    public int GetCost()
+    {
+        return -1;
     }
 }

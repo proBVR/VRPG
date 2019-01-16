@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IActionable
 {
-    void Use();
+    void Use(Character user);
+    int GetCost();
     string GetName();
 }

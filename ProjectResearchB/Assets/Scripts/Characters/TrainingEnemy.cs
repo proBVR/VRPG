@@ -10,8 +10,10 @@ public class TrainingEnemy : Enemy
 
     protected override void Action(int index)
     {
-
+        
     }
+
+    protected override void Idle() { }
 
     protected override void Death()
     {

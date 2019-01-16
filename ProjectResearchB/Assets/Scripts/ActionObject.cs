@@ -2,30 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActionObject : MonoBehaviour
+public abstract class ActionObject : MonoBehaviour, IDamage
 {
-    public abstract Vector3 GetPos();
-    public abstract Quaternion GetRot();
-
-    private int power, range = 1;
+    protected int power, range = 1;
+    protected Rigidbody rb;
     AttackAttribute attribute;
+    protected Character user;
 
-    public void Init(AttackAttribute attribute, int power, int limit)
+    public void Init(AttackAttribute attribute, int power, int limit, Character user)
     {
+        rb = GetComponent<Rigidbody>();
         this.attribute = attribute;
         this.power = power;
-        SetMove();
+        this.user = user;
+        //SetMove();
         Destroy(this, limit);
     }
 
-    protected abstract void SetMove();
+    public abstract void Activate();
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "Enemy")
+    //    {
+    //        other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
+    //    }
+    //}
+
+    public int GetPower()
     {
-        if (other.tag == "Enemy")
-        {
-            other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
-        }
+        return power;
+    }
+
+    public AttackAttribute GetAttribute()
+    {
+        return attribute;
     }
 
     protected void OnDestroy()

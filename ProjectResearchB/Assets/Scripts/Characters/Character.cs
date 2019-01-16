@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour
-{ 
-    protected CharacterStatus status;
+{
+    protected static readonly int maxLevel = 50;//暫定的なレベルキャップ
 
-    public void Init(int hp, int mp, int str, int vit, int speed, AttackAttribute weak)
+    protected CharacterStatus status;
+    //protected string name;
+    protected int level;
+    protected float luRate;
+    public bool IsPlayer { protected set; get; }//PCか否か
+
+    public void Init(CharacterStatus status, int level)
     {
-        status = new CharacterStatus(Death, hp, mp, str, vit, speed, weak);
+        this.level = level;
+        this.status = status;
+        for (int i = 0; i < level - 1; i++)
+            status.LevelUp(luRate);
     }
 
     public CharacterStatus GetStatus()
