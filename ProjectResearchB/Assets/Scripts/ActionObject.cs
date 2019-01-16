@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActionObject : MonoBehaviour
+public abstract class ActionObject : MonoBehaviour, IDamage
 {
     protected int power, range = 1;
     protected Rigidbody rb;
@@ -28,6 +28,16 @@ public abstract class ActionObject : MonoBehaviour
     //        other.GetComponent<Enemy>().GetStatus().Damage(power, attribute);
     //    }
     //}
+
+    public int GetPower()
+    {
+        return power;
+    }
+
+    public AttackAttribute GetAttribute()
+    {
+        return attribute;
+    }
 
     protected void OnDestroy()
     {

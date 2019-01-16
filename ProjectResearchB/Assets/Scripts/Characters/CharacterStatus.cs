@@ -11,6 +11,8 @@ public class CharacterStatus
     private readonly Action death;
     public AttackAttribute weak;
 
+    public List<IDamage> guardList = new List<IDamage>();
+
     public int Hp { get; private set; }
 
     public int Mp
@@ -99,15 +101,21 @@ public class CharacterStatus
         if (Hp > maxHpBase) Hp = maxHpBase;
     }
 
-    public void Damage(int value, AttackAttribute attribute)
+    public void Damage(IDamage damager)
     {
+        //ガードチェック
+        foreach (IDamage temp in guardList)
+            if (temp == damager)
+            { Debug.Log("guard: success"); return; }
+
+        var value = damager.GetPower();
         if (value < 0)
         {
             Debug.Log("error: damage-> " + value);
             return;
         }
         //damage caluclate
-        if (attribute == weak) value *= 2;
+        if (damager.GetAttribute() == weak) value *= 2;
         if (vitBase < value)
         {
             Hp -= value - vitBase;

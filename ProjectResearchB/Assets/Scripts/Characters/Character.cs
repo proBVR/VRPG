@@ -4,11 +4,13 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    protected static readonly int maxLevel = 50;
+    protected static readonly int maxLevel = 50;//暫定的なレベルキャップ
+
     protected CharacterStatus status;
     //protected string name;
     protected int level;
     protected float luRate;
+    public bool IsPlayer { protected set; get; }//PCか否か
 
     public void Init(CharacterStatus status, int level)
     {

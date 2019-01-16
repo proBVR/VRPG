@@ -22,6 +22,7 @@ public abstract class Enemy : Character
     // Use this for initialization
     protected void Start()
     {
+        IsPlayer = false;
         manager = transform.parent.GetComponent<EnemyManager>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();

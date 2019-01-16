@@ -20,8 +20,8 @@ public class SkillStay : SkillObject
     {
         foreach (Enemy enemy in hits)
         {
-            enemy.GetStatus().Damage(power, AttackAttribute.normal);
-            enemy.GetStatus().Damage(power, AttackAttribute.normal);
+            enemy.GetStatus().Damage(this);
+            enemy.GetStatus().Damage(this);
         }
         Destroy(gameObject);
     }

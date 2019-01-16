@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boar : Enemy
+public class Boar : Enemy, IDamage
 {
     //private bool attacking = false;
     //[SerializeField]
@@ -41,13 +41,23 @@ public class Boar : Enemy
         rb.velocity = Vector3.zero;
     }
 
+    public int GetPower()
+    {
+        return status.Str;
+    }
+
+    public AttackAttribute GetAttribute()
+    {
+        return AttackAttribute.normal;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("tag: "+collision.gameObject.tag);
         if (attacking && collision.gameObject.tag == "Player")
         {
             Debug.Log("attack");
-            collision.gameObject.GetComponent<Player>().GetStatus().Damage(status.Str, AttackAttribute.normal);
+            collision.gameObject.GetComponent<Player>().GetStatus().Damage(this);
             FinAtk2();
             attacking = false;
             Idle();

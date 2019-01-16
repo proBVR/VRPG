@@ -40,12 +40,14 @@ public class Player : Character
 
     [SerializeField]
     private float moveSpeed;
+    private float moveRate = 1;
 
     [SerializeField]
     private GameObject ArmR, ArmL, Menu, ContR, ContL;
 
     protected void Start()
     {
+        IsPlayer = true;
         instance = this;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -70,7 +72,7 @@ public class Player : Character
     }
 
     private void Update()
-    {        
+    {
         if (!menuFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
             Debug.Log("change pushed");

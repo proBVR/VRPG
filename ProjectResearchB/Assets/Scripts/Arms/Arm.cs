@@ -14,6 +14,8 @@ public abstract class Arm : MonoBehaviour
     protected Action preMove = null;
     protected bool cooling = false;
     private Skill[] skills = new Skill[2];
+
+    protected Character user;
     //protected Action activate = null;
 
     protected void Start()
@@ -43,16 +45,5 @@ public abstract class Arm : MonoBehaviour
     protected void FinCooling()
     {
         cooling = false;
-    }
-
-    protected void OnTriggerEnter(Collider other)
-    {
-        if(!cooling && other.gameObject.tag == "Enemy")
-        {
-            cooling = true;
-            Scheduler.instance.AddEvent(interval, FinCooling);
-            other.GetComponent<Enemy>().GetStatus().Damage(attack, AttackAttribute.normal);
-            //Debug.Log("hit: te, left: " + other.GetComponent<Enemy>().GetHp());
-        }
     }
 }

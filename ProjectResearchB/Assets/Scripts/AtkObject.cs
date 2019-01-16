@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtkObject : MonoBehaviour
+//敵用のスキル的な位置づけ
+public class AtkObject : MonoBehaviour, IDamage
 {
     private int power;
     private AttackAttribute attribute;
@@ -25,11 +26,21 @@ public class AtkObject : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public int GetPower()
+    {
+        return power;
+    }
+
+    public AttackAttribute GetAttribute()
+    {
+        return attribute;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<Character>().GetStatus().Damage(power, attribute);
+            other.GetComponent<Character>().GetStatus().Damage(this);
         }
     }
 }
