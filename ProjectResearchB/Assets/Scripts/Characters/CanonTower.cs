@@ -16,12 +16,11 @@ public class CanonTower : Enemy
 
     protected override void Action(int index)
     {
-        //if (attacking) return;
-        attacking = true;
         Scheduler.instance.AddEvent(3, FinAtk);
         GameManager.instance.magicList[index].Use(this);
         actNum = (actNum + 1) % 3;
     }
 
     protected override void Idle() { }
+    protected override void Stop() { }
 }

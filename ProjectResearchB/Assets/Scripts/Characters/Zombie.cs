@@ -19,16 +19,18 @@ public class Zombie : Enemy
 
     protected override void Action(int index)
     {
-        //if (attacking) return;
-        animator.SetBool("running", false);
-        animator.SetTrigger("attack");
-        attacking = true;
         Scheduler.instance.AddEvent(2, FinAtk);
         atkObject[0].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
         atkObject[1].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
     }
 
     protected override void Idle()
+    {
+        animator.SetBool("running", false);
+        rb.velocity = Vector3.zero;
+    }
+
+    protected override void Stop()
     {
         animator.SetBool("running", false);
         rb.velocity = Vector3.zero;

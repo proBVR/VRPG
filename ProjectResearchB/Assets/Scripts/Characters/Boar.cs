@@ -2,29 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boar : Enemy, IDamage
+public class Boar : Enemy
 {
-    //private bool attacking = false;
-    //[SerializeField]
-    private float time = 5;
-    private float attackCounter, atkSpeed = 8;
+    private float atkSpeed = 8;
+
+    [SerializeField]
+    private AtkObject tackle;
 
     protected override void Action(int index)
     {
-        attacking = true;
         transform.LookAt(Player.instance.transform.position);
         transform.forward -= new Vector3(0, transform.forward.y, 0);
         rb.velocity = transform.forward * atkSpeed;
-        //attackCounter = time;
-        Scheduler.instance.AddEvent(time, FinAtk2);
         animator.SetBool("running", true);
-    }
 
-    public void FinAtk2()
-    {
-        if (!attacking) return;
-        FinAtk();
-        animator.SetBool("running", false);
+        tackle.AtKBegin(status.Str, AttackAttribute.normal, 0, 4);
+        Scheduler.instance.AddEvent(4, FinAtk);        
     }
 
     protected override void Move()
@@ -41,26 +34,9 @@ public class Boar : Enemy, IDamage
         rb.velocity = Vector3.zero;
     }
 
-    public int GetPower()
+    protected override void Stop()
     {
-        return status.Str;
-    }
-
-    public AttackAttribute GetAttribute()
-    {
-        return AttackAttribute.normal;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Debug.Log("tag: "+collision.gameObject.tag);
-        if (attacking && collision.gameObject.tag == "Player")
-        {
-            Debug.Log("attack");
-            collision.gameObject.GetComponent<Player>().GetStatus().Damage(this);
-            FinAtk2();
-            attacking = false;
-            Idle();
-        }
+        animator.SetBool("running", false);
+        rb.velocity = Vector3.zero;
     }
 }

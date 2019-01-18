@@ -13,6 +13,7 @@ public class Dragon : Enemy
 
     protected override void Move()
     {
+        stop = false;
         //move to player
         transform.LookAt(Player.instance.transform.position);
         transform.forward -= new Vector3(0, transform.forward.y, 0);
@@ -22,26 +23,20 @@ public class Dragon : Enemy
 
     protected override void Action(int index)
     {
-        //if (attacking) return;
-        attacking = true;
         Scheduler.instance.AddEvent(3, FinAtk);
-        animator.SetBool("running", false);
         //3 pattern
         switch (index)
         {
             case 0://ひっかき（前方）
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 2);
-                //animator.SetBool("running", false);
                 animator.SetTrigger("scratch");
                 break;
             case 1://ジャンプ（周囲）
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.normal, 1.5f, 2);
-                //animator.SetBool("running", false);
                 animator.SetTrigger("jump");
                 break;
             case 2://火炎放射
                 atkObjects[index].AtKBegin(status.Str, AttackAttribute.fire, 1, 2.5f);
-                //animator.SetBool("running", false);
                 animator.SetTrigger("fireBreath");
                 break;
         }
@@ -66,6 +61,12 @@ public class Dragon : Enemy
             rb.velocity = transform.forward * mvSpeed;
             animator.SetBool("running", true);
         }
+    }
+
+    protected override void Stop()
+    {
+        animator.SetBool("running", false);
+        rb.velocity = Vector3.zero;
     }
 
     protected override void Death()

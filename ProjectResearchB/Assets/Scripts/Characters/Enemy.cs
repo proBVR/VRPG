@@ -32,23 +32,27 @@ public abstract class Enemy : Character
     // Update is called once per frame
     protected void Update()
     {
-        if (!manager.ExistPlayer()) return;
-
+        if (!manager.ExistPlayer())
+        {
+            Idle();
+            return;
+        }
         headUI.UpdateUI();
 
         if (attacking) return;
-        //cooling = true;
+       
         var distance = Vector3.Distance(Player.instance.transform.position, transform.position);
 
         if (distance < attackRange)
         {
+            Stop();
             if (!cooling)
             {
                 Action(actNum);
                 attacking = true;
             }
         }
-        if (distance > searchRange) Idle();
+        else if (distance > searchRange) Idle();
         else Move();
     }
 
@@ -65,6 +69,8 @@ public abstract class Enemy : Character
     }
 
     protected abstract void Idle();
+
+    protected abstract void Stop();
 
     protected override void Death()
     {

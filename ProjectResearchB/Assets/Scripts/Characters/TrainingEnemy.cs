@@ -14,6 +14,7 @@ public class TrainingEnemy : Enemy
     }
 
     protected override void Idle() { }
+    protected override void Stop() { }
 
     protected override void Death()
     {
