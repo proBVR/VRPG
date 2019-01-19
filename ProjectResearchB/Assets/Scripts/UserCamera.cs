@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UserCamera : MonoBehaviour // カメラを制御
+public class UserCamera : MonoBehaviour // HMDのカメラを制御
 {
     [SerializeField]
     private Transform mycamera, leftHand, rightHand;
@@ -13,23 +13,29 @@ public class UserCamera : MonoBehaviour // カメラを制御
 
     private void Start()
     {
-        //transform.localScale *= bodyScale;
-        transform.localScale /= (float)1.2f;
+        transform.localScale /= 1.2f;
     }
 
     private void Update()
     {
-        var temp = mycamera.position - mycamera.forward * 0.075f - Player.instance.transform.position;//vector: from player to mycamera
+        //vector: from player to mycamera
+        var temp = mycamera.position - mycamera.forward * 0.075f - Player.instance.transform.position;
         temp.y = 0;
         Player.instance.transform.position += temp;
         transform.position -= temp;
     }
 
-    public void Reset()
+    public void HeightReset()
     {
-        transform.position += transform.parent.position - mycamera.position + head +transform.parent.forward * 0.05f;
+        var temp = Player.instance.transform.position.y - mycamera.position.y;
+        transform.position += Vector3.up * temp;
+    }
+
+    public void WidthReset()
+    {
         var length = Vector3.Distance(leftHand.position, rightHand.position);
-        transform.localScale *= lengthHandToHand / length;
-        Debug.Log("length: "+length);
+        if (length > 0)
+            transform.localScale *= lengthHandToHand / length;
+        Debug.Log("length: " + length);
     }
 }

@@ -11,7 +11,13 @@ public class Scheduler : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Debug.Log("eroor: scheduler already exists");
+            Destroy(gameObject);
+        }        
     }
 
     private void Update()
@@ -23,7 +29,9 @@ public class Scheduler : MonoBehaviour
         }
     }
 
-    //イベント追加(今からtime秒後にactionを実行する)
+    ///<summary>
+    ///timeFromNow秒後にactionを実行する。
+    ///</summary>    
     public static void AddEvent(Action action, float timeFromNow)
     {
         if (instance == null)

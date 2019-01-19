@@ -45,6 +45,9 @@ public class Player : Character
     [SerializeField]
     private GameObject ArmR, ArmL, Menu, ContR, ContL;
 
+    private bool listening = false;
+    private float mvRate = 1;
+
     protected void Start()
     {
         IsPlayer = true;
@@ -85,18 +88,26 @@ public class Player : Character
         else if(!modeFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             Debug.Log("menu pushed");
-            menuFlag = !menuFlag;
-            Menu.SetActive(menuFlag);
-            if (menuFlag) Menu.GetComponent<MenuManager>().MenuReset();
+            if (!listening)
+            {
+                menuFlag = !menuFlag;
+                Menu.SetActive(menuFlag);
+                if (menuFlag) Menu.GetComponent<MenuManager>().MenuReset();
+            }
         }
 
-        if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.LeftHand))
+        if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
-            vr.StartRecognition();
+            if (!menuFlag)
+            {
+                vr.StartRecognition();
+                listening = true;
+            }
         }
-        else if (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand))
+        else if (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.RightHand))
         {
             vr.StopRecognition();
+            listening = false;
         }
     }
 
@@ -112,7 +123,8 @@ public class Player : Character
             double x =  Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             double y =  Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             userPosi = new Vector3((float)x,0,(float)y);
-            rb.velocity = userPosi * moveSpeed;
+            rb.velocity = userPosi * moveSpeed * 
+                (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand)?0.5f:1);
             animator.SetBool("Running", true);
         }
         else{
