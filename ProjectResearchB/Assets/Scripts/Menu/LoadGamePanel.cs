@@ -14,7 +14,7 @@ public class LoadGamePanel : Menu
         {
             case 0://NweGame
                 storage.Load();
-                SceneManager.LoadScene("SettingScene");
+                SceneManager.LoadScene("GameScene");
                 break;
             default:
                 manager.PanelChange(prePanel, false);
