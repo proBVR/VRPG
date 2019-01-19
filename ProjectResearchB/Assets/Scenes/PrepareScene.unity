@@ -1159,6 +1159,7 @@ GameObject:
   - component: {fileID: 685390326}
   - component: {fileID: 685390325}
   - component: {fileID: 685390324}
+  - component: {fileID: 685390328}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -1177,7 +1178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59054a70e7758d41804d012fca5925e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  top: {fileID: 1577619060}
+  top: {fileID: 1577619062}
   cm: {fileID: 852405798}
 --- !u!23 &685390325
 MeshRenderer:
@@ -1239,6 +1240,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &685390328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 685390323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9cff2477cc34c17be657c33e5db8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  top: {fileID: 1577619062}
+  cm: {fileID: 852405798}
 --- !u!1 &740684466
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,7 +1916,7 @@ MonoBehaviour:
   lineSize: 2
   title: {fileID: 1823358591}
   text: {fileID: 1365001227}
-  prePanel: {fileID: 1577619060}
+  prePanel: {fileID: 0}
   nextPanels: []
   storage: {fileID: 1522173648}
 --- !u!1 &1268912899
@@ -2703,7 +2717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1577619061}
-  - component: {fileID: 1577619060}
+  - component: {fileID: 1577619062}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -2711,27 +2725,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1577619060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1577619059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232a88a404f398b42bcfaef9ffc78166, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  udFlag: 1
-  lrFlag: 0
-  selecter: {fileID: 1305340760}
-  lineSize: 2
-  title: {fileID: 1797722932}
-  text: {fileID: 6746662}
-  prePanel: {fileID: 1577619060}
-  nextPanels:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &1577619061
 Transform:
   m_ObjectHideFlags: 0
@@ -2748,6 +2741,27 @@ Transform:
   m_Father: {fileID: 685390327}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1577619062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1577619059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e216ff03b3a3a45009a3d41f12f56679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  udFlag: 1
+  lrFlag: 0
+  selecter: {fileID: 1305340760}
+  lineSize: 2
+  title: {fileID: 1797722932}
+  text: {fileID: 6746662}
+  prePanel: {fileID: 0}
+  nextPanels:
+  - {fileID: 1232201935}
+  - {fileID: 1885028106}
 --- !u!1 &1610877909
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,6 +3578,6 @@ MonoBehaviour:
   lineSize: 2
   title: {fileID: 422875001}
   text: {fileID: 1115450182}
-  prePanel: {fileID: 1577619060}
+  prePanel: {fileID: 0}
   nextPanels: []
   storage: {fileID: 1522173648}

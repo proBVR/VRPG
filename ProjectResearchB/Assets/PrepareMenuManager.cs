@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class MenuManager : MonoBehaviour
+public class PrepareMenuManager : MonoBehaviour
 {
     private Menu now;
     [SerializeField]
@@ -11,13 +11,18 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private ConfirmPanel cm;
 
+    private void Start()
+    {
+        top.gameObject.SetActive(true);
+    }
+
     public void PanelChange(Menu to, bool flag)
     {
         if (now != null) now.gameObject.SetActive(false);
         now = to;
         to.gameObject.SetActive(true);
         Debug.Log("panel change");
-        if(flag) to.Reset();
+        if (flag) to.Reset();
     }
 
     public void MenuReset()
