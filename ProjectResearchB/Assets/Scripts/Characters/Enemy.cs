@@ -102,7 +102,7 @@ public abstract class Enemy : Character
 
         public void UpdateUI()
         {
-            var dir = Player.instance.transform.position - ui.position;
+            var dir = -Player.instance.transform.position + ui.position;
             dir.y = 0;
             ui.forward = dir;
             hpBar.value = enemy.status.Hp / enemy.status.MaxHp;

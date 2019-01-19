@@ -6,7 +6,7 @@ public class Sword : Arm, IDamage
 {
     public int GetPower()
     {
-        return attack + user.GetStatus().Str;
+        return attack + Player.instance.GetStatus().Str;
     }
 
     public AttackAttribute GetAttribute()
@@ -16,7 +16,7 @@ public class Sword : Arm, IDamage
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (!cooling && other.gameObject.tag == ((user.IsPlayer)?"Enemy":"Player"))
+        if (!cooling && other.gameObject.tag == ((Player.instance.IsPlayer)?"Enemy":"Player"))
         {
             cooling = true;
             Scheduler.AddEvent(FinCooling, interval);

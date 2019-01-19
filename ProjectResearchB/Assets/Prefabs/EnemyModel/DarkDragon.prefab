@@ -1470,7 +1470,7 @@ Transform:
   m_GameObject: {fileID: 1260077743879548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4420032969441738}
   - {fileID: 4882507239695342}
@@ -2680,8 +2680,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interval: 2
-  searchRange: 10
-  attackRange: 5
+  searchRange: 12
+  attackRange: 3
   mvSpeed: 1
   dropExp: 100
   dropItem: 3

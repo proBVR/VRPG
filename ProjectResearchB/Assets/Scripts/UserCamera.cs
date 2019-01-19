@@ -27,7 +27,7 @@ public class UserCamera : MonoBehaviour // カメラを制御
 
     public void Reset()
     {
-        //transform.position += transform.parent.position - mycamera.position + head +transform.parent.forward * 0.05f;
+        transform.position += transform.parent.position - mycamera.position + head +transform.parent.forward * 0.05f;
         var length = Vector3.Distance(leftHand.position, rightHand.position);
         transform.localScale *= lengthHandToHand / length;
         Debug.Log("length: "+length);
