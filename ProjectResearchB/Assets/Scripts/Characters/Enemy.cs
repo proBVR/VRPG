@@ -60,7 +60,7 @@ public abstract class Enemy : Character
     {
         attacking = false;
         cooling = true;
-        Scheduler.instance.AddEvent(interval, FinCool);
+        Scheduler.AddEvent( FinCool, interval);
     }
 
     private void FinCool()

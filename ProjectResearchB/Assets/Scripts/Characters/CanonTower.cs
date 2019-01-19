@@ -16,7 +16,7 @@ public class CanonTower : Enemy
 
     protected override void Action(int index)
     {
-        Scheduler.instance.AddEvent(3, FinAtk);
+        Scheduler.AddEvent(FinAtk, 3);
         GameManager.instance.magicList[index].Use(this);
         actNum = (actNum + 1) % 3;
     }

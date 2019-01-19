@@ -40,3 +40,17 @@ MonoBehaviour:
     power: 100
     cost: 5
     attribute: 1
+  - name: "\u30D0\u30A4\u30AD\u30EB\u30C8"
+    rank: 1
+    model: 3
+    range: 0
+    power: 100
+    cost: 10
+    attribute: 0
+  - name: "\u30D5\u30A1\u30A4\u30AC"
+    rank: 2
+    model: 1
+    range: 1
+    power: 100
+    cost: 25
+    attribute: 2

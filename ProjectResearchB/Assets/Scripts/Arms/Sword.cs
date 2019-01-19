@@ -19,7 +19,7 @@ public class Sword : Arm, IDamage
         if (!cooling && other.gameObject.tag == ((user.IsPlayer)?"Enemy":"Player"))
         {
             cooling = true;
-            Scheduler.instance.AddEvent(interval, FinCooling);
+            Scheduler.AddEvent(FinCooling, interval);
             other.GetComponent<Character>().GetStatus().Damage(this);
             //Debug.Log("hit: te, left: " + other.GetComponent<Enemy>().GetHp());
         }

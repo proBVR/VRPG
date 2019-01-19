@@ -27,7 +27,7 @@ public class Skill : IActionable
     private Arm arm;
 
     private int count;
-    private readonly int limit = 100, time = 10;
+    private readonly int limit = 100;
     private readonly float mergin = 0.15f;
     private int state;
     [SerializeField]
@@ -49,7 +49,7 @@ public class Skill : IActionable
         arm = Player.instance.GetArm(hand);
         arm.BeginSkill(PreMove);
         entity = GameManager.instance.GenSkill(modelNum);
-        entity.Init(AttackAttribute.normal, power, time, user);
+        entity.Init(AttackAttribute.normal, power, user);
     }
 
     public string GetName()

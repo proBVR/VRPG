@@ -32,7 +32,7 @@ public class EnemyManager : MonoBehaviour
         if (ready)
         {
             ready = false;
-            Scheduler.instance.AddEvent(interval, FinReady);
+            Scheduler.AddEvent(FinReady, interval);
             for (int i = 0; i < same && enemies.Count < max; i++)
             {
                 var index = Random.Range(0, sponeList.Length);

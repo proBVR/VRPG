@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65365905382428490}
   m_Layer: 0
   m_Name: LongSword
-  m_TagString: Sword
+  m_TagString: Damager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

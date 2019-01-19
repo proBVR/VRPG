@@ -27,7 +27,7 @@ public class Magic : IActionable
     {
         Debug.Log("use magic: "+name);
         var prefab = GameManager.instance.GenMagic((int)model);
-        prefab.Init(attribute, power, time, user);
+        prefab.Init(attribute, power, (int)range, user);
     }
 
     public  string GetName()

@@ -23,7 +23,7 @@ public class Dragon : Enemy
 
     protected override void Action(int index)
     {
-        Scheduler.instance.AddEvent(3, FinAtk);
+        Scheduler.AddEvent(FinAtk, 3);
         //3 pattern
         switch (index)
         {

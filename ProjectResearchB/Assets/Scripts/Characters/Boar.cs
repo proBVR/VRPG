@@ -17,7 +17,7 @@ public class Boar : Enemy
         animator.SetBool("running", true);
 
         tackle.AtKBegin(status.Str, AttackAttribute.normal, 0, 4);
-        Scheduler.instance.AddEvent(4, FinAtk);        
+        Scheduler.AddEvent(FinAtk, 4);        
     }
 
     protected override void Move()

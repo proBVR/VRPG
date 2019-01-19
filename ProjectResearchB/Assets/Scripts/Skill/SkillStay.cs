@@ -28,7 +28,8 @@ public class SkillStay : SkillObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy") hits.Add(other.GetComponent<Enemy>());
+        if (other.tag == "Enemy")
+            hits.Add(other.GetComponent<Enemy>());
     }
 
     public override void Reset()

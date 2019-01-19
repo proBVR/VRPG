@@ -7,9 +7,11 @@ public class SkillShot : SkillObject
 {
    // private Vector3 dir;
     private int speed = 1;
+    private Rigidbody rb;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         gameObject.SetActive(false);
     }
 
@@ -22,4 +24,12 @@ public class SkillShot : SkillObject
     }
 
     public override void Reset() { }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == ((user.IsPlayer) ? "Enemy" : "Player"))
+        {
+            other.GetComponent<Character>().GetStatus().Damage(this);
+        }
+    }
 }

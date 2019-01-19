@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114645370886514966}
   m_Layer: 0
   m_Name: SkillShot
-  m_TagString: Untagged
+  m_TagString: Damager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

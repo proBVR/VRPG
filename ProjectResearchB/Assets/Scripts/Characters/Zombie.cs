@@ -19,7 +19,7 @@ public class Zombie : Enemy
 
     protected override void Action(int index)
     {
-        Scheduler.instance.AddEvent(2, FinAtk);
+        Scheduler.AddEvent(FinAtk, 2);
         atkObject[0].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
         atkObject[1].AtKBegin(status.Str, AttackAttribute.normal, 0.5f, 1.5f);
     }

@@ -1545,6 +1545,7 @@ MonoBehaviour:
   mvSpeed: 4
   dropExp: 5
   dropItem: 0
+  tackle: {fileID: 114841915860420838}
 --- !u!114 &114556683124767142
 MonoBehaviour:
   m_ObjectHideFlags: 1

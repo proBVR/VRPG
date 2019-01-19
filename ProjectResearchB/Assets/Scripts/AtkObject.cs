@@ -12,8 +12,8 @@ public class AtkObject : MonoBehaviour, IDamage
     {
         this.power = power;
         this.attribute = attribute;
-        Scheduler.instance.AddEvent(start, Begin);
-        Scheduler.instance.AddEvent(end, Finish);
+        Scheduler.AddEvent(Begin, start);
+        Scheduler.AddEvent(Finish, end);
     }
 
     private void Begin()
