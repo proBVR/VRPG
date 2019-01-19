@@ -5,9 +5,9 @@ using System;
 
 public class MenuManager : MonoBehaviour
 {
-    private Menu now;
+    protected Menu now;
     [SerializeField]
-    private Menu top;
+    protected Menu top;
     [SerializeField]
     private ConfirmPanel cm;
 
