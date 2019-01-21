@@ -40,5 +40,11 @@ public class Zombie : Enemy
     {
         base.Death();
         animator.SetTrigger("die");
+        Scheduler.AddEvent(DestroyOwn, 2);
+    }
+
+    private void DestroyOwn()
+    {
+        Destroy(gameObject);
     }
 }

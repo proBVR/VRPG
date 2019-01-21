@@ -12,6 +12,8 @@ public class MagicBall : MagicObject
 
     public override void Activate()
     {
+        GetComponent<Renderer>().material = GameManager.instance.materials[(int)attribute];
+
         range *= (1 + 0.5f * (rangeRate - 1));
         Destroy(this, range / speed);
 

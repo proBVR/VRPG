@@ -78,7 +78,6 @@ public abstract class Enemy : Character
         Player.instance.AddExp(dropExp);
         Player.instance.inventory.AddInventory(GameManager.instance.itemList[dropItem].GetName());
         manager.DecEnemy(this);
-        Destroy(gameObject);
     }
 
     private class UI

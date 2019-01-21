@@ -113,6 +113,12 @@ public class Player : Character
 
     void FixedUpdate()
     {
+        if (acting)
+        {
+            rb.velocity = Vector3.zero;
+            animator.SetBool("Running", false);
+            return;
+        }
         Move();
     }
 
@@ -234,6 +240,16 @@ public class Player : Character
             status.LevelUp(luRate);
             nextExp = (int)(nextExp * expRate);
         }
+    }
+
+    public int GetExp()
+    {
+        return exp;
+    }
+
+    public int GetNextExp()
+    {
+        return nextExp;
     }
 
     //加速度に応じて移動フラグ変更

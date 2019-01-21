@@ -9,6 +9,8 @@ public class MagicCircle : MagicObject
 
     public override void Activate()
     {
+        GetComponent<Renderer>().material = GameManager.instance.materials[(int)attribute];
+
         range *= (1 + 0.25f * (rangeRate - 1));
         transform.localScale *= range;
         transform.position = user.transform.position;

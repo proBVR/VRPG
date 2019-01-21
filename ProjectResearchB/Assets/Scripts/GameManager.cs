@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public Magic[] magicList;
     public EnemyData[] enemyDataList;
 
+    //ooder: attack attribute
+    public Material[] materials;
+
     [SerializeField]
     private MagicObject[] magics;
     [SerializeField]

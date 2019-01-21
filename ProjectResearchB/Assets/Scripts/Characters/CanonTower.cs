@@ -23,4 +23,10 @@ public class CanonTower : Enemy
 
     protected override void Idle() { }
     protected override void Stop() { }
+
+    protected override void Death()
+    {
+        base.Death();
+        Destroy(gameObject);
+    }
 }

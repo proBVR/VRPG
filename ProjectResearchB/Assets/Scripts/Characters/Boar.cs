@@ -39,4 +39,10 @@ public class Boar : Enemy
         animator.SetBool("running", false);
         rb.velocity = Vector3.zero;
     }
+
+    protected override void Death()
+    {
+        base.Death();
+        Destroy(gameObject);
+    }
 }

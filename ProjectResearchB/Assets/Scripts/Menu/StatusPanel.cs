@@ -6,6 +6,7 @@ public class StatusPanel : Menu
 {
     protected override void SetData()
     {
-        text.text = Player.instance.GetStatus().ToString();
+        text.text = Player.instance.GetStatus().ToString() + 
+            "\nEXP: " + Player.instance.GetExp() + "/" + Player.instance.GetNextExp();
     }
 }

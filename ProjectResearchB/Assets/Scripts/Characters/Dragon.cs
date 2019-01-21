@@ -36,11 +36,18 @@ public class Dragon : Enemy
                 animator.SetTrigger("jump");
                 break;
             case 2://火炎放射
-                atkObjects[index].AtKBegin(status.Str, AttackAttribute.fire, 1, 2.5f);
-                animator.SetTrigger("fireBreath");
+                rb.velocity = transform.forward * (-5f);
+                Scheduler.AddEvent(FireBreath, 0.5f);
                 break;
         }
         actNum = (actNum + 1) % 3;
+    }
+
+    private void FireBreath()
+    {
+        rb.velocity = Vector3.zero;
+        atkObjects[2].AtKBegin(status.Str, AttackAttribute.fire, 1, 2.5f);
+        animator.SetTrigger("fireBreath");
     }
 
     protected override void Idle()
@@ -73,5 +80,11 @@ public class Dragon : Enemy
     {
         base.Death();
         animator.SetTrigger("die");
+        Scheduler.AddEvent(DestroyOwn, 2);
+    }
+
+    private void DestroyOwn()
+    {
+        Destroy(gameObject);
     }
 }
