@@ -49,7 +49,15 @@ public class Player : Character
 
     private bool listening = false;
     private float mvRate = 1;
+    private Vector3 offset = Vector3.forward;
 
+    public float dirOffset = 0, angle = 0;
+
+    [SerializeField]
+    private Transform pivot;
+
+    
+    
     protected void Start()
     {
         IsPlayer = true;
@@ -82,6 +90,7 @@ public class Player : Character
 
     private void Update()
     {
+        //test.rotation = testQua;
         if (!menuFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
             Debug.Log("change pushed");
@@ -121,6 +130,7 @@ public class Player : Character
     {
         if (acting)
         {
+            Debug.Log("acting");
             rb.velocity = Vector3.zero;
             animator.SetBool("Running", false);
             return;
@@ -134,8 +144,9 @@ public class Player : Character
         {
             double x =  Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             double y =  Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
+            var dir = Quaternion.AngleAxis(moveAngle, Vector3.up) * transform.forward;
             userPosi = new Vector3((float)x,0,(float)y);
-            rb.velocity = userPosi * moveSpeed * 
+            rb.velocity = dir * moveSpeed * 
                 (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand)?0.5f:1);
             animator.SetBool("Running", true);
         }
@@ -149,7 +160,10 @@ public class Player : Character
         //float cameraX = transform.position.x + pivot.x;
         //float cameraY = transform.position.y + pivot.y;
         //float cameraZ = transform.position.z + pivot.z;
-        transform.rotation = userRot;
+        if (Input.GetButtonDown("Fire1"))
+            Debug.Log("angle: " + (int)angle);
+        transform.eulerAngles = Vector3.up * (angle - dirOffset);
+        pivot.eulerAngles = Vector3.zero;
         //userCamera.transform.position = new Vector3(cameraX, cameraY, cameraZ);
         //userCamera.transform.rotation = transform.rotation;
     }
@@ -261,6 +275,7 @@ public class Player : Character
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
+        //Debug.Log("accel");
         var max = MaxFloat(xx, yy, zz);
         if (EquFloat(max, Math.Abs(zz)))
         {
@@ -291,20 +306,34 @@ public class Player : Character
         }
     }
 
+    public void ResetRot()
+    {
+        var dir = userCamera.mycamera.transform.forward;
+        dir.y = 0;
+        transform.forward = dir;
+        dirOffset = angle - transform.eulerAngles.y;
+    }
+
     //回転によってカメラ方向を変更
     public void RotAction(float xx, float yy, float zz, float ww)
     {
+        //Debug.Log("rot");
         var newQut = new Quaternion(0, -zz, 0, ww);
         var newRot = newQut * Quaternion.Euler(0, 90f, 0);
-        userRot = newRot;
+        //userRot = newRot;
+        angle = newRot.eulerAngles.y;
+        //testQua = newRot;
     }
 
     //回転によって移動方向を変更
     public void DirAction(float xx, float yy, float zz, float ww)
     {
-        var newQut2 = new Quaternion(0, -zz, 0, ww);
-        var newDir = newQut2 * Quaternion.Euler(0, 90f, 0);
-        userDir = newDir;
+        //var newQut2 = new Quaternion(0, -zz, 0, ww);
+        //var newDir = newQut2 * Quaternion.Euler(0, 90f, 0);
+        //userDir = newDir;
+        var qua = new Quaternion(xx, yy, zz, ww);
+        var eul = qua.eulerAngles;
+        dirOffset = eul.y;
     }
 
     //加速度最大値方向特定用

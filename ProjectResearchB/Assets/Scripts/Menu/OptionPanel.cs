@@ -16,6 +16,9 @@ public class OptionPanel : Menu
             case 1://スケール調整
                 manager.Confirm("Do: Width Reset\n", uc.WidthReset);
                 break;
+            case 2:
+                manager.Confirm("Do: Rot Reset", Player.instance.ResetRot);
+                break;
             default:
                 break;
         }
