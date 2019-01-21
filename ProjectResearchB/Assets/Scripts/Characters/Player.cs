@@ -29,6 +29,8 @@ public class Player : Character
     public Vector3 userPosi;
     public Quaternion userDir;
 
+    public UDPReceiver2 udpReceiver2;
+
     [SerializeField]
     private bool move;
 
@@ -60,12 +62,16 @@ public class Player : Character
         ArmL.SetActive(false);
         ContR.SetActive(true);
         ContL.SetActive(true);
-        UDPReceiver.RotCallBack += RotAction;
-        UDPMove.AccelCallBack += AccelAction;
-        UDPDirection.DirCallBack += DirAction;
-        updReceiver.UDPStart();
-        udpMove.UDPStart();
-        udpDirection.UDPStart();
+        //UDPReceiver.RotCallBack += RotAction;
+        //UDPMove.AccelCallBack += AccelAction;
+        //UDPDirection.DirCallBack += DirAction;
+        //updReceiver.UDPStart();
+        //udpMove.UDPStart();
+        //udpDirection.UDPStart();
+        UDPReceiver2.AccelCallBack += AccelAction;
+        UDPReceiver2.RotCallBack += RotAction;
+        udpReceiver2.UDPStart();
+
         move = false;
         moveAngle = 0;
         var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
