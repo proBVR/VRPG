@@ -106,7 +106,7 @@ public abstract class Enemy : Character
             var dir = -Player.instance.transform.position + ui.position;
             dir.y = 0;
             ui.forward = dir;
-            hpBar.value = enemy.status.Hp / enemy.status.MaxHp;
+            hpBar.value = (float) enemy.status.Hp / enemy.status.MaxHp;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
-using System;
 using Valve.VR;
 
 //PCに関するメインのクラス
@@ -12,13 +12,15 @@ public class Player : Character
     public static readonly int kindOfAction = 3;
 
     public Inventory inventory = new Inventory();
-    public bool acting = false;   
 
-    private bool modeFlag = false, menuFlag=false;
+
+    public bool acting = false;
+
+    private bool modeFlag = false, menuFlag = false;
     private Animator animator;
     private Rigidbody rb;
     private List<IActionable>[] actionList;
-    private int exp, nextExp;
+    private int exp, nextExp = 10;
     private float expRate = 2;
 
     public UserCamera userCamera;
@@ -56,8 +58,8 @@ public class Player : Character
     [SerializeField]
     private Transform pivot;
 
-    
-    
+
+
     protected void Start()
     {
         IsPlayer = true;
@@ -100,7 +102,7 @@ public class Player : Character
             ContR.SetActive(!modeFlag);
             ContL.SetActive(!modeFlag);
         }
-        else if(!modeFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand))
+        else if (!modeFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             Debug.Log("menu pushed");
             if (!listening)
@@ -142,15 +144,16 @@ public class Player : Character
     {
         if (move == true)
         {
-            double x =  Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
-            double y =  Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
+            double x = Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
+            double y = Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             var dir = Quaternion.AngleAxis(moveAngle, Vector3.up) * transform.forward;
-            userPosi = new Vector3((float)x,0,(float)y);
-            rb.velocity = dir * moveSpeed * 
-                (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand)?0.5f:1);
+            userPosi = new Vector3((float)x, 0, (float)y);
+            rb.velocity = dir * moveSpeed *
+                (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand) ? 0.5f : 1);
             animator.SetBool("Running", true);
         }
-        else{
+        else
+        {
             rb.velocity = Vector3.zero;
             animator.SetBool("Running", false);
         }
@@ -168,7 +171,8 @@ public class Player : Character
         //userCamera.transform.rotation = transform.rotation;
     }
 
-    void MovePosi(){
+    void MovePosi()
+    {
         rb.velocity = userPosi * moveSpeed;
     }
 
@@ -176,7 +180,7 @@ public class Player : Character
     {
         if (acting) return;
 
-        for(int i = 0; i < actionList.Length; i++)
+        for (int i = 0; i < actionList.Length; i++)
         {
             if (actionList[i].Count <= index) index -= actionList[i].Count;
             else
@@ -222,9 +226,9 @@ public class Player : Character
     public List<string>[] GetNames()
     {
         var actionNames = new List<string>[kindOfAction];
-        for(int i=0;i<kindOfAction;i++)
+        for (int i = 0; i < kindOfAction; i++)
         {
-            foreach(IActionable action in actionList[i])
+            foreach (IActionable action in actionList[i])
             {
                 actionNames[i].Add(action.GetName());
             }
@@ -254,7 +258,7 @@ public class Player : Character
     {
         if (level >= maxLevel) return;
         exp += add;
-        if(exp >= nextExp)
+        if (exp >= nextExp)
         {
             level++;
             status.LevelUp(luRate);
@@ -292,16 +296,19 @@ public class Player : Character
         }
         else if (EquFloat(max, Math.Abs(xx)))
         {
-            if ((move == false) && (xx > 2)){
+            if ((move == false) && (xx > 2))
+            {
                 move = true;
                 moveAngle = 90f;
             }
-            else if ((move == false) && (xx < -2)){
+            else if ((move == false) && (xx < -2))
+            {
                 move = true;
                 moveAngle = 270f;
             }
         }
-        else{
+        else
+        {
             if (yy > 1.0 && Math.Abs(xx) < 0.5 && Math.Abs(zz) < 0.5) move = false;
         }
     }
@@ -337,7 +344,8 @@ public class Player : Character
     }
 
     //加速度最大値方向特定用
-    public float MaxFloat(float x, float y, float z){
+    public float MaxFloat(float x, float y, float z)
+    {
         float max = Math.Abs(x);
         if (max < Math.Abs(y)) max = Math.Abs(y);
         if (max < Math.Abs(z)) max = Math.Abs(z);
@@ -345,7 +353,8 @@ public class Player : Character
     }
 
     //floatイコール判定用
-    public bool EquFloat(float xx, float yy){
+    public bool EquFloat(float xx, float yy)
+    {
         float test = 0.0001f;
         return (test > Math.Abs(xx - yy));
     }

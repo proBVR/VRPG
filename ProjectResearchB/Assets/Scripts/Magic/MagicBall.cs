@@ -15,7 +15,7 @@ public class MagicBall : MagicObject
         GetComponent<Renderer>().material = GameManager.instance.materials[(int)attribute];
 
         range *= (1 + 0.5f * (rangeRate - 1));
-        Destroy(this, range / speed);
+        Destroy(gameObject, range / speed);
 
         transform.position = user.transform.position + user.transform.forward + Vector3.up;
         var temp = user.transform.forward;

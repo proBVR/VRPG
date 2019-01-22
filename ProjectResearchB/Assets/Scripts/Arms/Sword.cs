@@ -16,7 +16,7 @@ public class Sword : Arm, IDamage
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (!cooling && other.gameObject.tag == ((Player.instance.IsPlayer)?"Enemy":"Player"))
+        if (!cooling && other.gameObject.tag == "Enemy")
         {
             cooling = true;
             Scheduler.AddEvent(FinCooling, interval);
