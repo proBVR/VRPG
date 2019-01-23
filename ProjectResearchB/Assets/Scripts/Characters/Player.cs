@@ -11,7 +11,7 @@ public class Player : Character
     public static Player instance;
     public static readonly int kindOfAction = 3;
 
-    public Inventory inventory = new Inventory();
+    public readonly Inventory inventory = new Inventory();
 
 
     public bool acting = false;
@@ -279,38 +279,69 @@ public class Player : Character
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
+        if (move && yy > 1 && Math.Abs(xx) < 1 && Math.Abs(zz) < 1) move = false;
+        else if(!move)
+        {
+            if(xx < zz)
+            {
+                if(zz < -1.5f)
+                {
+                    move = true;
+                    moveAngle = 0;
+                }
+                else if(zz > 1.5f)
+                {
+                    move = true;
+                    moveAngle = 180;
+                }
+            }
+            else
+            {
+                if(xx < -2.5f)
+                {
+                    move = true;
+                    moveAngle = 90;
+                }
+                else if(xx > 2.5f)
+                {
+                    move = true;
+                    moveAngle = 270;
+                }
+            }
+        }
+
         //Debug.Log("accel");
-        var max = MaxFloat(xx, yy, zz);
-        if (EquFloat(max, Math.Abs(zz)))
-        {
-            if ((move == false) && (zz < -2))
-            {
-                move = true;
-                moveAngle = 0;
-            }
-            else if ((move == false) && (zz > 2))
-            {
-                move = true;
-                moveAngle = 180f;
-            }
-        }
-        else if (EquFloat(max, Math.Abs(xx)))
-        {
-            if ((move == false) && (xx > 2))
-            {
-                move = true;
-                moveAngle = 90f;
-            }
-            else if ((move == false) && (xx < -2))
-            {
-                move = true;
-                moveAngle = 270f;
-            }
-        }
-        else
-        {
-            if (yy > 1.0 && Math.Abs(xx) < 0.5 && Math.Abs(zz) < 0.5) move = false;
-        }
+        //var max = MaxFloat(xx, yy, zz);
+        //if (EquFloat(max, Math.Abs(zz)))
+        //{
+        //    if ((move == false) && (zz < -2))
+        //    {
+        //        move = true;
+        //        moveAngle = 0;
+        //    }
+        //    else if ((move == false) && (zz > 2))
+        //    {
+        //        move = true;
+        //        moveAngle = 180f;
+        //    }
+        //}
+        //else if (EquFloat(max, Math.Abs(xx)))
+        //{
+        //    if ((move == false) && (xx > 2))
+        //    {
+        //        move = true;
+        //        moveAngle = 90f;
+        //    }
+        //    else if ((move == false) && (xx < -2))
+        //    {
+        //        move = true;
+        //        moveAngle = 270f;
+        //    }
+        //}
+        //else
+        //{
+        //    if (yy > 1.0 && Math.Abs(xx) < 0.5 && Math.Abs(zz) < 0.5) move = false;
+        //}
     }
 
     public void ResetRot()

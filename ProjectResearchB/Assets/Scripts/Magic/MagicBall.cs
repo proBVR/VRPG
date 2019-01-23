@@ -12,6 +12,7 @@ public class MagicBall : MagicObject
 
     public override void Activate()
     {
+        rb = GetComponent<Rigidbody>();
         GetComponent<Renderer>().material = GameManager.instance.materials[(int)attribute];
 
         range *= (1 + 0.5f * (rangeRate - 1));
