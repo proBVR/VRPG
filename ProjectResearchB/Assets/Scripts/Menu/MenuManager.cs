@@ -5,9 +5,9 @@ using System;
 
 public class MenuManager : MonoBehaviour
 {
-    private Menu now;
+    protected Menu now;
     [SerializeField]
-    private Menu top;
+    protected Menu top;
     [SerializeField]
     private ConfirmPanel cm;
 
@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
         now = to;
         to.gameObject.SetActive(true);
         Debug.Log("panel change");
-        if(flag) to.Reset();        
+        if(flag) to.Reset();
     }
 
     public void MenuReset()
