@@ -58,10 +58,15 @@ public class Player : Character
     [SerializeField]
     private Transform pivot;
 
+    [SerializeField]
+    private StorageController storage;
+
 
 
     protected void Start()
     {
+        storage.player = this;
+        storage.Load();
         IsPlayer = true;
         instance = this;
         animator = GetComponent<Animator>();
@@ -84,8 +89,8 @@ public class Player : Character
 
         move = false;
         moveAngle = 0;
-        var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
-        Init(temp, 1);//仮のステータス
+        //var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
+        //Init(temp, 1);//仮のステータス
         //transform.localScale *= 1.2f;
         luRate = 1.1f;
     }

@@ -25,7 +25,6 @@ public class PrepareMenu : Menu
         }
         else
         {
-            storage.Load();
             SceneManager.LoadScene("GameScene");
         }
     }
