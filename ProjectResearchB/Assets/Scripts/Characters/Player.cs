@@ -95,7 +95,7 @@ public class Player : Character
         //test.rotation = testQua;
         if (!menuFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
-            Debug.Log("change pushed");
+            //Debug.Log("change pushed");
             modeFlag = !modeFlag;
             ArmR.SetActive(modeFlag);
             ArmL.SetActive(modeFlag);
@@ -104,7 +104,7 @@ public class Player : Character
         }
         else if (!modeFlag && SteamVR_Input._default.inActions.MenuAction.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
-            Debug.Log("menu pushed");
+            //Debug.Log("menu pushed");
             if (!listening)
             {
                 menuFlag = !menuFlag;
@@ -132,7 +132,7 @@ public class Player : Character
     {
         if (acting)
         {
-            Debug.Log("acting");
+            //Debug.Log("acting");
             rb.velocity = Vector3.zero;
             animator.SetBool("Running", false);
             return;
@@ -240,7 +240,7 @@ public class Player : Character
     {
         this.actionList = actionList;
         vr.SetRecognition(actionList);
-        Debug.Log("register");
+        //Debug.Log("register");
     }
 
     public Arm GetArm(bool right)
@@ -279,17 +279,17 @@ public class Player : Character
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
-        if (move && yy > 1 && Math.Abs(xx) < 1 && Math.Abs(zz) < 1) move = false;
+        if (move && yy > 1 && Math.Abs(xx) < 0.5f && Math.Abs(zz) < 0.5f) move = false;
         else if(!move)
         {
-            if(xx < zz)
+            if(Mathf.Abs(xx) < Mathf.Abs(zz))
             {
-                if(zz < -1.5f)
+                if(zz < -1.8f)
                 {
                     move = true;
                     moveAngle = 0;
                 }
-                else if(zz > 1.5f)
+                else if(zz > 1.8f)
                 {
                     move = true;
                     moveAngle = 180;
@@ -297,12 +297,12 @@ public class Player : Character
             }
             else
             {
-                if(xx < -2.5f)
+                if(xx < -2f)
                 {
                     move = true;
                     moveAngle = 90;
                 }
-                else if(xx > 2.5f)
+                else if(xx > 2f)
                 {
                     move = true;
                     moveAngle = 270;

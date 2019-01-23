@@ -8,7 +8,7 @@ public class CharacterStatus
     public readonly string name;
     private int mp, maxHpBase, maxMpBase, strBase, vitBase;
     private float maxHpRate = 1, maxMpRate = 1, strRate = 1, vitRate = 1;
-    private readonly Action death;
+    private Action death;
     public AttackAttribute weak;
 
     public List<IDamage> guardList = new List<IDamage>();
@@ -122,7 +122,7 @@ public class CharacterStatus
             if (Hp <= 0)
             {
                 Hp = 0;
-                //death();
+                death();
             }
         }
     }
@@ -136,7 +136,7 @@ public class CharacterStatus
 
     public override string ToString()
     {
-        return "HP: " + Hp + "/" + MaxHp + "\nMP: " + "mp" + "/" + MaxMp + "\nSTR: " + Str + "\nVIT: " + Vit + "\nWEAK: " + weak.ToString();
+        return "HP: " + Hp + "/" + MaxHp + "\nMP: " + Mp + "/" + MaxMp + "\nSTR: " + Str + "\nVIT: " + Vit + "\nWEAK: " + weak.ToString();
     }
 
     public void LevelUp(float rate)
@@ -145,5 +145,10 @@ public class CharacterStatus
         maxMpBase = (int)(maxMpBase * rate);
         strBase = (int)(strBase * rate);
         vitBase = (int)(vitBase * rate);
+    }
+
+    public void SetDead(Action death)
+    {
+        this.death = death;
     }
 }

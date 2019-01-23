@@ -16,6 +16,7 @@ public abstract class Character : MonoBehaviour
     {
         this.level = level;
         this.status = status;
+        status.SetDead(Death);
         for (int i = 0; i < level - 1; i++)
             status.LevelUp(luRate);
     }
