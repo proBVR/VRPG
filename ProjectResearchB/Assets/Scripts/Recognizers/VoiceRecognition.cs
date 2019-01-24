@@ -40,9 +40,13 @@ public class VoiceRecognition : MonoBehaviour
         {            
             case 0:
                 index = Array.IndexOf<string>(keyword, args.text);
-                if (index < 2) state = 1;
+                if (index < 2){
+                    state = 1;
+                    SoundController.decide_sound.PlayOneShot(SoundController.decide_sound.clip);
+                }
                 else if (index == 2)
                 {
+                    SoundController.decide_sound.PlayOneShot(SoundController.decide_sound.clip);
                     state = 2;
                     p = Node.root;
                     keyRecognizer.Stop();
@@ -51,7 +55,10 @@ public class VoiceRecognition : MonoBehaviour
                 break;
             case 1:
                 index = Array.IndexOf<string>(keyword, args.text);
-                if (index > 2) Player.instance.OpeAction(index - 3);
+                if (index > 2){
+                    Player.instance.OpeAction(index - 3);
+                    SoundController.decide_sound.PlayOneShot(SoundController.decide_sound.clip);
+                }
                 state = 0;
                 break;
             case 2:
@@ -60,10 +67,13 @@ public class VoiceRecognition : MonoBehaviour
                 if (p == null) p = Node.root;
                 else if (p.GetMagic() != -1)
                 {
+                    SoundController.decide_sound.PlayOneShot(SoundController.decide_sound.clip);
                     Debug.Log("magic: "+p.GetMagic()+", "+pivot);
                     Player.instance.OpeAction(p.GetMagic() + pivot);
                     recognizers[1].Stop();
                     state = 0;
+                }else{
+                    SoundController.decide_sound.PlayOneShot(SoundController.decide_sound.clip);
                 }
                 break;
         }
