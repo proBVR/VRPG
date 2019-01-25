@@ -67,6 +67,8 @@ public class Player : Character
     {
         storage.player = this;
         storage.Load();
+        userCamera.LoadWidth();
+        userCamera.HeightReset();
         IsPlayer = true;
         instance = this;
         animator = GetComponent<Animator>();

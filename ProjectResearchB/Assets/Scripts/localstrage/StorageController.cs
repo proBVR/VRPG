@@ -142,7 +142,9 @@ public class StorageController : MonoBehaviour {
 			case IO_RESULT.LOAD_SUCCESS:
                 this.accessMessage = "SUCCESS";
                 player.Init(temp, us.level);
-                ucamera.LoadWidth(us.length);
+                if(us.count != 0){
+                    UserCamera.length = us.length;
+                }
                 break;
 			case IO_RESULT.SAVE_FAILED:
 			case IO_RESULT.LOAD_FAILED:
@@ -169,7 +171,7 @@ public class StorageController : MonoBehaviour {
 		us.date = date.ToBinary();
 		us.count += 1;
         us.level = player.GetLevel();
-        us.length = ucamera.length;
+        us.length = UserCamera.length;
 
         // 保存（※FinishHandlerはnullでも可）
         bool async = true;

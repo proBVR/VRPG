@@ -11,7 +11,7 @@ public class UserCamera : MonoBehaviour // HMDのカメラを制御
     //vector: from player(=mycamera) to camerarig
     public Vector3 offset = Vector3.zero;
     private float bodyScale = 0.5f;
-    public float length = 1.14f;
+    public static float length = 1.14f;
 
     private void Start()
     {
@@ -44,8 +44,7 @@ public class UserCamera : MonoBehaviour // HMDのカメラを制御
         Debug.Log("length: " + newlength);
     }
 
-    public void LoadWidth(float loadlength){
-        length = loadlength;
+    public void LoadWidth(){
         transform.localScale *= lengthHandToHand / length;
     }
 
