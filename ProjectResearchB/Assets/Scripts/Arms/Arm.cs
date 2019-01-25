@@ -20,7 +20,7 @@ public abstract class Arm : MonoBehaviour
 
     protected void Start()
     {
-        //transform.localPosition = startPosition;
+      user = Player.instance;  //transform.localPosition = startPosition;
         //transform.localEulerAngles = startAngle;
     }
 

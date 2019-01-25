@@ -24,7 +24,7 @@ public class Scheduler : MonoBehaviour
     {
         while (list.Count > 0 && list[0].time < Time.time)
         {
-            list[0].action();
+            try{list[0].action();}catch(Exception e){Debug.Log("error: Scheduler event");}
             list.RemoveAt(0);
         }
     }

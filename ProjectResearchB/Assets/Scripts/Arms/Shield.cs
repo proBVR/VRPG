@@ -9,7 +9,7 @@ public class Shield : Arm
         if(other.tag == "Damager")
         {
             user.GetStatus().guardList.Add(other.GetComponent<IDamage>());
-        }
+     Debug.Log("guard");   }
     }
 
     private void OnTriggerExit(Collider other)
