@@ -136,11 +136,14 @@ public class StorageController : MonoBehaviour {
         switch (result) {
 			case IO_RESULT.NONE:
 				this.accessMessage = "NOTHING";
+                Debug.Log("NOTHING");
                 player.Init(temp, 1);
+                Debug.Log("Player.Init: try");
 				break;
 			case IO_RESULT.SAVE_SUCCESS:
 			case IO_RESULT.LOAD_SUCCESS:
                 this.accessMessage = "SUCCESS";
+                Debug.Log("LoadSuccess");
                 player.Init(temp, us.level);
                 if(us.count != 0){
                     UserCamera.length = us.length;
