@@ -29,4 +29,8 @@ public abstract class Character : MonoBehaviour
     protected abstract void Move();
     protected abstract void Action(int index);
     protected abstract void Death();   
+
+    public int GetLevel(){
+        return this.level;
+    }
 }

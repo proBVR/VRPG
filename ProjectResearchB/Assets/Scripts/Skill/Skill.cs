@@ -34,6 +34,7 @@ public class Skill : IActionable
     private Position[] moveList;
     private SkillObject entity;
 
+
     /*
     move: 1-9
       1 2 3
@@ -62,6 +63,7 @@ public class Skill : IActionable
         if (InArea((int)moveList[state]))
         {
             state++;
+            SoundController.decide_sound.PlayOneShot(SoundController.decide_sound.clip);
             Debug.Log("state: " + state);
             if (state == moveList.Length)
             {
@@ -77,6 +79,7 @@ public class Skill : IActionable
             {
                 state = 0;
                 entity.Reset();
+                //タイムアウトー＞ミス音
             }
         }
     }

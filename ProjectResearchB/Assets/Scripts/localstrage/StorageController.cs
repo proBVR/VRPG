@@ -8,7 +8,8 @@ public class StorageController : MonoBehaviour {
     public const string INFO_FORMAT = "バージョン\t\t{0}\n" +
                                         "保存時刻\t\t{1}\n" +
                                         "保存回数\t\t{2}\n" +
-                                        "status: HP:{3}/{4} MP:{5}/{6}";
+                                        "Level: {3}" + 
+		                                "length: {4}";
 
 
 	private enum STATE {
@@ -29,10 +30,11 @@ public class StorageController : MonoBehaviour {
 	private IO_RESULT result = IO_RESULT.NONE;		// 結果
 	private float ioTime = 0f;                      // 処理開始時刻
 	private float accessTime = 0f;
+    public Player player;
+    private UserCamera ucamera;
 
 
-
-	void Start() {
+    void Start() {
 
 		this.ioHandler = new FinishHandler(this.IOHandler);
 		this.storageManager = new StorageManager();
@@ -123,25 +125,28 @@ public class StorageController : MonoBehaviour {
 	private void UpdateDataInfo(IO_RESULT result) {
 		StorageData us = this.usedSettings = this.procSettings;
 		if (us.count > 0) {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, System.DateTime.FromBinary(us.date).ToString(), us.count, us.now_hp, us.max_hp, us.now_mp, us.max_mp));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, System.DateTime.FromBinary(us.date).ToString(), us.count, us.level, us.length));
             Debug.Log("filepath: " + Application.persistentDataPath + us.fileName);
 		} else {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "-/-/---- --:--:--", "--", "-", "-", "-", "-"));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "-/-/---- --:--:--", "--", "-", "-"));
             Debug.Log("filepath: " + "----");
 		}
 		this.state = STATE.IDLE;
-
-		switch (result) {
+        var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
+        switch (result) {
 			case IO_RESULT.NONE:
 				this.accessMessage = "NOTHING";
+                player.Init(temp, 1);
 				break;
 			case IO_RESULT.SAVE_SUCCESS:
 			case IO_RESULT.LOAD_SUCCESS:
-				this.accessMessage = "SUCCESS";
-				break;
+                this.accessMessage = "SUCCESS";
+                player.Init(temp, us.level);
+                ucamera.LoadWidth(us.length);
+                break;
 			case IO_RESULT.SAVE_FAILED:
 			case IO_RESULT.LOAD_FAILED:
-				this.accessMessage = "FAILED";
+                this.accessMessage = "FAILED";
 				break;
 			default:
 				this.accessMessage = "NOTHING";
@@ -163,10 +168,8 @@ public class StorageController : MonoBehaviour {
 		System.DateTime date = System.DateTime.Now;
 		us.date = date.ToBinary();
 		us.count += 1;
-        us.max_hp = Player.instance.GetStatus().MaxHp;
-        us.now_hp = Player.instance.GetStatus().Hp;
-        us.max_mp = Player.instance.GetStatus().MaxMp;
-        us.now_mp = Player.instance.GetStatus().Mp;
+        us.level = player.GetLevel();
+        us.length = ucamera.length;
 
         // 保存（※FinishHandlerはnullでも可）
         bool async = true;

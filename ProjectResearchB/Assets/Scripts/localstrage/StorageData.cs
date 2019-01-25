@@ -36,19 +36,15 @@ public sealed class StorageData : Storage.ISerializer {
     //保存データの内容example
     public long date = 0L;  // 更新時間(64bit)
     public int count = 0;   // 更新回数
-    public int now_hp = 1;
-    public int max_hp = 1;
-    public int now_mp = 1;
-    public int max_mp = 1;
+    public int level = 1;
+	public float length = 1.14f;
 
     //簡易的な初期化
     public void Clear()
     {
         this.date = System.DateTime.MinValue.ToBinary();
         this.count = 0;
-        this.max_hp = 1;
-        this.now_hp = 1;
-        this.max_mp = 1;
-        this.now_mp = 1;
+        this.level = 1;
+		this.length = 1.14f;
     }
 }
