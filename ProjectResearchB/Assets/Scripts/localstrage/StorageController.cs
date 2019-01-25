@@ -136,7 +136,7 @@ public class StorageController : MonoBehaviour {
         switch (result) {
 			case IO_RESULT.NONE:
 				this.accessMessage = "NOTHING";
-                Debug.Log("NOTHING");
+                Debug.Log("NOTHING2");
                 player.Init(temp, 1);
                 Debug.Log("Player.Init: try");
 				break;
