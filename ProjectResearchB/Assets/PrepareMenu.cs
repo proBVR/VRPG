@@ -21,7 +21,7 @@ public class PrepareMenu : Menu
         if (flag)
         {
             storage.Clear();
-            SceneManager.LoadScene("SettingScene");
+            SceneManager.LoadScene("GameScene");
         }
         else
         {
