@@ -41,7 +41,7 @@ public class StorageController : MonoBehaviour {
         this.usedSettings = this.procSettings = new StorageData();
 
 		// 例外
-		this.UpdateDataInfo((IO_RESULT)999);
+		//this.UpdateDataInfo((IO_RESULT)999);
 	}
 
 
@@ -136,11 +136,12 @@ public class StorageController : MonoBehaviour {
         switch (result) {
 			case IO_RESULT.NONE:
 				this.accessMessage = "NOTHING";
-                Debug.Log("NOTHING");
                 player.Init(temp, 1);
-                Debug.Log("Player.Init: try");
+                //Debug.Log("Player.Init: try");
 				break;
 			case IO_RESULT.SAVE_SUCCESS:
+                Debug.Log("savesuccess");
+                break;
 			case IO_RESULT.LOAD_SUCCESS:
                 this.accessMessage = "SUCCESS";
                 Debug.Log("LoadSuccess");
@@ -155,7 +156,6 @@ public class StorageController : MonoBehaviour {
 				break;
 			default:
 				this.accessMessage = "NOTHING";
-                Debug.Log("NOTHING........");
                 player.Init(temp, 1);
                 Debug.Log("Player.Init: try");
                 break;
@@ -192,13 +192,13 @@ public class StorageController : MonoBehaviour {
 		this.ioTime = Time.realtimeSinceStartup;
 		this.accessTime = 0f;
 
-		// 読込
+        // 読込
         bool async = true; // ture:非同期
 		if (async) {
 			this.accessMessage = "Now Loading";
 		}
 		this.storageManager.Load(this.usedSettings, this.ioHandler, async);
-	}
+    }
 
 	/// 削除
 	public void Delete() {
