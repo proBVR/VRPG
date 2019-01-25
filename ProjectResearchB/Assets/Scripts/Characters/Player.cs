@@ -65,7 +65,6 @@ public class Player : Character
 
     protected void Start()
     {
-        storage.player = this;
         storage.Load();
         userCamera.LoadWidth();
         userCamera.HeightReset();

@@ -155,7 +155,10 @@ public class StorageController : MonoBehaviour {
 				break;
 			default:
 				this.accessMessage = "NOTHING";
-				break;
+                Debug.Log("NOTHING........");
+                player.Init(temp, 1);
+                Debug.Log("Player.Init: try");
+                break;
 		}
 		Debug.Log(this.accessMessage);
 	}
