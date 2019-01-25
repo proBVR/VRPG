@@ -89,8 +89,8 @@ public class Player : Character
 
         move = false;
         moveAngle = 0;
-        //var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
-        //Init(temp, 1);//仮のステータス
+        var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
+        Init(temp, 1);//仮のステータス
         //transform.localScale *= 1.2f;
         luRate = 1.1f;
     }
@@ -284,7 +284,7 @@ public class Player : Character
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
-        if (move && yy > 1 && Math.Abs(xx) < 0.5f && Math.Abs(zz) < 0.5f) move = false;
+        if (move && yy > 1.5 && Math.Abs(xx) < 0.5f && Math.Abs(zz) < 0.5f) move = false;
         else if(!move)
         {
             if(Mathf.Abs(xx) < Mathf.Abs(zz))
