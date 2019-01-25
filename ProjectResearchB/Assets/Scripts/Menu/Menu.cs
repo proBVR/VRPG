@@ -36,7 +36,7 @@ public abstract class Menu : MonoBehaviour {
     // Update is called once per frame
     void Update()
     { 
-        /*if (SteamVR_Input._default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.RightHand))
+        if (SteamVR_Input._default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             var posi = SteamVR_Input._default.inActions.TrackPosi.GetAxis(SteamVR_Input_Sources.RightHand);
             if (udFlag && Mathf.Abs(posi.y) > 0.5)//選択行を変更
@@ -63,11 +63,12 @@ public abstract class Menu : MonoBehaviour {
         {
             Debug.Log("back pushed");
             if (prePanel != null) manager.PanelChange(prePanel, false);
-        }*/
-
-        if(Input.GetButtonDown("Fire1")){
-            Decide(selectLine);
         }
+
+        //debug用
+        //if(Input.GetButtonDown("Fire1")){
+        //    Decide(selectLine);
+        //}
     }
 
     protected virtual void Decide(int index) { }//決定時の操作
