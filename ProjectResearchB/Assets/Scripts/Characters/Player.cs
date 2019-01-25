@@ -16,7 +16,7 @@ public class Player : Character
 
     public bool acting = false;
 
-    private bool modeFlag = false, menuFlag = false;
+    private bool modeFlag = false, menuFlag = false, speedFlag = false;
     private Animator animator;
     private Rigidbody rb;
     private List<IActionable>[] actionList;
@@ -131,6 +131,15 @@ public class Player : Character
             vr.StopRecognition();
             listening = false;
         }
+
+        if (SteamVR_Input._default.inActions.InteractUI.GetStateDown(SteamVR_Input_Sources.LeftHand))
+        {
+            speedFlag = true;
+        }
+        else if (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand))
+        {
+            speedFlag = false;
+        }
     }
 
     void FixedUpdate()
@@ -153,8 +162,7 @@ public class Player : Character
             double y = Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             var dir = Quaternion.AngleAxis(moveAngle, Vector3.up) * transform.forward;
             userPosi = new Vector3((float)x, 0, (float)y);
-            rb.velocity = dir * moveSpeed *
-                (SteamVR_Input._default.inActions.InteractUI.GetStateUp(SteamVR_Input_Sources.LeftHand) ? 0.5f : 1);
+            rb.velocity = dir * moveSpeed * (speedFlag ? 0.5f : 1);
             animator.SetBool("Running", true);
         }
         else

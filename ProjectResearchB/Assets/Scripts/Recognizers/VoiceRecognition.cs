@@ -11,11 +11,12 @@ public class VoiceRecognition : MonoBehaviour
     private KeywordRecognizer[] recognizers = new KeywordRecognizer[2];
     private KeywordRecognizer keyRecognizer;
     private readonly string[] category = {"アイテム", "スキル", "マジック"};
-    private readonly string[] magic = { "ワン", "ツー", "スリー", "フォー", "ファイブ", "シックス"};
+    private readonly string[] magic = { "アズール", "グリス", "ネグロ", "ブラッタ", "ベルデ", "デフォルト" };
+    //{ "ワン", "ツー", "スリー", "フォー", "ファイブ", "シックス"};
     //private string[] names;
     private string[] keyword;
 
-    private int state = 0, pivot=5;
+    private int state = 0, pivot=6;
     private readonly int categoryCount = 3;
     private Node p;
 

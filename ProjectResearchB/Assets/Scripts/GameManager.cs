@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //リスポーンないしシーン切替
+        Player.instance.GetStatus().RecoverHp(10000);
+        Player.instance.transform.position = Vector3.zero;
+        Debug.Log("Game Over");
     }
 
     public MagicObject GenMagic(int index)

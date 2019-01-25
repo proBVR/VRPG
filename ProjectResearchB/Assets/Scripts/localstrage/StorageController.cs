@@ -150,7 +150,8 @@ public class StorageController : MonoBehaviour {
 				break;
 			default:
 				this.accessMessage = "NOTHING";
-				break;
+                player.Init(temp, 1);
+                break;
 		}
 		Debug.Log(this.accessMessage);
 	}

@@ -22,3 +22,8 @@ MonoBehaviour:
     power: 200
     cost: 5
     moveList: 0100000007000000
+  - name: "\u3048\u306C\u30AE\u30EA"
+    modelNum: 2
+    power: 500
+    cost: 20
+    moveList: 06000000030000000000000004000000080000000500000002000000
