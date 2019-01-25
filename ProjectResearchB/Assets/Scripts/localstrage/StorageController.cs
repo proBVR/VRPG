@@ -8,7 +8,8 @@ public class StorageController : MonoBehaviour {
     public const string INFO_FORMAT = "バージョン\t\t{0}\n" +
                                         "保存時刻\t\t{1}\n" +
                                         "保存回数\t\t{2}\n" +
-                                        "Level: {3}";
+                                        "Level: {3}" + 
+		                                "length: {4}";
 
 
 	private enum STATE {
@@ -30,7 +31,7 @@ public class StorageController : MonoBehaviour {
 	private float ioTime = 0f;                      // 処理開始時刻
 	private float accessTime = 0f;
     public Player player;
-
+    private UserCamera ucamera;
 
 
     void Start() {
@@ -124,10 +125,10 @@ public class StorageController : MonoBehaviour {
 	private void UpdateDataInfo(IO_RESULT result) {
 		StorageData us = this.usedSettings = this.procSettings;
 		if (us.count > 0) {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, System.DateTime.FromBinary(us.date).ToString(), us.count, us.level));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, us.version, System.DateTime.FromBinary(us.date).ToString(), us.count, us.level, us.length));
             Debug.Log("filepath: " + Application.persistentDataPath + us.fileName);
 		} else {
-            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "-/-/---- --:--:--", "--", "-"));
+            Debug.Log("datainfo: " + string.Format(INFO_FORMAT, "--", "-/-/---- --:--:--", "--", "-", "-"));
             Debug.Log("filepath: " + "----");
 		}
 		this.state = STATE.IDLE;
@@ -141,6 +142,7 @@ public class StorageController : MonoBehaviour {
 			case IO_RESULT.LOAD_SUCCESS:
                 this.accessMessage = "SUCCESS";
                 player.Init(temp, us.level);
+                ucamera.LoadWidth(us.length);
                 break;
 			case IO_RESULT.SAVE_FAILED:
 			case IO_RESULT.LOAD_FAILED:
@@ -167,6 +169,7 @@ public class StorageController : MonoBehaviour {
 		us.date = date.ToBinary();
 		us.count += 1;
         us.level = player.GetLevel();
+        us.length = ucamera.length;
 
         // 保存（※FinishHandlerはnullでも可）
         bool async = true;

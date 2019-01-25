@@ -37,6 +37,7 @@ public sealed class StorageData : Storage.ISerializer {
     public long date = 0L;  // 更新時間(64bit)
     public int count = 0;   // 更新回数
     public int level = 1;
+	public float length = 1.14f;
 
     //簡易的な初期化
     public void Clear()
@@ -44,5 +45,6 @@ public sealed class StorageData : Storage.ISerializer {
         this.date = System.DateTime.MinValue.ToBinary();
         this.count = 0;
         this.level = 1;
+		this.length = 1.14f;
     }
 }
