@@ -6,7 +6,8 @@ using UnityEngine;
 public class SkillShot : SkillObject
 {
    // private Vector3 dir;
-    private int speed = 1;
+   [SerializeField]
+    private float range, speed;
     private Rigidbody rb;
 
     private void Start()
@@ -21,6 +22,7 @@ public class SkillShot : SkillObject
         transform.position = user.transform.position + dir + Vector3.up;
         transform.forward = dir;
         rb.velocity = speed * dir;
+        Destroy(gameObject, range / speed);
     }
 
     public override void Reset() { }

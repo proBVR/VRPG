@@ -5,9 +5,7 @@ using UnityEngine;
 public class MagicBall : MagicObject
 {
     [SerializeField]
-    protected float range;
-
-    private float speed = 1;
+    private float range, speed;
     private Rigidbody rb;
 
     public override void Activate()

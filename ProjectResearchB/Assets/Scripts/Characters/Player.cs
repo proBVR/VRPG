@@ -228,6 +228,8 @@ public class Player : Character
 
     protected override void Death()
     {
+        exp -= 10;
+        if (exp < 0) exp = 0;
         GameManager.instance.GameOver();
     }
 
@@ -275,6 +277,7 @@ public class Player : Character
         {
             level++;
             status.LevelUp(luRate);
+            exp -= nextExp;
             nextExp = (int)(nextExp * expRate);
         }
     }

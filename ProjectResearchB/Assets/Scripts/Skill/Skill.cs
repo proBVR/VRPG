@@ -88,6 +88,7 @@ public class Skill : IActionable
     {
         var point = points[index];
         var pos = arm.transform.parent.position - Player.instance.transform.position;
+        pos = Quaternion.AngleAxis(-Player.instance.transform.eulerAngles.y, Vector3.up) * pos;
         //Debug.Log("pos: "+pos.x+", "+pos.y);
         if (Mathf.Abs(point.x - pos.x) < mergin && Mathf.Abs(point.y - pos.y) < mergin) return true;
         else return false;

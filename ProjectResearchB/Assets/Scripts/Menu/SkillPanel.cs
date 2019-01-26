@@ -7,7 +7,7 @@ public class SkillPanel : Menu
 
     private List<string> contents = new List<string>();
     //private int pageMax;
-    private readonly int contentsPerPage = 2;
+    private readonly int contentsPerPage = 3;
     private int page = 0;
     //private string itemName;
 

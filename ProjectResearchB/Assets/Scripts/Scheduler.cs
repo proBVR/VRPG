@@ -17,15 +17,25 @@ public class Scheduler : MonoBehaviour
         {
             Debug.Log("eroor: scheduler already exists");
             Destroy(gameObject);
-        }        
+        }
     }
 
     private void Update()
     {
         while (list.Count > 0 && list[0].time < Time.time)
         {
-            try{list[0].action();}catch(Exception e){Debug.Log("error: Scheduler event");}
-            list.RemoveAt(0);
+            try
+            {
+                list[0].action();
+            }
+            catch (Exception e)
+            {
+                Debug.Log("error: Scheduler event");
+            }
+            finally
+            {
+                list.RemoveAt(0);
+            }
         }
     }
 

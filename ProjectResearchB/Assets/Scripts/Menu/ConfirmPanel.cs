@@ -11,7 +11,7 @@ public class ConfirmPanel : Menu
     {
         this.prePanel = prePanel;
         this.action = action;
-        text.text = message + "\nYes\nNo";
+        text.text = message;
     }    
 
     protected override void Decide(int index)

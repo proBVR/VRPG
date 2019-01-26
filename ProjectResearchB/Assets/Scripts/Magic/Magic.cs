@@ -6,8 +6,8 @@ using UnityEngine;
 public class Magic : IActionable
 {
     private enum Rank { low, middle, high }
-    private enum Model { ball, around, area, enhance}
-    private enum Range { ShortRange, MiddleRange, LongRange}
+    private enum Model { ball, around, area, enhance }
+    private enum Range { ShortRange = 3, MiddleRange = 4, LongRange = 5 }
 
     [SerializeField]
     private string name;
@@ -25,12 +25,12 @@ public class Magic : IActionable
 
     public void Use(Character user)
     {
-        Debug.Log("use magic: "+name);
+        Debug.Log("use magic: " + name);
         var prefab = GameManager.instance.GenMagic((int)model);
         prefab.Init(attribute, power, (int)range, user);
     }
 
-    public  string GetName()
+    public string GetName()
     {
         return name;
     }

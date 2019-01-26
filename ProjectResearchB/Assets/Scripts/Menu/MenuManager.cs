@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
         now = to;
         to.gameObject.SetActive(true);
         Debug.Log("panel change");
-        if(flag) to.Reset();
+        if(flag) to.ResetData();
     }
 
     public void MenuReset()

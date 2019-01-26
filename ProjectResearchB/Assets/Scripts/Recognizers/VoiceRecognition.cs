@@ -11,7 +11,7 @@ public class VoiceRecognition : MonoBehaviour
     private KeywordRecognizer[] recognizers = new KeywordRecognizer[2];
     private KeywordRecognizer keyRecognizer;
     private readonly string[] category = {"アイテム", "スキル", "マジック"};
-    private readonly string[] magic = { "アズール", "グリス", "ネグロ", "ブラッタ", "ベルデ", "デフォルト" };
+    private readonly string[] magic = { "アズール", "グリス", "ネグロ", "ブラッタ", "ベルデ", "モラド" };
     //{ "ワン", "ツー", "スリー", "フォー", "ファイブ", "シックス"};
     //private string[] names;
     private string[] keyword;

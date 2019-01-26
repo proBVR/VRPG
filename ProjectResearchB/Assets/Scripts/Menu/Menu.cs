@@ -70,7 +70,7 @@ public abstract class Menu : MonoBehaviour {
 
     protected virtual void ChangeValue(int dir) { }//値の変更
 
-    public void Reset()
+    public void ResetData()
     {
         if (selecter.gameObject.activeSelf)
         {

@@ -11,9 +11,20 @@ public class PrepareMenu : Menu
     protected override void Decide(int index)
     {
         //manager.PanelChange(nextPanels[index], true);
-        if (index == 0) flag = true;
-        else flag = false;
-        manager.Confirm("Do you want to " + ((flag) ? "New Game":"Load Game"), Func);
+        switch (index)
+        {
+            case 0:
+                flag = true;
+                manager.Confirm("Do you want to " + "New Game", Func);
+                break;
+            case 1:
+                flag = false;
+                manager.Confirm("Do you want to " + "Load Game", Func);
+                break;
+            case 2:
+                manager.Confirm("Application Quit", Application.Quit);
+                break;
+        }
     }
 
     private void Func()
