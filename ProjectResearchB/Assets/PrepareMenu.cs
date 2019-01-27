@@ -32,7 +32,7 @@ public class PrepareMenu : Menu
         if (flag)
         {
             storage.Clear();
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("SettingScene");
         }
         else
         {

@@ -41,7 +41,7 @@ public class StorageController : MonoBehaviour {
         this.usedSettings = this.procSettings = new StorageData();
 
 		// 例外
-		this.UpdateDataInfo((IO_RESULT)999);
+		//this.UpdateDataInfo((IO_RESULT)999);
 	}
 
 
@@ -137,12 +137,18 @@ public class StorageController : MonoBehaviour {
 			case IO_RESULT.NONE:
 				this.accessMessage = "NOTHING";
                 player.Init(temp, 1);
+                //Debug.Log("Player.Init: try");
 				break;
 			case IO_RESULT.SAVE_SUCCESS:
+                Debug.Log("savesuccess");
+                break;
 			case IO_RESULT.LOAD_SUCCESS:
                 this.accessMessage = "SUCCESS";
+                Debug.Log("LoadSuccess");
                 player.Init(temp, us.level);
-                ucamera.LoadWidth(us.length);
+                if(us.count != 0){
+                    UserCamera.length = us.length;
+                }
                 break;
 			case IO_RESULT.SAVE_FAILED:
 			case IO_RESULT.LOAD_FAILED:
@@ -151,6 +157,7 @@ public class StorageController : MonoBehaviour {
 			default:
 				this.accessMessage = "NOTHING";
                 player.Init(temp, 1);
+                Debug.Log("Player.Init: try");
                 break;
 		}
 		Debug.Log(this.accessMessage);
@@ -170,7 +177,7 @@ public class StorageController : MonoBehaviour {
 		us.date = date.ToBinary();
 		us.count += 1;
         us.level = player.GetLevel();
-        us.length = ucamera.length;
+        us.length = UserCamera.length;
 
         // 保存（※FinishHandlerはnullでも可）
         bool async = true;
@@ -185,13 +192,13 @@ public class StorageController : MonoBehaviour {
 		this.ioTime = Time.realtimeSinceStartup;
 		this.accessTime = 0f;
 
-		// 読込
+        // 読込
         bool async = true; // ture:非同期
 		if (async) {
 			this.accessMessage = "Now Loading";
 		}
 		this.storageManager.Load(this.usedSettings, this.ioHandler, async);
-	}
+    }
 
 	/// 削除
 	public void Delete() {

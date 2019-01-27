@@ -64,6 +64,11 @@ public abstract class Menu : MonoBehaviour {
             Debug.Log("back pushed");
             if (prePanel != null) manager.PanelChange(prePanel, false);
         }
+
+        ////debug用
+        //if(Input.GetButtonDown("Fire1")){
+        //    Decide(selectLine);
+        //}
     }
 
     protected virtual void Decide(int index) { }//決定時の操作

@@ -65,8 +65,9 @@ public class Player : Character
 
     protected void Start()
     {
-        storage.player = this;
         storage.Load();
+        userCamera.LoadWidth();
+        userCamera.HeightReset();
         IsPlayer = true;
         instance = this;
         animator = GetComponent<Animator>();
