@@ -17,19 +17,19 @@ MonoBehaviour:
     mp: 0
     str: 100
     vit: 20
-    weak: 4
+    weak: 5
   - name: Zombie
     hp: 1000
     mp: 50
     str: 200
     vit: 10
-    weak: 2
+    weak: 3
   - name: CanonTower
     hp: 2000
     mp: 1000
     str: 250
     vit: 10
-    weak: 3
+    weak: 4
   - name: Dragon
     hp: 5000
     mp: 200

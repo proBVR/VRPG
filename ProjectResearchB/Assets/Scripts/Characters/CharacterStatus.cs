@@ -105,8 +105,14 @@ public class CharacterStatus
     {
         //ガードチェック
         foreach (IDamage temp in guardList)
+        {
             if (temp == damager)
-            { Debug.Log("guard: success"); return; }
+            {
+                Debug.Log("guard: success");
+                SoundController.guard_sound.PlayOneShot(SoundController.guard_sound.clip);
+                return;
+            }
+        }
 
         var value = damager.GetPower();
         if (value < 0)

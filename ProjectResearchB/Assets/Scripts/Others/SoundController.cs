@@ -6,6 +6,7 @@ public class SoundController : MonoBehaviour {
 
     public static AudioSource decide_sound;
     public static AudioSource cancel_sound;
+    public static AudioSource guard_sound;
 
 
 	// Use this for initialization
@@ -13,11 +14,7 @@ public class SoundController : MonoBehaviour {
         AudioSource[] sounds = GetComponents<AudioSource>();
 		decide_sound = sounds[0];
 		cancel_sound = sounds[1];
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        guard_sound = sounds[2];
 		
 	}
 }

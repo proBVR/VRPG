@@ -16,7 +16,7 @@ public class SkillPanel : Menu
         //lineSize = contentsPerPage;
         contents.Clear();
         //pageMax = 0;
-        var list = Player.instance.GetAction(2);
+        var list = Player.instance.GetAction(1);
         int count = 0;
         var temp = "";
 

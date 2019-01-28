@@ -30,7 +30,7 @@ public class Scheduler : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.Log("error: Scheduler event");
+                Debug.LogError(e);
             }
             finally
             {

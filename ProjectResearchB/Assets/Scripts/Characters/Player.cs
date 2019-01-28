@@ -162,7 +162,7 @@ public class Player : Character
 
     protected override void Move()
     {
-        if (move == true)
+        if (move == true && !listening)
         {
             double x = Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
             double y = Math.Cos((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
