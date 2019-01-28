@@ -39,6 +39,9 @@ public sealed class StorageData : Storage.ISerializer {
     public int level = 1;
 	public float length = 1.14f;
 
+    public List<string> invName = new List<string>();
+    public List<int> invCount = new List<int>();
+
     //簡易的な初期化
     public void Clear()
     {
@@ -46,5 +49,8 @@ public sealed class StorageData : Storage.ISerializer {
         this.count = 0;
         this.level = 1;
 		this.length = 1.14f;
+
+        this.invName.Clear();
+        this.invCount.Clear();
     }
 }

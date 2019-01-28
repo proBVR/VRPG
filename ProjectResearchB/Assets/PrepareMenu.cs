@@ -18,6 +18,11 @@ public class PrepareMenu : Menu
                 manager.Confirm("Do you want to " + "New Game", Func);
                 break;
             case 1:
+                if (!System.IO.File.Exists(storage.GetPath()))
+                {
+                    Debug.Log("not exists save data");
+                    return;
+                }
                 flag = false;
                 manager.Confirm("Do you want to " + "Load Game", Func);
                 break;
@@ -29,6 +34,8 @@ public class PrepareMenu : Menu
 
     private void Func()
     {
+        GameManager.newGame = flag;
+
         if (flag)
         {
             storage.Clear();

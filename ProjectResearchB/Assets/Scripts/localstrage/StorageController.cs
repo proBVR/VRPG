@@ -149,6 +149,11 @@ public class StorageController : MonoBehaviour {
                 if(us.count != 0){
                     UserCamera.length = us.length;
                 }
+
+                for (int i = 0; i < us.invName.Count; i++)
+                    for (int j = 0; j < us.invCount[i]; j++)
+                        player.inventory.AddInventory(us.invName[i]);               
+                
                 break;
 			case IO_RESULT.SAVE_FAILED:
 			case IO_RESULT.LOAD_FAILED:
@@ -157,7 +162,7 @@ public class StorageController : MonoBehaviour {
 			default:
 				this.accessMessage = "NOTHING";
                 player.Init(temp, 1);
-                Debug.Log("Player.Init: try");
+                Debug.Log("into case default");
                 break;
 		}
 		Debug.Log(this.accessMessage);
@@ -178,6 +183,8 @@ public class StorageController : MonoBehaviour {
 		us.count += 1;
         us.level = player.GetLevel();
         us.length = UserCamera.length;
+
+        player.inventory.Save(us);
 
         // 保存（※FinishHandlerはnullでも可）
         bool async = true;
@@ -222,4 +229,9 @@ public class StorageController : MonoBehaviour {
 		this.procSettings.Clear();
 		this.UpdateDataInfo(IO_RESULT.NONE);
 	}
+
+    public string GetPath()
+    {
+        return Application.persistentDataPath + usedSettings.fileName;
+    }
 }

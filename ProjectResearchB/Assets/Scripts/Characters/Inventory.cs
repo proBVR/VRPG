@@ -51,4 +51,16 @@ public class Inventory
             if (item.GetName() == itemName)
             { item.Use(Player.instance); break; }
     }
+
+    public void Save(StorageData us)
+    {
+        us.invCount.Clear();
+        us.invName.Clear();
+
+        foreach (KeyValuePair<string, int> item in inventory)
+        {
+            us.invName.Add(item.Key);
+            us.invCount.Add(item.Value);
+        }
+    }
 }

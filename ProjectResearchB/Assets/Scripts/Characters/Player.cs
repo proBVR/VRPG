@@ -65,7 +65,12 @@ public class Player : Character
 
     protected void Start()
     {
-        storage.Load();
+        if (GameManager.newGame)
+        {
+            var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
+            Init(temp, 1);//仮のステータス
+        }
+        else storage.Load();
         userCamera.LoadWidth();
         userCamera.HeightReset();
         IsPlayer = true;
@@ -90,8 +95,8 @@ public class Player : Character
 
         move = false;
         moveAngle = 0;
-        var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
-        Init(temp, 1);//仮のステータス
+        //var temp = new CharacterStatus("Player", 1000, 100, 100, 50, AttackAttribute.normal);
+        //Init(temp, 1);//仮のステータス
         //transform.localScale *= 1.2f;
         luRate = 1.1f;
     }

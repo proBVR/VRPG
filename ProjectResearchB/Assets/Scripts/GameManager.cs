@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public static bool newGame = false;
 
     public Item[] itemList;
     public Skill[] skillList;
