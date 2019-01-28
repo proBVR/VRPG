@@ -27,7 +27,7 @@ public class Skill : IActionable
     private Arm arm;
 
     private int count;
-    private readonly int limit = 100;
+    private readonly int limit = 300;
     private readonly float mergin = 0.15f;
     private int state;
     [SerializeField]

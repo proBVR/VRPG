@@ -6,7 +6,7 @@ public abstract class SkillObject : MonoBehaviour, IDamage
 {
 
     protected int power;
-    AttackAttribute attribute;
+    protected AttackAttribute attribute;
     protected Character user;
 
     public void Init(AttackAttribute attribute, int power, Character user)

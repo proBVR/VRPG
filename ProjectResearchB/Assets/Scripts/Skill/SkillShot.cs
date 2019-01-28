@@ -13,6 +13,7 @@ public class SkillShot : SkillObject
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        GetComponent<Renderer>().material = GameManager.instance.materials[(int)attribute];
         gameObject.SetActive(false);
     }
 
@@ -23,6 +24,7 @@ public class SkillShot : SkillObject
         transform.forward = dir;
         rb.velocity = speed * dir;
         Destroy(gameObject, range / speed);
+        gameObject.SetActive(true);
     }
 
     public override void Reset() { }

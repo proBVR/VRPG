@@ -14,7 +14,7 @@ public class MagicCircle : MagicObject
         range *= (1 + 0.25f * (rangeRate - 1));
         transform.localScale *= range;
         transform.position = user.transform.position;
-        Destroy(this, 0.5f);
+        Destroy(gameObject, 0.5f);
     }
 
     private void OnTriggerEnter(Collider other)

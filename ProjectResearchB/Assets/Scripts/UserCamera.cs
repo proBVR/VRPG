@@ -12,14 +12,24 @@ public class UserCamera : MonoBehaviour // HMDのカメラを制御
     public Vector3 offset = Vector3.zero;
     private float bodyScale = 0.5f;
     public static float length = 1.14f;
+    private bool first = true;
 
     private void Start()
     {
-        transform.localScale /= 1.2f;
+        Debug.Log("uc check");
+        //transform.localScale /= 1.2f;
+        //var temp = 1.35f - mycamera.position.y;
+        //transform.position += Vector3.up * 0.2f;
+        LoadWidth();
     }
 
     private void Update()
     {
+        if(first)
+        {
+             HeightReset();
+             first = false;
+        }
         //vector: from player to mycamera
         var temp = mycamera.position - mycamera.forward * 0.075f - Player.instance.transform.position;
         temp.y = 0;
