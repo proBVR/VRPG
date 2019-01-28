@@ -61,7 +61,13 @@ public class Player : Character
     [SerializeField]
     private StorageController storage;
 
+    private bool preMove = false;
 
+    private bool mvCool = false;
+    private void FinMvCool()
+    {
+        mvCool = false;
+    }
 
     protected void Start()
     {
@@ -71,8 +77,9 @@ public class Player : Character
             Init(temp, 1);//仮のステータス
         }
         else storage.Load();
-        userCamera.LoadWidth();
-        userCamera.HeightReset();
+        storage.player = this;
+        //userCamera.LoadWidth();
+        //userCamera.HeightReset();
         IsPlayer = true;
         instance = this;
         animator = GetComponent<Animator>();
@@ -162,6 +169,13 @@ public class Player : Character
 
     protected override void Move()
     {
+        if(preMove != move)
+        {
+            mvCool = true;
+            Scheduler.AddEvent(FinMvCool, 0.8f);
+        }
+        preMove = move;
+
         if (move == true && !listening)
         {
             double x = Math.Sin((/*userDir.eulerAngles.y +*/  moveAngle) * (Math.PI / 180));
@@ -301,35 +315,32 @@ public class Player : Character
     //加速度に応じて移動フラグ変更
     public void AccelAction(float xx, float yy, float zz)
     {
-        if (move && yy > 1.5 && Math.Abs(xx) < 0.5f && Math.Abs(zz) < 0.5f) move = false;
-        else if(!move)
+        if (mvCool) return;
+        if (move && yy > 1.25 && Math.Abs(xx) < 0.5f && Math.Abs(zz) < 0.5f) move = false;
+        else if (!move)
         {
-            if(Mathf.Abs(xx) < Mathf.Abs(zz))
+
+            if (zz < -1.2)
             {
-                if(zz < -1.8f)
-                {
-                    move = true;
-                    moveAngle = 0;
-                }
-                else if(zz > 1.8f)
-                {
-                    move = true;
-                    moveAngle = 180;
-                }
+                move = true;
+                moveAngle = 0;
             }
-            else
+            else if (zz > 0.8)
             {
-                if(xx < -2f)
-                {
-                    move = true;
-                    moveAngle = 90;
-                }
-                else if(xx > 2f)
-                {
-                    move = true;
-                    moveAngle = 270;
-                }
+                move = true;
+                moveAngle = 180;
             }
+            else if (xx < -1.35)
+            {
+                move = true;
+                moveAngle = 90;
+            }
+            else if (xx > 1.35)
+            {
+                move = true;
+                moveAngle = 270;
+            }
+
         }
 
         //Debug.Log("accel");

@@ -14,9 +14,9 @@ public class Skill : IActionable
     }
 
     public static readonly Vector2[] points =
-        { new Vector2(-0.4f,  1.7f), new Vector2( 0.15f,  1.7f), new Vector2( 0.7f,  1.7f),
-          new Vector2(-0.4f,  1.2f), new Vector2( 0.15f,  1.2f), new Vector2( 0.7f,  1.2f),
-          new Vector2(-0.4f,  0.7f), new Vector2( 0.15f,  0.7f), new Vector2( 0.7f,  0.7f) };
+        { new Vector2(-0.25f,  1.55f), new Vector2( 0.15f,  1.55f), new Vector2( 0.55f,  1.55f),
+          new Vector2(-0.25f,  1.2f ), new Vector2( 0.15f,  1.2f ), new Vector2( 0.55f,  1.2f ),
+          new Vector2(-0.25f,  0.85f), new Vector2( 0.15f,  0.85f), new Vector2( 0.55f,  0.85f) };
 
     [SerializeField]
     private string name;
@@ -28,7 +28,7 @@ public class Skill : IActionable
 
     private int count;
     private readonly int limit = 100;
-    private readonly float mergin = 0.2f;
+    private readonly float mergin = 0.15f;
     private int state;
     [SerializeField]
     private Position[] moveList;

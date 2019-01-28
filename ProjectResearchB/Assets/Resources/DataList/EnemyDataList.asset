@@ -33,6 +33,6 @@ MonoBehaviour:
   - name: Dragon
     hp: 5000
     mp: 200
-    str: 500
+    str: 400
     vit: 100
     weak: 1

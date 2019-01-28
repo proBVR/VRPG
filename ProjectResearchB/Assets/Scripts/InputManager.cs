@@ -6,6 +6,8 @@ public class InputManager : MonoBehaviour
 {
     InputField inputField;
     private int opeCode;
+    [SerializeField]
+    private StorageController storage;
 
     //InputFieldコンポーネントの取得および初期化メソッドの実行
     void Start()
@@ -66,6 +68,17 @@ public class InputManager : MonoBehaviour
                         Debug.Log("error: command 1");
                         break;
                 }
+                break;
+            case "save":
+                storage.Save();
+                break;
+            case "load":
+                storage.Load();
+                break;
+            case "showInventory":
+                var temp = Player.instance.inventory.GetContents();
+                foreach (string str in temp)
+                    Debug.Log(str);
                 break;
             default:
                 Debug.Log("error: command 0");
